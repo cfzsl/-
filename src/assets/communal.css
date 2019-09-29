@@ -1,0 +1,10 @@
+html,body,#app{
+    height: 100%;
+}
+
+#box::-webkit-scrollbar {
+    display: none;
+}
+#box::-webkit-scrollbar {
+    width:0px;
+}

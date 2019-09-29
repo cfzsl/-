@@ -1,0 +1,425 @@
+<template>
+  <!-- 首页 -->
+  <div class="homepage">
+
+    <Header></Header>
+
+    <div class="product">
+      <div @click="goDetails" class="item">
+        <p>东营区公共厕所（个)</p>
+        <div class="num" style="color: green">{{ this.total }}</div>
+      </div>
+      <div @click="goDetails" class="item">
+        <p>东营区管养单位总数（个)</p>
+        <div class="num" style="color: orange">{{ this.Custody }}</div>
+      </div>
+      <div @click="goDetails" class="item">
+        <p>东营区男公厕报警数（个)</p>
+        <div class="num" style="color: blue">{{ this.nan }}</div>
+      </div>
+      <div @click="goDetails" class="item">
+        <p>东营区女公厕报警数（个)</p>
+        <div class="num" style="color: red">{{ this.nv }}</div>
+      </div>
+    </div>
+    <div class="shitu">
+      <div class="charts">
+        <div id="barGraph" style="height: 300px;"></div>
+      </div>
+      <div class="charts">
+        <div id="pieGraph" style="height: 300px;"></div>
+      </div>
+      <div class="charts">
+        <div class="title">
+          <div class="cBlock"></div>
+          <div class="defen">公厕平均得分</div>
+          <div class="company">（东营区管养单位）</div>
+          <dataPicker class="picker"></dataPicker>
+        </div>
+        <div id="main" style="height:400px;"></div>
+      </div>
+    </div>
+
+    <Footer></Footer>
+  </div>
+</template>
+
+<script>
+let echarts = require("echarts/lib/echarts");
+// 引入柱状图
+require("echarts/lib/chart/bar");
+// 引入柱状图
+require("echarts/lib/chart/pie");
+require("echarts/lib/component/tooltip");
+require("echarts/lib/component/title");
+
+import dataPicker from "../dateTimePicker";
+import Footer from "../footer/foot";
+import Header from "../header/header";
+
+export default {
+  components: {
+    dataPicker,
+    Footer,
+    Header,
+  },
+  data() {
+    return {
+      total: null,
+      Custody: null,
+      nan: null,
+      nv: null
+    };
+  },
+  computed: {
+    text() {
+      return this.currentRate.toFixed(0);
+    }
+  },
+  mounted() {
+    this.drawBar();
+    this.drawPie();
+    this.drawColumn();
+    this.getTotal();
+    this.getCustody();
+    this.getNan();
+    this.getNv();
+    this.init();
+  },
+  methods: {
+    drawBar() {
+      // 基于dom，初始化echarts实例
+      let barGraph = echarts.init(document.getElementById("barGraph"));
+      // 绘制图表
+      barGraph.setOption({
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c}"
+        },
+        legend: {
+          left: "center",
+          data: ["本年", "上年"],
+          bottom: 0
+        },
+        xAxis: {
+          type: "category",
+          name: "x",
+          splitLine: { show: false },
+          data: [
+            "一月",
+            "二月",
+            "三月",
+            "四月",
+            "五月",
+            "六月",
+            "七月",
+            "八月",
+            "九月",
+            "十月",
+            "十一月",
+            "十二月"
+          ]
+        },
+        grid: {
+          left: "1%",
+          right: "2%",
+          bottom: "8%",
+          containLabel: true
+        },
+        yAxis: {
+          type: "category",
+          name: "y",
+          splitLine: { show: true },
+          data: [
+            "10%",
+            "20%",
+            "30%",
+            "40%",
+            "50%",
+            "60%",
+            "70%",
+            "80%",
+            "90%",
+            "100%"
+          ]
+        },
+        series: [
+          {
+            name: "本年",
+            type: "line",
+            data: [
+              0.8,
+              0.98,
+              0.96,
+              0.27,
+              0.81,
+              0.47,
+              0.74,
+              0.23,
+              0.69,
+              0.25,
+              0.36,
+              0.56
+            ]
+          },
+          {
+            name: "上年",
+            type: "line",
+            data: [
+              1,
+              0.2,
+              0.4,
+              0.8,
+              0.16,
+              0.32,
+              0.64,
+              1.28,
+              5.6,
+              0.25,
+              0.63,
+              0.65,
+              0.12
+            ]
+          }
+        ]
+      });
+    },
+    drawPie() {
+      let pieGraph = echarts.init(document.getElementById("pieGraph"));
+      pieGraph.setOption({
+        title: {
+          text: "公厕分别详情",
+          x: "center"
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          orient: "vertical",
+          left: "left",
+          data: ["东营公厕", "西营公厕", "南营公厕", "北营公厕", "西港公厕"]
+        },
+        series: [
+          {
+            name: "访问来源",
+            type: "pie",
+            radius: "55%",
+            center: ["50%", "60%"],
+            data: [
+              { value: 335, name: "东营公厕" },
+              { value: 310, name: "西营公厕" },
+              { value: 234, name: "南营公厕" },
+              { value: 135, name: "北营公厕" },
+              { value: 1548, name: "西港公厕" }
+            ],
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: "rgba(0, 0, 0, 0.5)"
+              }
+            }
+          }
+        ]
+      });
+    },
+    goDetails() {
+      this.$router.push({
+        path: "/HomeFour"
+      });
+    },
+    drawColumn() {
+      var gongsi = [];
+
+      var df123 = new Array();
+
+      this.$http.get("wcAndroid/appraisalAndroid").then(res => {
+        for (const key in res.data) {
+          let gs = res.data[key].departname.substr(0, 4);
+          let df = res.data[key].scoreavg;
+
+          gongsi.push(gs);
+          df123.push(parseInt(df));
+        }
+        console.log(gongsi.length);
+        console.log(gongsi);
+
+        // 基于准备好的dom，初始化echarts实例
+        var myColumn = echarts.init(document.getElementById("main"));
+
+        // 使用刚指定的配置项和数据显示图表。
+        myColumn.setOption({
+          color: ["#3398DB"],
+          tooltip: {
+            trigger: "axis",
+            axisPointer: {
+              // 坐标轴指示器，坐标轴触发有效
+              type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+            }
+          },
+          textStyle: {},
+          label: {
+            show: true,
+            position: "top"
+          },
+          axisLabel: {
+            interval: 0,
+            formatter: function(value) {
+              var ret = ""; //拼接加\n返回的类目项
+              var maxLength = 2; //每项显示文字个数
+              var valLength = value.length; //X轴类目项的文字个数
+              var rowN = Math.ceil(valLength / maxLength); //类目项需要换行的行数
+              if (rowN > 1) {
+                //如果类目项的文字大于3,
+                for (var i = 0; i < rowN; i++) {
+                  var temp = ""; //每次截取的字符串
+                  var start = i * maxLength; //开始截取的位置
+                  var end = start + maxLength; //结束截取的位置
+                  //这里也可以加一个是否是最后一行的判断，但是不加也没有影响，那就不加吧
+                  temp = value.substring(start, end) + "\n";
+                  ret += temp; //凭借最终的字符串
+                }
+                return ret;
+              } else {
+                return value;
+              }
+            }
+          },
+          grid: {
+            left: "3%",
+            right: "4%",
+            bottom: "3%",
+            containLabel: true
+          },
+          xAxis: [
+            {
+              type: "category",
+              data: gongsi,
+              axisTick: {
+                length: 0
+              },
+              axisLabel: {
+                verticalAlign: "top"
+              }
+            }
+          ],
+          yAxis: [
+            {
+              type: "value"
+            }
+          ],
+          series: [
+            {
+              name: "平均得分",
+              type: "bar",
+              barWidth: "60%",
+              data: df123
+            }
+          ]
+        });
+      });
+    },
+    getTotal() {
+      this.$http.get("wc/count").then(res => {
+        console.log(res);
+        this.total = res.data;
+      });
+    },
+    getCustody() {
+      this.$http.get("wcAndroid/organNumberAndroid").then(res => {
+        this.Custody = res.data;
+      });
+    },
+    getNan() {
+      this.$http.get("wcAndroid/warningCount?sex=男").then(res => {
+        this.nan = res.data;
+      });
+    },
+    getNv() {
+      this.$http.get("wcAndroid/warningCount?sex=女").then(res => {
+        this.nv = res.data;
+      });
+    },
+    init() {
+      const self = this;
+
+      setTimeout(() => {
+        window.onresize = function() {
+          // self.myColumn.echarts.resize();
+        };
+      }, 20);
+    }
+  }
+};
+</script>
+
+<style scoped>
+.homepage {
+  position: relative;
+  height: 100%;
+  background-color: #ccc;
+  overflow-x: hidden;
+}
+.product {
+  display: flex;
+  background-color: #ccc;
+  z-index: 50;
+  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.product p {
+  font-size: 15px;
+}
+.shitu {
+  margin: 0px 1px 50px;
+  background-color: #fff;
+}
+
+.num {
+  font-size: 25px;
+}
+
+.title {
+  position: relative;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.cBlock {
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  width: 5px;
+  height: 20px;
+  background-color: aqua;
+}
+.defen {
+  float: left;
+  font-size: 15px;
+  margin-left: 30px;
+}
+.company {
+  float: left;
+  font-size: 12px;
+  color: #ccc;
+  line-height: 25px;
+}
+
+.item {
+  width: 175px;
+  height: 79px;
+  margin: 3px 0;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.picker {
+  line-height: 10px;
+}
+.picker button {
+  background-color: #000;
+}
+</style>
