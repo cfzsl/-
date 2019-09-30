@@ -30,7 +30,7 @@ export default {
       });
     },
     draw({ el, BMap, map }) {
-      console.log(this.position);
+      // console.log(this.position);
       const { lng, lat } = this.position;
       const pixel = map.pointToOverlayPixel(new BMap.Point(lng, lat));
       el.style.left = pixel.x - 10 + "px";

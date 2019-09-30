@@ -7,6 +7,7 @@
         placeholder="请输入搜索关键词"
         show-action
         action-text="更多"
+        @search="onSearch"
         @cancel="show"
       />
 
@@ -38,7 +39,7 @@ import Footer from "../footer/foot";
 export default {
   data() {
     return {
-      value: null,
+      value: '',
       toget: false
     };
   },
@@ -46,7 +47,14 @@ export default {
     Footer
   },
   methods: {
-    
+    onSearch(){
+      this.$router.push({
+        path:'/ToiletManagement/ToiletFile',
+        query:{
+          id:this.value,
+        }
+      })
+    },
     show() {
       this.toget = !this.toget;
     },

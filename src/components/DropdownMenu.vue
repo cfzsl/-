@@ -13,11 +13,25 @@ export default {
       value3: 0,
       option2: [
         { text: "全部管养单位", value: 0 },
-        { text: "环卫1部", value: 1 },
-        { text: "环卫2部", value: 2 }
       ],
     };
   },
-  props: ["status"]
+  props: ["status","list"],
+  methods: {
+    //数组去重
+    _listIndex(){
+      var arr=[];
+      for(var i=0; i< this.toiletfile.length; i++){
+        if(arr.indexOf(this.toiletfile[i]) == -1){
+          arr.push(this.toiletfile[i])
+        }
+        return console.log(arr)
+      }
+    }
+  },
+  created(){
+    console.log(this.list);
+    // _listIndex();
+  }
 };
 </script>

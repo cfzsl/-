@@ -1,10 +1,10 @@
 <template>
   <!-- 公厕档案 -->
   <div>
-    <DropdownMenu :status="status"></DropdownMenu>
+    <DropdownMenu :status="status" :toiletfile='toiletfile'></DropdownMenu>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-row
-        v-for="item in toiletfile"
+        v-for="item in toiletFileFilter()"
         :key="item.i"
         type="flex"
         justify="space-around"
@@ -26,7 +26,7 @@ export default {
   data() {
     return {
       active: 0,
-      toiletfile: null,
+      toiletfile: [],
       count: 0,
       isLoading: false,
       text: null,
@@ -43,6 +43,14 @@ export default {
       this.$http.get("android/wcinfo/list").then(res => {
         this.toiletfile = res.data;
       });
+    },
+    toiletFileFilter(){
+      var name = this.$route.query.id;
+      var toiletFileFilter = [];
+      if(name!=''){
+       return this.toiletfile.filter(item => item.name.indexOf(name)!== -1)
+      }
+      return this.toiletfile
     },
     onRefresh() {
       setTimeout(() => {
@@ -75,6 +83,7 @@ export default {
   },
   created() {
     this.getToiletFile();
+    console.log(this.$route.query);
   },
   components: {
     DropdownMenu
