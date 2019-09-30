@@ -36,7 +36,7 @@ export default {
       video2:
         "http://hls01open.ys7.com/openlive/f515aa55a63f429d8169f069a9ac9986.m3u8",
       playerOptions: {
-        autoplay: false, //如果true,浏览器准备好时开始回放。
+        autoplay: true, //如果true,浏览器准备好时开始回放。
         muted: true, // 默认情况下将会消除任何音频。
         loop: false, // 导致视频一结束就重新开始。
         preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）

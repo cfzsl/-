@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import qs from 'qs'
 import Axios from 'axios'
 import Vant from 'vant'
 import 'vant/lib/index.css'
@@ -26,9 +27,11 @@ Vue.use(BaiduMap, {
   ak: 'ydPscWsaF9oqc1DOYtPgmCTmAUdqG4Cq'
 })
 
+Axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 Axios.defaults.baseURL = 'http://47.110.160.217:5080/'
 
 Vue.prototype.$http = Axios
+Vue.prototype.$qs = qs
 
 // 拦截器
 Axios.interceptors.response.use(function (res) {

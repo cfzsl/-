@@ -4,6 +4,11 @@ import Home from './components/home/Home.vue'
 import publicdetails from './components/ToiletList/publicdetails.vue'
 
 import Management from './components/SystemManagement/Management.vue'
+import OperationLog from './components/SystemManagement/Component/OperationLog.vue'
+import Organization from './components/SystemManagement/Component/Organization.vue'
+import PermissionSetting from './components/SystemManagement/Component/PermissionSetting.vue'
+import UserManagement from './components/SystemManagement/Component/UserManagement.vue'
+
 
 import HomeFour from './components/HomeFour.vue'
 
@@ -32,8 +37,29 @@ export default new Router({
     },
     {
       path: '/Management',
-      name: '系统管理',
-      component: Management
+      component: Management,
+      children: [
+        {
+          path: '',
+          name: '组织结构',
+          component: Organization
+        },
+        {
+          path: 'UserManagement',
+          name: '用户管理',
+          component: UserManagement
+        },
+        {
+          path: 'PermissionSetting',
+          name: '权限设置',
+          component: PermissionSetting
+        },
+        {
+          path: 'OperationLog',
+          name: '操作日志',
+          component: OperationLog
+        },
+      ]
     },
     {
       path: '/HomeFour',
