@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -39,7 +38,8 @@ export default {
       console.log(value);
       this.showPicker();
     }
-  }
+  },
+  
 };
 </script>
 

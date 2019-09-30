@@ -12,7 +12,7 @@
     <van-tabbar-item 
       replace 
       to="/ToiletManagement" 
-      icon="friends-o">公厕管理</van-tabbar-item>
+      icon="location-o">公厕管理</van-tabbar-item>
     <van-tabbar-item 
       replace 
       to="/Management" 

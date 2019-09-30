@@ -1,0 +1,123 @@
+<template>
+  <!-- 组织结构 -->
+  <div>
+    <van-button type="primary" size="small" class="newbtn" color="#09f" @click="show">新增</van-button>
+
+    <van-row class="topbar">
+      <van-col span="12">名称</van-col>
+      <van-col span="4">编号</van-col>
+      <van-col span="8">操作</van-col>
+    </van-row>
+
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh" class="refresh">
+      <van-row
+        v-for="item in list"
+        :key="item.sid"
+        type="flex"
+        justify="space-around"
+        class="list"
+        align="center"
+      >
+        <van-col span="12">{{ item.name }}</van-col>
+        <van-col span="4">{{ item.code }}</van-col>
+        <van-col span="8">
+          <div class="btnbox">
+            <div class="btn new" @click="show(item.sid, item.name, item.code)">编辑</div>
+            <div class="btn delete">删除</div>
+          </div>
+        </van-col>
+      </van-row>
+    </van-pull-refresh>
+
+    <van-dialog v-model="showManagement" title="新增组织结构" show-cancel-button @confirm="submit">
+      <van-cell-group>
+        <van-field v-model="name" label="单位名称" placeholder="请输入单位名称" rows="1" :value="name" />
+        <van-field v-model="code" label="部门编号" placeholder="请输入部门编号" rows="1" :value="code" />
+      </van-cell-group>
+    </van-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      list: null,
+      isLoading: false,
+      showManagement: false,
+      name: null,
+      code: null
+    };
+  },
+  methods: {
+    getStructure() {
+      this.$http.get("organ/post/all/android").then(res => {
+        this.list = res.data;
+      });
+    },
+    onRefresh() {
+      setTimeout(() => {
+        this.$toast("刷新成功");
+        this.isLoading = false;
+        this.count++;
+      }, 500);
+    },
+    show(sid, name, code) {
+      this.name = name;
+      this.code = code;
+      this.showManagement = !this.showManagement;
+    },
+    submit() {
+      if (this.name || this.code) {
+        console.log("编辑");
+      } else {
+        console.log("新增");
+      }
+    }
+  },
+  created() {
+    this.getStructure();
+    
+  }
+};
+</script>
+
+<style scoped>
+.newbtn {
+  position: relative;
+  top: -7px;
+  right: -140px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+.topbar {
+  font-size: 15px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #ccc;
+  z-index: 99;
+}
+.list {
+  height: 35px !important;
+  font-size: 12px;
+  margin: 5px 0;
+  border-bottom: 1px solid #000;
+}
+
+.btnbox {
+  display: flex;
+  justify-content: center;
+}
+.btn {
+  width: 50px;
+  color: #fff;
+  border-radius: 5px;
+}
+.delete {
+  background-color: red;
+}
+.new {
+  background-color: #0099ff;
+  margin-right: 5px;
+}
+</style>
