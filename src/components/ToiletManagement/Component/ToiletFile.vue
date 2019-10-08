@@ -41,7 +41,7 @@ export default {
   methods: {
     getToiletFile() {
       this.$http.get("android/wcinfo/list").then(res => {
-        this.toiletfile = res.data;
+        this.toiletfile = res.data;   
       });
     },
     toiletFile(){

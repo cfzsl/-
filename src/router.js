@@ -18,6 +18,8 @@ import Appraisal from "./components/ToiletManagement/Component/Appraisal.vue"
 import BaiduMap from "./components/ToiletManagement/Component/BaiduMap.vue"
 import Publictoiletdetails from './components/ToiletManagement/Component/Publictoiletdetails.vue'
 import Rules from './components/ToiletManagement/Component/Rules.vue'
+import CommentReview from './components/ToiletManagement/Component/CommentReview.vue'
+import CommentList from './components/ToiletManagement/Component/CommentList.vue'
 
 
 Vue.use(Router)
@@ -88,6 +90,16 @@ export default new Router({
           path: 'Rules',
           name: '绩效规则',
           component: Rules
+        },
+        {
+          path: 'CommentReview',
+          name: '评论审核',
+          component: CommentReview
+        },
+        {
+          path: 'CommentList',
+          name: '评论查看',
+          component: CommentList
         },
       ]
     },
