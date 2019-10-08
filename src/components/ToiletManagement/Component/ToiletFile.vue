@@ -4,7 +4,7 @@
     <DropdownMenu :status="status" :toiletfile='toiletfile'></DropdownMenu>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-row
-        v-for="item in toiletFile() "
+        v-for="item in toiletFile()"
         :key="item.i"
         type="flex"
         justify="space-around"
@@ -41,14 +41,15 @@ export default {
   methods: {
     getToiletFile() {
       this.$http.get("android/wcinfo/list").then(res => {
+        console.log(res)
         this.toiletfile = res.data;
+        console.log(this.toiletfile)
       });
     },
     toiletFile(){
-      var name = this.$route.query.id;
-      var toiletFileFilter = [];
-      if(name!=''){
-       return this.toiletfile.filter(item => item.name.indexOf(name)!== -1)
+      let id = this.$route.query.id;
+      if(id){
+        return this.toiletfile.filter(item => item.name.indexOf(id)!== -1)
       }
       return this.toiletfile
     },

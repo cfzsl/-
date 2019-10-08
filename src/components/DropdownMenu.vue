@@ -16,22 +16,24 @@ export default {
       ],
     };
   },
-  props: ["status","list"],
+  props: ["status","list","toiletfile"],
+  // watch:{
+  //   'toiletfile': {
+  //     handler(toiletfile, key) {
+  //       console.log(toiletfile)
+  //     },
+  //     deep: true,
+  //     immediate: true
+  // },
   methods: {
     //数组去重
     _listIndex(){
-      var arr=[];
-      for(var i=0; i< this.toiletfile.length; i++){
-        if(arr.indexOf(this.toiletfile[i]) == -1){
-          arr.push(this.toiletfile[i])
-        }
-        return console.log(arr)
-      }
-    }
+      console.log(this.toiletfile)
   },
   created(){
     // console.log(this.list);
-    // _listIndex();
+    _listIndex();
   }
-};
+}
+}
 </script>

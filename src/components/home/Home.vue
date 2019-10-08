@@ -86,7 +86,19 @@ export default {
     this.getNv();
     this.init();
   },
+  created(){
+    this.login();
+  },
   methods: {
+    login(){
+      let token = localStorage.getItem('token')
+      console.log(token)
+      if(!token){
+        this.$router.push({
+          path:'/Login'
+        })
+      }
+    },
     drawBar() {
       // 基于dom，初始化echarts实例
       let barGraph = echarts.init(document.getElementById("barGraph"));

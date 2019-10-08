@@ -18,7 +18,7 @@ import Appraisal from "./components/ToiletManagement/Component/Appraisal.vue"
 import BaiduMap from "./components/ToiletManagement/Component/BaiduMap.vue"
 import Publictoiletdetails from './components/ToiletManagement/Component/Publictoiletdetails.vue'
 import Rules from './components/ToiletManagement/Component/Rules.vue'
-
+import Login from './views/login.vue'
 
 Vue.use(Router)
 
@@ -28,6 +28,11 @@ export default new Router({
       path: '/',
       name: '首页',
       component: Home
+    },
+    {
+      path: '/Login',
+      name: '登录',
+      component: Login
     },
     {
       path: '/publicdetails',

@@ -48,12 +48,18 @@ export default {
   },
   methods: {
     onSearch(){
-      this.$router.push({
+      if(this.value){
+        this.$router.push({
         path:'/ToiletManagement/ToiletFile',
         query:{
           id:this.value,
         }
       })
+      }else {
+        this.$router.push({
+        path:'/ToiletManagement/ToiletFile',
+      })
+      }
     },
     show() {
       this.toget = !this.toget;
