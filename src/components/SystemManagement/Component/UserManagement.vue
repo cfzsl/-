@@ -9,20 +9,20 @@
       @cancel="showEdit"
     />
     <!-- 列表 -->
-    <van-collapse v-model="activeNames">
-      <van-collapse-item :name="item.sid" v-for="item in userList" :key="item.sid">
+    <van-collapse v-model="activeNames" :border="false">
+      <van-collapse-item class="item" :name="item.sid" v-for="item in userList" :key="item.sid">
         <div slot="title">
           <van-row>
-            <van-col span="8">{{ item.sid}}</van-col>
-            <van-col span="8">{{ item.username}}</van-col>
-            <van-col span="8">{{ item.departName}}</van-col>
+            <van-col span="6">{{ item.sid}}</van-col>
+            <van-col span="12">{{ item.username}}</van-col>
+            <van-col span="6">{{ item.departName}}</van-col>
           </van-row>
         </div>
         <div class="content">
-          <div>手机号:{{ item.tel }}</div>
-          <div>性别:{{ item.gender }}</div>
-          <div>邮箱：{{ item.email }}</div>
-          <div>电话：{{ item.mobile }}</div>
+          <div>性别: &emsp;{{ item.gender }}</div>
+          <div>手机: &emsp;{{ item.tel }}</div>
+          <div>电话: &emsp;{{ item.mobile }}</div>
+          <div>邮箱: &emsp;{{ item.email }}</div>
         </div>
         <div class="edit" @click="showEdit(item)">编辑</div>
         <div class="detele" @click="del(item.sid)">删除</div>
@@ -151,7 +151,6 @@ export default {
         .then(res => {
           res ? Toast.success("删除成功") : Toast.fail("删除失败");
           this.getUserList();
-          this.searchValue = null;
         });
     },
     onSearch() {
@@ -174,14 +173,22 @@ export default {
 </script>
 
 <style scoped>
+.item {
+  border-bottom: 1px solid #ccc !important;
+}
+
 .content {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: center; */
+  padding-left: 30px;
+  overflow: hidden;
 }
 .content div {
-  width: 130px;
+  float: left;
+  width: 100%;
+  text-align: left;
   padding-bottom: 10px;
 }
 

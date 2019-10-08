@@ -37,7 +37,7 @@ export default {
     selectDate(value) {
       console.log(value);
       this.showPicker();
-    }
+    },
   },
   
 };

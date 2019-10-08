@@ -22,8 +22,8 @@
         <van-col span="4">{{ item.code }}</van-col>
         <van-col span="8">
           <div class="btnbox">
-            <div class="btn new" @click="show(item.sid, item.name, item.code)">编辑</div>
-            <div class="btn delete">删除</div>
+            <div class="btn new" @click="show(item)">编辑</div>
+            <div class="btn delete" @click="del(item.sid)">删除</div>
           </div>
         </van-col>
       </van-row>
@@ -31,22 +31,38 @@
 
     <van-dialog v-model="showManagement" title="新增组织结构" show-cancel-button @confirm="submit">
       <van-cell-group>
-        <van-field v-model="name" label="单位名称" placeholder="请输入单位名称" rows="1" :value="name" />
-        <van-field v-model="code" label="部门编号" placeholder="请输入部门编号" rows="1" :value="code" />
+        <van-field
+          v-model="data.name"
+          label="单位名称"
+          placeholder="请输入单位名称"
+          rows="1"
+          :value="data.name"
+        />
+        <van-field
+          v-model="data.code"
+          label="部门编号"
+          placeholder="请输入部门编号"
+          rows="1"
+          :value="data.code"
+        />
       </van-cell-group>
     </van-dialog>
   </div>
 </template>
 
 <script>
+import { Toast } from "vant";
 export default {
   data() {
     return {
       list: null,
       isLoading: false,
       showManagement: false,
-      name: null,
-      code: null
+      data: {
+        sid: null,
+        name: null,
+        code: null
+      }
     };
   },
   methods: {
@@ -62,22 +78,49 @@ export default {
         this.count++;
       }, 500);
     },
-    show(sid, name, code) {
-      this.name = name;
-      this.code = code;
+    show(item) {
+      if (item) {
+        this.data.sid = item.sid;
+        this.data.name = item.name;
+        this.data.code = item.code;
+      }
       this.showManagement = !this.showManagement;
     },
     submit() {
-      if (this.name || this.code) {
-        console.log("编辑");
+      if (this.data.sid) {
+        if (this.data.name && this.data.code) {
+          this.$http
+            .post("organ/updateOrg", this.$qs.stringify(this.data))
+            .then(res => {
+              res ? Toast.success("编辑成功") : Toast.fail("编辑失败");
+              this.getStructure();
+            });
+        } else {
+          Toast.fail("信息不能为空");
+        }
       } else {
-        console.log("新增");
+        if (this.data.name && this.data.code) {
+          this.$http
+            .post("organ/insertOrg", this.$qs.stringify(this.data))
+            .then(res => {
+              res ? Toast.success("新增成功") : Toast.fail("新增失败");
+              this.getStructure();
+            });
+        } else {
+          Toast.fail("请输入完整内容");
+        }
       }
+      this.data = {};
+    },
+    del(sid) {
+      this.$http.post("organ/delOrg", this.$qs.stringify({ sid })).then(res => {
+        res ? Toast.success("删除成功") : Toast.fail("删除失败");
+        this.getStructure();
+      });
     }
   },
   created() {
     this.getStructure();
-    
   }
 };
 </script>

@@ -18,6 +18,15 @@
       <van-col span="16">{{ item.operateperson }}</van-col>
       <van-col span="8">{{ item.operatedetail }}</van-col>
     </van-row>
+    <van-datetime-picker
+      class="datepicker"
+      v-show="date"
+      v-model="currentDate"
+      type="year-month"
+      :formatter="formatter"
+      @confirm="selectDate"
+      @cancel="showPicker"
+    />
   </div>
 </template>
 
@@ -25,7 +34,9 @@
 export default {
   data() {
     return {
-      logList: null
+      logList: null,
+      date: false,
+      currentDate: null
     };
   },
   methods: {
@@ -37,6 +48,21 @@ export default {
         console.log(res);
         this.logList = res;
       });
+    },
+    formatter(type, value) {
+      if (type === "year") {
+        return `${value}年`;
+      } else if (type === "month") {
+        return `${value}月`;
+      }
+      return value;
+    },
+    showPicker() {
+      this.date = !this.date;
+    },
+    selectDate(value) {
+      console.log(value);
+      this.showPicker();
     }
   },
   created() {
@@ -84,6 +110,13 @@ export default {
   height: 40px;
   background-color: #ccc;
   margin-bottom: 10px;
+}
+
+.datepicker {
+  width: 100%;
+  position: fixed;
+  bottom: 50px;
+  z-index: 999;
 }
 .datePickerBtn {
   border-radius: 10px;

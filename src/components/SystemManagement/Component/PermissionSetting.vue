@@ -1,22 +1,23 @@
 <template>
+  <!-- 权限设置 -->
   <div class="bigbox">
     <div class="list" v-for="item in permissionList" :key="item.sid">
       <van-row type="flex" justify="space-around">
         <van-col span="6">{{ item.sid}}</van-col>
         <van-col span="8">{{ item.username}}</van-col>
-        <van-col span="6">{{ item.status ? "启用" : "禁用"}}</van-col>
+        <van-col span="6">{{ parseInt(item.status) ? "启用" : "禁用"}}</van-col>
         <van-col span="4">
-          <div class="btn" @click="show">编辑</div>
+          <div class="btn" @click="show(item)">编辑</div>
         </van-col>
       </van-row>
     </div>
 
-    <van-dialog v-model="showDialog" title="权限管理" show-cancel-button>
+    <van-dialog v-model="showDialog" title="权限管理" show-cancel-button @confirm="submit">
       <div class="sexBox">
         <div class="selectSex">状态</div>
-        <van-radio-group v-model="sex" class="sex">
+        <van-radio-group v-model="data.status" class="sex">
           <van-radio name="1">启用</van-radio>
-          <van-radio name="2">禁用</van-radio>
+          <van-radio name="0">禁用</van-radio>
         </van-radio-group>
       </div>
     </van-dialog>
@@ -24,13 +25,18 @@
 </template>
 
 <script>
+import { Toast } from "vant";
+
 export default {
   data() {
     return {
       activePermission: [0],
       permissionList: null,
       showDialog: false,
-      sex: "1"
+      data: {
+        id: null,
+        status: null
+      }
     };
   },
   methods: {
@@ -39,8 +45,18 @@ export default {
         this.permissionList = res;
       });
     },
-    show() {
+    show(item) {
+      this.data.id = item.sid;
+      this.data.status = item.status;
       this.showDialog = !this.showDialog;
+    },
+    submit() {
+      this.$http
+        .post("user/permission/update", this.$qs.stringify(this.data))
+        .then(res => {
+          res ? Toast.success("修改成功") : Toast.fail("修改失败");
+          this.getPermission();
+        });
     }
   },
   created() {
