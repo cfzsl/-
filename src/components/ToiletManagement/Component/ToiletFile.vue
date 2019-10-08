@@ -4,7 +4,7 @@
     <DropdownMenu :status="status" :toiletfile='toiletfile'></DropdownMenu>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-row
-        v-for="item in toiletfile "
+        v-for="item in toiletFile() "
         :key="item.i"
         type="flex"
         justify="space-around"
@@ -44,14 +44,14 @@ export default {
         this.toiletfile = res.data;
       });
     },
-    // toiletFileFilter(){
-    //   var name = this.$route.query.id;
-    //   var toiletFileFilter = [];
-    //   if(name!=''){
-    //    return this.toiletfile.filter(item => item.name.indexOf(name)!== -1)
-    //   }
-    //   return this.toiletfile
-    // },
+    toiletFile(){
+      var name = this.$route.query.id;
+      var toiletFileFilter = [];
+      if(name!=''){
+       return this.toiletfile.filter(item => item.name.indexOf(name)!== -1)
+      }
+      return this.toiletfile
+    },
     onRefresh() {
       setTimeout(() => {
         this.$toast("刷新成功");

@@ -17,7 +17,7 @@
           <router-link to="/ToiletManagement/">公厕分布</router-link>
           <router-link to="/ToiletManagement/Appraisal">绩效考核</router-link>
           <router-link to="/">绩效统计</router-link>
-          <router-link to="/">绩效规则</router-link>
+          <router-link to="/ToiletManagement/Rules">绩效规则</router-link>
           <router-link to="/">评论审核</router-link>
           <router-link to="/">评论查看</router-link>
         </div>

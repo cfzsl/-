@@ -17,8 +17,7 @@ import ToiletFile from './components/ToiletManagement/Component/ToiletFile.vue'
 import Appraisal from "./components/ToiletManagement/Component/Appraisal.vue"
 import BaiduMap from "./components/ToiletManagement/Component/BaiduMap.vue"
 import Publictoiletdetails from './components/ToiletManagement/Component/Publictoiletdetails.vue'
-
-
+import Rules from './components/ToiletManagement/Component/Rules.vue'
 
 
 Vue.use(Router)
@@ -84,6 +83,11 @@ export default new Router({
           path: 'Appraisal',
           name: '管理考核',
           component: Appraisal
+        },
+        {
+          path: 'Rules',
+          name: '绩效规则',
+          component: Rules
         },
       ]
     },
