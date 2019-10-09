@@ -5,7 +5,7 @@
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div class="circumstance">
         <div class="circumstance_list">
-          <div class="Product" v-for="item in list" :key="item.id" @click="goDetile(item.id)">
+          <div class="Product" v-for="item in list" :key="item.id" @click="goDetile(item.sid)">
             <van-row type="flex" justify="space-around">
               <van-col span="6">{{item.code}}</van-col>
               <van-col span="6" class="item">{{item.wcname}}</van-col>
@@ -43,14 +43,13 @@ export default {
       this.$router.push({
         name: "管理视频",
         params: {
-          id: id
+          id
         }
       });
     }
   },
   created() {
     this.$http.get("detailCurrent/findAll").then(res => {
-      console.log(res.data);
       this.list = res.data;
     });
   },

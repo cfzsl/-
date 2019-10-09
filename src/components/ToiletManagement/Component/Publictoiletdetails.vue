@@ -20,8 +20,56 @@
     </div>
 
     <van-tabs v-model="active" swipeable class="item" color="#0099ff">
-      <van-tab title="男厕">内容</van-tab>
-      <van-tab title="女厕">内容</van-tab>
+      <div class="content">
+        <van-tab title="男厕">
+          <van-row class="contentitem" type="flex" justify="space-around">
+            <van-col span="12">
+              温度:
+              <span class="green">{{ this.details.tempm }}&#8451;</span>
+            </van-col>
+            <van-col span="12">
+              湿度:
+              <span class="green">{{ this.details.humm }}&#37;</span>
+            </van-col>
+          </van-row>
+          <van-row class="contentitem" type="flex" justify="space-around">
+            <van-col span="12">
+              硫化氢:
+              <span v-if="this.h2sm" class="green">{{ this.details.h2sm }}PPM</span>
+              <span v-if="!this.h2sm" class="red">{{ this.details.h2sm }}PPM</span>
+            </van-col>
+            <van-col span="12">
+              氨气:
+              <span v-if="this.nh4m" class="green">{{ this.details.nh4m }}PPM</span>
+              <span v-if="!this.nh4m" class="red">{{ this.details.nh4m }}PPM</span>
+            </van-col>
+          </van-row>
+        </van-tab>
+        <van-tab title="女厕">
+          <van-row class="contentitem" type="flex" justify="space-around">
+            <van-col span="12">
+              温度:
+              <span class="green">{{ this.details.tempw }}&#8451;</span>
+            </van-col>
+            <van-col span="12">
+              湿度:
+              <span class="green">{{ this.details.humw }}&#37;</span>
+            </van-col>
+          </van-row>
+          <van-row class="contentitem" type="flex" justify="space-around">
+            <van-col span="12">
+              硫化氢:
+              <span v-if="this.h2sw" class="green">{{ this.details.h2sw }}PPM</span>
+              <span v-if="!this.h2sw" class="red">{{ this.details.h2sw }}PPM</span>
+            </van-col>
+            <van-col span="12">
+              氨气:
+              <span v-if="this.nh4w" class="green">{{ this.details.nh4w }}PPM</span>
+              <span v-else class="red">{{ this.details.nh4w }}PPM</span>
+            </van-col>
+          </van-row>
+        </van-tab>
+      </div>
     </van-tabs>
   </div>
 </template>
@@ -55,7 +103,12 @@ export default {
       },
       active: 0,
       active1: true,
-      active2: false
+      active2: false,
+      details: {},
+      h2sm: null,
+      nh4m: null,
+      h2sw: null,
+      nh4w: null
     };
   },
   components: {
@@ -64,7 +117,6 @@ export default {
   },
   methods: {
     go1() {
-      console.log(this.video1);
       this.playerOptions.sources[0].src = this.video1;
       this.active2 = false;
       this.active1 = true;
@@ -74,17 +126,36 @@ export default {
       this.active1 = false;
       this.active2 = true;
     },
-    getDetails(id) {
-      this.$http.post("detail/findDetail", {
-        params: {}
-      });
+    getDetails() {
+      this.$http
+        .post(
+          "detailCurrent/android/sid",
+          this.$qs.stringify({ sid: this.$route.params.id })
+        )
+        .then(res => {
+          this.details = res.data;
+          this.$http.post("warningRules/list").then(result => {
+            this.details.h2sm > result.maxh2smvalue
+              ? (this.h2sm = false)
+              : (this.h2sm = true);
+            this.details.nh4m > result.maxnh4mvalue
+              ? (this.nh4m = false)
+              : (this.nh4m = true);
+            this.details.h2sw > result.maxh2swvalue
+              ? (this.h2sw = false)
+              : (this.h2sw = true);
+            this.details.nh4w > result.maxnh4wvalue
+              ? (this.nh4w = false)
+              : (this.nh4w = true);
+          });
+        });
     }
   },
   created() {
     this.playerOptions.sources[0].src =
       "http://hls01open.ys7.com/openlive/84542f96d64846d590ff75d3382173c6.m3u8";
     this.video1 = this.playerOptions.sources[0].src;
-    console.log(this.$route.params.id);
+    this.getDetails();
   }
 };
 </script>
@@ -92,6 +163,7 @@ export default {
 <style scoped>
 .father {
   overflow: hidden;
+  font-size: 15px;
 }
 
 .pos {
@@ -128,5 +200,18 @@ export default {
 
 .item {
   margin-top: 385px;
+}
+.content {
+  padding-top: 20px;
+}
+.contentitem {
+  padding-bottom: 10px;
+}
+
+.green {
+  color: green;
+}
+.red {
+  color: red;
 }
 </style>

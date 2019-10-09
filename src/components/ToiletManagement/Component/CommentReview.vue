@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box">
     <div class="month">
       <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
 
@@ -23,9 +23,7 @@
           <div class="edit" @click="showEdit(item)">通过</div>
           <div class="detele">不通过</div>
         </div>
-        <div v-else class="pass">
-          已通过
-        </div>
+        <div v-else class="pass">已通过</div>
       </van-collapse-item>
     </van-collapse>
 
@@ -38,6 +36,7 @@
       @confirm="selectDate"
       @cancel="showPicker"
     />
+    <van-overlay :show="date" @click="date = false" />
   </div>
 </template>
 
@@ -59,7 +58,7 @@ export default {
       this.$http.get("wcAndroid/findAllCommentAndroid").then(res => {
         this.reviewList = res.data;
         for (const key in this.reviewList) {
-          this.reviewList[key].status = parseInt(this.reviewList[key].status)
+          this.reviewList[key].status = parseInt(this.reviewList[key].status);
         }
       });
     },
@@ -112,11 +111,15 @@ export default {
         second
       );
     }
-  },
+  }
 };
 </script>
 
 <style scoped>
+.box {
+  margin-bottom: 50px;
+}
+
 .month {
   display: flex;
   justify-content: space-between;

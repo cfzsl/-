@@ -11,6 +11,8 @@
       @confirm="selectDate"
       @cancel="showPicker"
     />
+
+    <van-overlay :show="date" @click="date = false" />
   </div>
 </template>
 
@@ -54,6 +56,7 @@ export default {
 .datepicker {
   width: 100%;
   position: fixed;
+  left: 0;
   bottom: 50px;
   z-index: 999;
 }
