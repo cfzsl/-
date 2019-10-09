@@ -92,7 +92,7 @@ export default {
   methods: {
     login(){
       let token = localStorage.getItem('token')
-      console.log(token)
+      // console.log(token)
       if(!token){
         this.$router.push({
           path:'/Login'
@@ -382,7 +382,7 @@ export default {
   justify-content: space-around;
 }
 .product p {
-  font-size: 15px;
+  font-size: 12px;
 }
 .shitu {
   margin: 0px 1px 50px;
@@ -390,7 +390,8 @@ export default {
 }
 
 .num {
-  font-size: 25px;
+  font-size: 36px;
+  font-weight: 700;
 }
 
 .title {

@@ -1,7 +1,10 @@
 <template>
   <!-- 公厕档案 -->
   <div>
-    <DropdownMenu :status="status" :toiletfile='toiletfile'></DropdownMenu>
+    <van-dropdown-menu>
+      <van-dropdown-item v-model="value2" :options="option2" />
+      <van-dropdown-item v-model="value3" :options="option3" />
+    </van-dropdown-menu>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-row
         v-for="item in toiletFile()"
@@ -21,37 +24,71 @@
 </template>
 
 <script>
-import DropdownMenu from "../../DropdownMenu.vue";
+import { async } from "q";
 export default {
   data() {
     return {
       active: 0,
       toiletfile: [],
+      listHost: [],
       count: 0,
       isLoading: false,
       text: null,
-      status: [
+      value2: 0,
+      value3: 0,
+      option2: [{ text: "全部管养单位", value: 0 }],
+      option3: [
         { text: "全部状态", value: 0 },
         { text: "开放使用", value: 1 },
         { text: "暂停使用", value: 2 },
-        { text: "卫生报警", value: 3 }
+        { text: "即将开放", value: 3 },
+        { text: "卫生警报", value: 4 },
       ]
     };
   },
+  watch: {
+    // toiletfile:{
+    //   _listIndex(){
+    //     console.log(this.toiletfile)
+    //   },
+    //   immediate: true,
+    //   deep:true
+    // }
+  },
   methods: {
+    // 获取list
     getToiletFile() {
       this.$http.get("android/wcinfo/list").then(res => {
-        console.log(res)
+        console.log(res);
         this.toiletfile = res.data;
-        console.log(this.toiletfile)
+        // console.log(this.toiletfile);
+        for (let i = 0; i < this.toiletfile.length; i++) {
+          if (this.listHost.indexOf(this.toiletfile[i].depart) == -1) {
+            this.listHost.push(this.toiletfile[i].depart);
+          }
+        }
+        let v = 1;
+        for (let j = 0; j < this.listHost.length; j++) {
+          this.option2.push({
+            text: this.listHost[j],
+            value: v++
+          });
+        }
+        console.log(this.option2);
       });
     },
-    toiletFile(){
+    toiletFile() {
       let id = this.$route.query.id;
-      if(id){
-        return this.toiletfile.filter(item => item.name.indexOf(id)!== -1)
+      if (this.value2 != 0) {
+        let text = this.option2[this.value2].text;
+        return this.toiletfile.filter(item => item.depart == text);
+      } else if (this.value3 != 0) {
+        let text = this.option3[this.value3].text;
+        return this.toiletfile.filter(item => item.status == text);
+      } else if (id) {
+        return this.toiletfile.filter(item => item.name.indexOf(id) !== -1);
       }
-      return this.toiletfile
+      return this.toiletfile;
     },
     onRefresh() {
       setTimeout(() => {
@@ -84,11 +121,10 @@ export default {
   },
   created() {
     this.getToiletFile();
+    // this._listIndex();
     console.log(this.$route.query);
   },
-  components: {
-    DropdownMenu
-  }
+  components: {}
 };
 </script>
 
