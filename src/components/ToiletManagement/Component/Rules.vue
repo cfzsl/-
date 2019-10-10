@@ -151,6 +151,9 @@ export default {
 </script>
 
 <style scoped>
+.box {
+  margin-bottom: 50px;
+}
 .bigboxx {
   font-size: 15px;
   text-align: left;

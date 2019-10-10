@@ -7,6 +7,8 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import './assets/communal.css'
 import BaiduMap from 'vue-baidu-map'
+// 物理返回按钮测试
+import Back from './components/component/backbtn'
 
 //路由守卫
 import './utils/permission'
@@ -21,6 +23,11 @@ import 'videojs-contrib-hls';
 
 
 
+// 页面跳转后 滚动条初始化
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0);
+});
+
 
 Vue.use(Vant);
 
@@ -32,7 +39,6 @@ Vue.use(BaiduMap, {
 Axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
 // Axios.defaults.baseURL = 'http://192.168.8.109:9090/'
 Axios.defaults.baseURL = 'http://47.110.160.217:5080/'
-// Axios.defaults.baseURL = 'http://192.168.8.109:9090/'
 
 Vue.prototype.$http = Axios
 Vue.prototype.$qs = qs
@@ -47,6 +53,7 @@ Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 new Vue({
+  Back,
   router,
   render: h => h(App)
 }).$mount('#app')

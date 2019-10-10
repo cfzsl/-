@@ -3,8 +3,14 @@
     <div class="month">
       <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
 
-      <div class="text">共X条数据</div>
+      <div class="text">共{{ this.reviewList.length }}条数据</div>
     </div>
+
+    <van-row class="titleitem">
+      <van-col span="3">序号</van-col>
+      <van-col span="9">公厕名称</van-col>
+      <van-col span="12">评论人</van-col>
+    </van-row>
 
     <van-collapse v-model="activeNames" :border="false">
       <van-collapse-item class="item" v-for="item in reviewList" :key="item.sid">
@@ -19,11 +25,11 @@
           <div>评论时间: {{ item.createtime }}</div>
           <div>评论内容: {{ item.content }}</div>
         </div>
-        <div v-if="item.status">
-          <div class="edit" @click="showEdit(item)">通过</div>
+        <div v-if="item.status" class="pass">已通过</div>
+        <div v-else>
+          <div class="edit" @click="pass(item.sid)">通过</div>
           <div class="detele">不通过</div>
         </div>
-        <div v-else class="pass">已通过</div>
       </van-collapse-item>
     </van-collapse>
 
@@ -44,7 +50,7 @@
 export default {
   data() {
     return {
-      reviewList: null,
+      reviewList: [],
       date: false,
       currentDate: null,
       activeNames: []
@@ -76,6 +82,13 @@ export default {
     selectDate(value) {
       console.log(value);
       this.showPicker();
+    },
+    pass(sid) {
+      this.$http
+        .post("commentStatus/updateStatus", this.$qs.stringify({ sid }))
+        .then(res => {
+          this.getReview();
+        });
     }
   },
   created() {
@@ -118,6 +131,12 @@ export default {
 <style scoped>
 .box {
   margin-bottom: 50px;
+}
+
+.titleitem {
+  font-size: 15px;
+  background-color: #e7e7e7;
+  line-height: 30px;
 }
 
 .month {

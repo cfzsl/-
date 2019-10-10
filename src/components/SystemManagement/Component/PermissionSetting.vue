@@ -1,6 +1,14 @@
 <template>
   <!-- 权限设置 -->
   <div class="bigbox">
+    <van-row class="titlebox" type="flex" justify="space-around">
+      <van-col span="6">序号</van-col>
+      <van-col span="8">用户</van-col>
+      <van-col span="1"></van-col>
+      <van-col span="4">状态</van-col>
+      <van-col span="5">操作</van-col>
+    </van-row>
+
     <div class="list" v-for="item in permissionList" :key="item.sid">
       <van-row type="flex" justify="space-around">
         <van-col span="6">{{ item.sid}}</van-col>
@@ -66,6 +74,11 @@ export default {
 </script>
 
 <style scoped>
+.titlebox {
+  font-size: 15px;
+  background-color: #E7E7E7;
+  line-height: 30px;
+}
 .bigbox {
   font-size: 15px;
 }

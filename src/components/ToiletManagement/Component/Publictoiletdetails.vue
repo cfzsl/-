@@ -2,7 +2,7 @@
   <!-- 公厕详情页 -->
   <div class="father">
     <div class="pos">
-      <Back title="标题"></Back>
+      <Back :title="this.PublicMsg.name"></Back>
 
       <div class="bigbox">
         <div @click="go1" :class="{left: true, active: active1}">摄像头1</div>
@@ -19,58 +19,92 @@
       </div>
     </div>
 
-    <van-tabs v-model="active" swipeable class="item" color="#0099ff">
-      <div class="content">
-        <van-tab title="男厕">
-          <van-row class="contentitem" type="flex" justify="space-around">
-            <van-col span="12">
-              温度:
-              <span class="green">{{ this.details.tempm }}&#8451;</span>
-            </van-col>
-            <van-col span="12">
-              湿度:
-              <span class="green">{{ this.details.humm }}&#37;</span>
-            </van-col>
-          </van-row>
-          <van-row class="contentitem" type="flex" justify="space-around">
-            <van-col span="12">
-              硫化氢:
-              <span v-if="this.h2sm" class="green">{{ this.details.h2sm }}PPM</span>
-              <span v-if="!this.h2sm" class="red">{{ this.details.h2sm }}PPM</span>
-            </van-col>
-            <van-col span="12">
-              氨气:
-              <span v-if="this.nh4m" class="green">{{ this.details.nh4m }}PPM</span>
-              <span v-if="!this.nh4m" class="red">{{ this.details.nh4m }}PPM</span>
-            </van-col>
-          </van-row>
-        </van-tab>
-        <van-tab title="女厕">
-          <van-row class="contentitem" type="flex" justify="space-around">
-            <van-col span="12">
-              温度:
-              <span class="green">{{ this.details.tempw }}&#8451;</span>
-            </van-col>
-            <van-col span="12">
-              湿度:
-              <span class="green">{{ this.details.humw }}&#37;</span>
-            </van-col>
-          </van-row>
-          <van-row class="contentitem" type="flex" justify="space-around">
-            <van-col span="12">
-              硫化氢:
-              <span v-if="this.h2sw" class="green">{{ this.details.h2sw }}PPM</span>
-              <span v-if="!this.h2sw" class="red">{{ this.details.h2sw }}PPM</span>
-            </van-col>
-            <van-col span="12">
-              氨气:
-              <span v-if="this.nh4w" class="green">{{ this.details.nh4w }}PPM</span>
-              <span v-else class="red">{{ this.details.nh4w }}PPM</span>
-            </van-col>
-          </van-row>
-        </van-tab>
+    <div class="contentbox">
+      <div class="textcontent">
+        <van-row type="flex" justify="space-around" class="texttitle">
+          <van-col span="12">公厕信息</van-col>
+          <van-col span="12"></van-col>
+        </van-row>
+        <div>厕所名称：{{ this.PublicMsg.name }}</div>
+        <div>联系人: {{ this.PublicMsg.memo }}</div>
+        <div>联系人电话: {{ this.PublicMsg.chargetel }}</div>
+        <div>管养单位: {{ this.PublicMsg.depart }}</div>
+        <div>地址：{{ this.PublicMsg.addressmemo }}</div>
+        <div>当前状态：{{ this.PublicMsg.status }}</div>
+        <div>服务：{{ this.PublicMsg.servicename }}</div>
+        <div>报警次数: {{ this.WarningMsg.length }}</div>
+        <div>最后接收数据时间: {{ this.WarningMsg[0].updatetime }}</div>
       </div>
-    </van-tabs>
+
+      <van-tabs v-model="active" swipeable class="item" color="#0099ff">
+        <div class="content">
+          <van-tab title="男厕">
+            <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="12">
+                温度:
+                <span class="green">{{ this.details.tempm }}&#8451;</span>
+              </van-col>
+              <van-col span="12">
+                湿度:
+                <span class="green">{{ this.details.humm }}&#37;</span>
+              </van-col>
+            </van-row>
+            <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="12">
+                硫化氢:
+                <span v-if="this.h2sm" class="green">{{ this.details.h2sm }}PPM</span>
+                <span v-if="!this.h2sm" class="red">{{ this.details.h2sm }}PPM</span>
+              </van-col>
+              <van-col span="12">
+                氨气:
+                <span v-if="this.nh4m" class="green">{{ this.details.nh4m }}PPM</span>
+                <span v-if="!this.nh4m" class="red">{{ this.details.nh4m }}PPM</span>
+              </van-col>
+            </van-row>
+          </van-tab>
+          <van-tab title="女厕">
+            <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="12">
+                温度:
+                <span class="green">{{ this.details.tempw }}&#8451;</span>
+              </van-col>
+              <van-col span="12">
+                湿度:
+                <span class="green">{{ this.details.humw }}&#37;</span>
+              </van-col>
+            </van-row>
+            <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="12">
+                硫化氢:
+                <span v-if="this.h2sw" class="green">{{ this.details.h2sw }}PPM</span>
+                <span v-if="!this.h2sw" class="red">{{ this.details.h2sw }}PPM</span>
+              </van-col>
+              <van-col span="12">
+                氨气:
+                <span v-if="this.nh4w" class="green">{{ this.details.nh4w }}PPM</span>
+                <span v-else class="red">{{ this.details.nh4w }}PPM</span>
+              </van-col>
+            </van-row>
+          </van-tab>
+        </div>
+      </van-tabs>
+
+      <div>
+        <van-row style="padding:10px 0" type="flex" justify="space-around">
+          <van-col span="4">序号</van-col>
+          <van-col span="6">报警信息</van-col>
+          <van-col span="11">报警时间</van-col>
+          <van-col span="3">报警值</van-col>
+        </van-row>
+
+        <van-row class="msgitem" type="flex" justify="space-around" v-for="(item,i) in WarningMsg" :key="item.id">
+          <van-col span="4">{{ i + 1 }}</van-col>
+          <van-col span="6">{{ item.warningtype }}</van-col>
+          <van-col span="11">{{ item.updatetime }}</van-col>
+          <van-col span="3">{{ item.warningvalue }}</van-col>
+        </van-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -108,7 +142,9 @@ export default {
       h2sm: null,
       nh4m: null,
       h2sw: null,
-      nh4w: null
+      nh4w: null,
+      PublicMsg: {},
+      WarningMsg: [{}],
     };
   },
   components: {
@@ -134,20 +170,45 @@ export default {
         )
         .then(res => {
           this.details = res.data;
-          this.$http.post("warningRules/list").then(result => {
-            this.details.h2sm > result.maxh2smvalue
-              ? (this.h2sm = false)
-              : (this.h2sm = true);
-            this.details.nh4m > result.maxnh4mvalue
-              ? (this.nh4m = false)
-              : (this.nh4m = true);
-            this.details.h2sw > result.maxh2swvalue
-              ? (this.h2sw = false)
-              : (this.h2sw = true);
-            this.details.nh4w > result.maxnh4wvalue
-              ? (this.nh4w = false)
-              : (this.nh4w = true);
-          });
+          this.getList();
+        });
+    },
+    getList() {
+      this.$http.post("warningRules/list").then(result => {
+        this.details.h2sm > result.maxh2smvalue
+          ? (this.h2sm = false)
+          : (this.h2sm = true);
+        this.details.nh4m > result.maxnh4mvalue
+          ? (this.nh4m = false)
+          : (this.nh4m = true);
+        this.details.h2sw > result.maxh2swvalue
+          ? (this.h2sw = false)
+          : (this.h2sw = true);
+        this.details.nh4w > result.maxnh4wvalue
+          ? (this.nh4w = false)
+          : (this.nh4w = true);
+      });
+    },
+    getPublicMsg() {
+      this.$http
+        .post("wc/findOne", this.$qs.stringify({ sid: this.$route.params.id }))
+        .then(res => {
+          this.PublicMsg = res.data;
+        })
+        .then(res => {
+          this.getWarningMsg();
+        });
+    },
+    getWarningMsg() {
+      this.$http
+        .post(
+          "/wc/warning/logs/get/wcname",
+          this.$qs.stringify({ wcName: this.PublicMsg.name })
+        )
+        .then(res => {
+          this.WarningMsg = res;
+          console.log(this.WarningMsg);
+          
         });
     }
   },
@@ -156,6 +217,7 @@ export default {
       "http://hls01open.ys7.com/openlive/84542f96d64846d590ff75d3382173c6.m3u8";
     this.video1 = this.playerOptions.sources[0].src;
     this.getDetails();
+    this.getPublicMsg();
   }
 };
 </script>
@@ -173,6 +235,7 @@ export default {
 
 .bigbox {
   display: flex;
+  
   justify-content: center;
   padding: 10px 0;
 }
@@ -198,9 +261,12 @@ export default {
   color: #fff;
 }
 
-.item {
-  margin-top: 385px;
+.contentbox {
+  position: relative;
+  background-color: #fff;
+  border-radius: 10px;
 }
+
 .content {
   padding-top: 20px;
 }
@@ -213,5 +279,20 @@ export default {
 }
 .red {
   color: red;
+}
+
+.texttitle {
+  padding: 10px;
+  font-size: 20px;
+}
+.textcontent {
+  margin-top: 376px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.msgitem {
+  padding: 10px 0;
+  border-top: 1px solid #CCC;
 }
 </style>

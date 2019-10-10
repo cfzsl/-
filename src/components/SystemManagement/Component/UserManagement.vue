@@ -10,11 +10,18 @@
     />
     <!-- 列表 -->
     <van-collapse v-model="activeNames" :border="false">
+      <van-row class="titlebox">
+        <van-col span="6">序号</van-col>
+        <van-col span="8">用户名</van-col>
+        <van-col span="9">管养单位</van-col>
+        <van-col span="1"></van-col>
+      </van-row>
+
       <van-collapse-item class="item" :name="item.sid" v-for="item in userList" :key="item.sid">
         <div slot="title">
           <van-row>
-            <van-col span="6">{{ item.sid}}</van-col>
-            <van-col span="12">{{ item.username}}</van-col>
+            <van-col span="4">{{ item.sid}}</van-col>
+            <van-col span="13">{{ item.username}}</van-col>
             <van-col span="6">{{ item.departName}}</van-col>
           </van-row>
         </div>
@@ -173,15 +180,17 @@ export default {
 </script>
 
 <style scoped>
+.titlebox {
+  font-size: 15px;
+  background-color: #E7E7E7;
+  line-height: 30px;
+}
+
 .item {
   border-bottom: 1px solid #ccc !important;
 }
 
 .content {
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center; */
   padding-left: 30px;
   overflow: hidden;
 }

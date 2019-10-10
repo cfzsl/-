@@ -7,6 +7,12 @@
       <dataPicker class="picker"></dataPicker>
     </div>
 
+    <van-row class="item">
+      <van-col span="12">管养单位</van-col>
+      <van-col span="6">报警次数</van-col>
+      <van-col span="6">平均得分</van-col>
+    </van-row>
+
     <van-row
       class="list"
       type="flex"
@@ -15,9 +21,9 @@
       :key="item.sid"
       align="center"
     >
-      <van-col span="10">{{ item.departname }}</van-col>
-      <van-col span="4">{{ item.countnh3m + item.countnh3w + item.counth2sm + item.counth2sw }}</van-col>
-      <van-col span="4">{{ item.scoreavg }}</van-col>
+      <van-col span="12">{{ item.departname }}</van-col>
+      <van-col span="6">{{ item.countnh3m + item.countnh3w + item.counth2sm + item.counth2sw }}</van-col>
+      <van-col span="6">{{ item.scoreavg }}</van-col>
     </van-row>
   </div>
 </template>
@@ -75,6 +81,12 @@ export default {
 </script>
 
 <style scoped>
+.item {
+  font-size: 15px;
+  background-color: #e7e7e7;
+  line-height: 30px;
+}
+
 .month {
   display: flex;
   justify-content: space-between;

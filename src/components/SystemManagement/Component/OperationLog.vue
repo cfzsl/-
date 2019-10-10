@@ -3,7 +3,7 @@
     <div class="month">
       <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
 
-      <div class="text">共X条数据</div>
+      <div class="text">共{{ this.logList.length }}条数据</div>
     </div>
 
     <van-row
@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      logList: null,
+      logList: [],
       date: false,
       currentDate: null
     };
@@ -45,7 +45,6 @@ export default {
     },
     getOperationLog() {
       this.$http.get("operateLog/post/all").then(res => {
-        console.log(res);
         this.logList = res;
       });
     },

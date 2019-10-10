@@ -5,19 +5,19 @@
     <Header></Header>
 
     <div class="product">
-      <div @click="goDetails" class="item">
+      <div class="item">
         <p>东营区公共厕所（个)</p>
         <div class="num" style="color: green">{{ this.total }}</div>
       </div>
-      <div @click="goDetails" class="item">
+      <div class="item">
         <p>东营区管养单位总数（个)</p>
         <div class="num" style="color: orange">{{ this.Custody }}</div>
       </div>
-      <div @click="goDetails" class="item">
+      <div class="item">
         <p>东营区男公厕报警数（个)</p>
         <div class="num" style="color: blue">{{ this.nan }}</div>
       </div>
-      <div @click="goDetails" class="item">
+      <div class="item">
         <p>东营区女公厕报警数（个)</p>
         <div class="num" style="color: red">{{ this.nv }}</div>
       </div>
@@ -25,9 +25,6 @@
     <div class="shitu">
       <div class="charts">
         <div id="barGraph" style="height: 300px;"></div>
-      </div>
-      <div class="charts">
-        <div id="pieGraph" style="height: 300px;"></div>
       </div>
       <div class="charts">
         <div class="title">
@@ -45,11 +42,10 @@
 </template>
 
 <script>
-let echarts = require("echarts/lib/echarts");
+const echarts = require("echarts/lib/echarts");
 // 引入柱状图
 require("echarts/lib/chart/bar");
 // 引入柱状图
-require("echarts/lib/chart/pie");
 require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 
@@ -78,7 +74,6 @@ export default {
   },
   mounted() {
     this.drawBar();
-    this.drawPie();
     this.drawColumn();
     this.getTotal();
     this.getCustody();
@@ -156,51 +151,6 @@ export default {
         ]
       });
     },
-    drawPie() {
-      let pieGraph = echarts.init(document.getElementById("pieGraph"));
-      pieGraph.setOption({
-        title: {
-          text: "公厕分别详情",
-          x: "center"
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-          orient: "vertical",
-          left: "left",
-          data: ["东营公厕", "西营公厕", "南营公厕", "北营公厕", "西港公厕"]
-        },
-        series: [
-          {
-            name: "访问来源",
-            type: "pie",
-            radius: "55%",
-            center: ["50%", "60%"],
-            data: [
-              { value: 335, name: "东营公厕" },
-              { value: 310, name: "西营公厕" },
-              { value: 234, name: "南营公厕" },
-              { value: 135, name: "北营公厕" },
-              { value: 1548, name: "西港公厕" }
-            ],
-            itemStyle: {
-              emphasis: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
-              }
-            }
-          }
-        ]
-      });
-    },
-    goDetails() {
-      this.$router.push({
-        path: "/HomeFour"
-      });
-    },
     drawColumn() {
       var gongsi = [];
 
@@ -214,8 +164,6 @@ export default {
           gongsi.push(gs);
           df123.push(parseInt(df));
         }
-        console.log(gongsi.length);
-        console.log(gongsi);
 
         // 基于准备好的dom，初始化echarts实例
         var myColumn = echarts.init(document.getElementById("main"));
@@ -315,7 +263,6 @@ export default {
     },
     init() {
       const self = this;
-
       setTimeout(() => {
         window.onresize = function() {
           // self.myColumn.echarts.resize();

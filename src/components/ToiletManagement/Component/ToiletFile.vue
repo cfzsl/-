@@ -5,6 +5,14 @@
       <van-dropdown-item v-model="value2" :options="option2" />
       <van-dropdown-item v-model="value3" :options="option3" />
     </van-dropdown-menu>
+
+    <van-row class="item">
+      <van-col span="3">序号</van-col>
+      <van-col span="8">公厕名</van-col>
+      <van-col span="7">管养单位</van-col>
+      <van-col span="6">状态</van-col>
+    </van-row>
+    
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-row
         v-for="item in toiletFile()"
@@ -13,6 +21,7 @@
         justify="space-around"
         class="list"
         align="center"
+        @click="goDetile(item.sid)"
       >
         <van-col span="3">{{ item.sid }}</van-col>
         <van-col span="8">{{ item.name }}</van-col>
@@ -42,7 +51,7 @@ export default {
         { text: "开放使用", value: 1 },
         { text: "暂停使用", value: 2 },
         { text: "即将开放", value: 3 },
-        { text: "卫生警报", value: 4 },
+        { text: "卫生警报", value: 4 }
       ]
     };
   },
@@ -52,6 +61,7 @@ export default {
       this.$http.get("android/wcinfo/list").then(res => {
         console.log(res);
         this.toiletfile = res.data;
+        console.log(this.toiletfile);
         // console.log(this.toiletfile);
         for (let i = 0; i < this.toiletfile.length; i++) {
           if (this.listHost.indexOf(this.toiletfile[i].depart) == -1) {
@@ -108,6 +118,14 @@ export default {
           });
         });
       }
+    },
+    goDetile(id) {
+      this.$router.push({
+        name: "管理视频",
+        params: {
+          id
+        }
+      });
     }
   },
   created() {
@@ -127,5 +145,10 @@ export default {
   font-size: 12px;
   margin: 5px 0;
   border-bottom: 1px solid #000;
+}
+.item {
+  font-size: 15px;
+  background-color: #e7e7e7;
+  line-height: 30px;
 }
 </style>
