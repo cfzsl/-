@@ -59,7 +59,8 @@ export default {
       codeMit: 0,
       userInfo: "",
       border: false,
-      border2: false
+      border2: false,
+      isUpdate: null,
     };
   },
   methods: {
@@ -113,15 +114,21 @@ export default {
         code: this.sms
       };
       this.$http.post("login/log", this.$qs.stringify(date)).then(res => {
+        console.log(res);
+        this.isUpdate=res.isUpdate;
         this.userInfo = res.data;
-        console.log(this.userInfo);
+        if(this.isUpdate){
+          location.href = 'http://47.110.160.217:5080/app/download'
+        } else {
+          console.log('没有新版本')
+        }
       });
       localStorage.setItem("token", this.userInfo.token);
       this.$router.push({
         path: "/"
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
