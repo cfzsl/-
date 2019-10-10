@@ -7,6 +7,8 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import './assets/communal.css'
 import BaiduMap from 'vue-baidu-map'
+// 物理返回按钮测试
+import Back from './components/component/backbtn'
 
 // rem适配
 
@@ -18,6 +20,11 @@ require('vue-video-player/src/custom-theme.css');
 import 'videojs-contrib-hls';
 
 
+
+// 页面跳转后 滚动条初始化
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0);
+});
 
 
 Vue.use(Vant);
@@ -45,6 +52,7 @@ Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 new Vue({
+  Back,
   router,
   render: h => h(App)
 }).$mount('#app')

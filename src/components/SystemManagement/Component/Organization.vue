@@ -137,7 +137,7 @@ export default {
   font-size: 15px;
   height: 30px;
   line-height: 30px;
-  background-color: #ccc;
+  background-color: #E7E7E7;
   z-index: 99;
 }
 .list {

@@ -3,8 +3,14 @@
     <div class="month">
       <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
 
-      <div class="text">共X条数据</div>
+      <div class="text">共{{ this.CommentList.length }}条数据</div>
     </div>
+
+    <van-row class="titleitem">
+      <van-col span="3">序号</van-col>
+      <van-col span="9">公厕名称</van-col>
+      <van-col span="12">评论人</van-col>
+    </van-row>
 
     <van-collapse v-model="activeNames" :border="false">
       <van-collapse-item class="item" v-for="item in this.CommentList" :key="item.sid">
@@ -38,7 +44,7 @@
 export default {
   data() {
     return {
-      CommentList: null,
+      CommentList: [],
       date: false,
       currentDate: null,
       activeNames: []
@@ -50,7 +56,6 @@ export default {
     },
     getList() {
       this.$http.get("comment/showComment").then(res => {
-        console.log(res);
         this.CommentList = res.data;
       });
     },
@@ -117,6 +122,12 @@ export default {
   margin-bottom: 10px;
 }
 
+.titleitem {
+  font-size: 15px;
+  background-color: #e7e7e7;
+  line-height: 30px;
+}
+
 .datepicker {
   width: 100%;
   position: fixed;
@@ -137,5 +148,4 @@ export default {
   border-bottom: 1px solid #ccc !important;
   text-align: left;
 }
-
 </style>
