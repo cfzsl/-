@@ -49,7 +49,7 @@ export default {
         { text: "开放使用", value: 1 },
         { text: "暂停使用", value: 2 },
         { text: "即将开放", value: 3 },
-        { text: "卫生警报", value: 4 },
+        { text: "卫生警报", value: 4 }
       ]
     };
   },
@@ -87,7 +87,6 @@ export default {
     },
     toiletFile() {
       let id = this.$route.query.id;
-      if (id) {
       if (this.value2 != 0) {
         let text = this.option2[this.value2].text;
         return this.toiletfile.filter(item => item.depart == text);
