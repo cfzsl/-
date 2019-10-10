@@ -9,10 +9,9 @@
             <van-row type="flex" justify="space-around">
               <van-col span="6">{{item.code}}</van-col>
               <van-col span="6" class="item">{{item.wcname}}</van-col>
-              <van-col
-                span="6"
-                :style="{ color: item.c ? 'green' : 'red' }"
-              >{{item.c ? "使用中" : "未使用"}}</van-col>
+              <van-col v-if="item.status === '0'" span="6" class="grey">离线</van-col>
+              <van-col v-else-if="item.status === '1'" span="6" class="red">报警</van-col>
+              <van-col v-else-if="item.status === '2'" span="6" class="green">正常</van-col>
             </van-row>
           </div>
         </div>
@@ -46,12 +45,15 @@ export default {
           id
         }
       });
+    },
+    getList() {
+      this.$http.get("detailCurrent/findAll").then(res => {
+        this.list = res.data;
+      });
     }
   },
   created() {
-    this.$http.get("detailCurrent/findAll").then(res => {
-      this.list = res.data;
-    });
+    this.getList();
   },
   components: {
     Footer
@@ -80,5 +82,15 @@ export default {
 .item {
   height: 50px;
   overflow: hidden;
+}
+
+.green {
+  color: green;
+}
+.grey {
+  color: grey;
+}
+.red {
+  color: red;
 }
 </style>

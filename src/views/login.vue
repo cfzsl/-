@@ -116,10 +116,10 @@ export default {
         console.log(res);
         this.userInfo = res.data;
         localStorage.setItem("token", this.userInfo.token);
-        if(this.userInfo.token){
-          this.$router.push({path:'/'})
-        }else {
-          Toast('验证码错误')
+        if (this.userInfo.token) {
+          this.$router.push({ path: "/" });
+        } else {
+          Toast("验证码错误");
         }
         this.isUpdate = res.isUpdate;
         if (this.isUpdate) {
@@ -141,7 +141,10 @@ export default {
   height: 286px;
 }
 .text {
-  margin-top: 160px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 12px;
   color: #b4b4b4;
 }
@@ -149,13 +152,11 @@ export default {
   position: relative;
   margin: 12px 19px 0px 22px;
 }
-.loginTop,
+.loginTop {
+  position: relative;
+}
 .loginBot {
   position: relative;
-  width: 319px;
-  height: 38px;
-  margin-bottom: 26px;
-  margin: 0 auto 26px;
 }
 .phone {
   background: url("../assets/iconfont/phone_u.png") no-repeat;
@@ -174,6 +175,7 @@ export default {
   border: 1px #3082ff solid !important;
 }
 input {
+  float: left;
   width: 319px;
   height: 38px;
   border: 1px solid #d2d2d2;
@@ -181,6 +183,7 @@ input {
   box-shadow: 0px 0px 0px 0px;
   margin-bottom: 26px;
   font-size: 16px;
+  width: 99%;
 }
 input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
