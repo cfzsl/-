@@ -42,9 +42,12 @@ export default {
       //   }
       // )
     },
+    // 百度 touch 事件模拟点击事件
+    // 触摸移动时触发此事件 此时开启可以拖动。虽然刚初始化该地图不可以拖动，但是可以触发拖动事件。
     touchmove (e) {
       this.map.enableDragging()
     },
+    // 触摸结束时触发次此事件  此时开启禁止拖动
     touchend (e) {
       this.map.disableDragging()
     },
