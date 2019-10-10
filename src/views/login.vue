@@ -47,90 +47,90 @@
 </template>
 
 <script>
-import { Toast } from "vant";
-import qs from "qs";
-import { userInfo } from "os";
+import { Toast } from 'vant'
+import qs from 'qs'
+import { userInfo } from 'os'
 export default {
-  data() {
+  data () {
     return {
-      phone: "",
-      sms: "",
+      phone: '',
+      sms: '',
       button: true,
       codeMit: 0,
-      userInfo: "",
+      userInfo: '',
       border: false,
       border2: false,
       isUpdate: null
-    };
+    }
   },
   methods: {
-    changStyle() {
-      this.border = true;
+    changStyle () {
+      this.border = true
     },
-    _changStyle() {
-      this.border = !this.border;
+    _changStyle () {
+      this.border = !this.border
     },
-    changStyle2() {
-      this.border2 = true;
+    changStyle2 () {
+      this.border2 = true
     },
-    _changStyle2() {
-      this.border2 = !this.border2;
+    _changStyle2 () {
+      this.border2 = !this.border2
     },
-    getCode() {
+    getCode () {
       // console.log(this.phone)
-      let zet = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
-      if (this.phone == "") {
-        Toast("请输入手机号");
+      let zet = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/
+      if (this.phone == '') {
+        Toast('请输入手机号')
       } else if (!zet.test(this.phone)) {
-        Toast("请输入正确的手机号");
+        Toast('请输入正确的手机号')
       } else if (zet.test(this.phone)) {
         let date = {
           username: this.phone
-        };
-        console.log(date);
+        }
+        console.log(date)
         this.$http
-          .post("login/sendUsername", this.$qs.stringify(date))
+          .post('login/sendUsername', this.$qs.stringify(date))
           .then(res => {
-            console.log(res);
+            console.log(res)
             res.status == 1
-              ? Toast.success("短信发送成功")
-              : Toast.fail(res.msg);
-          });
-        this.button = false;
-        this.codeMit = 60;
+              ? Toast.success('短信发送成功')
+              : Toast.fail(res.msg)
+          })
+        this.button = false
+        this.codeMit = 60
         var codeTime = setInterval(() => {
           if (this.codeMit <= 0) {
-            clearInterval(codeTime);
-            this.button = true;
+            clearInterval(codeTime)
+            this.button = true
           }
-          this.codeMit--;
-        }, 1000);
+          this.codeMit--
+        }, 1000)
       }
     },
-    getLogin() {
+    getLogin () {
       let date = {
         username: this.phone,
         code: this.sms
-      };
-      this.$http.post("login/log", this.$qs.stringify(date)).then(res => {
-        console.log(res);
-        this.userInfo = res.data;
-        localStorage.setItem("token", this.userInfo.token);
+      }
+      this.$http.post('login/log', this.$qs.stringify(date)).then(res => {
+        console.log(res)
+        this.userInfo = res.data
+        localStorage.setItem('token', this.userInfo.token)
         if (this.userInfo.token) {
-          this.$router.push({ path: "/" });
+          this.$router.push({ path: '/home' })
         } else {
-          Toast("验证码错误");
+          Toast('验证码错误')
         }
-        this.isUpdate = res.isUpdate;
+        this.isUpdate = res.isUpdate
         if (this.isUpdate) {
-          location.href = "http://47.110.160.217:5080/app/download";
+          location.href = 'http://47.110.160.217:5080/app/download'
         } else {
-          console.log("没有新版本");
+          console.log('没有新版本')
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped >
