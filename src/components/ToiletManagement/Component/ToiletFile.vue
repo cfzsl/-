@@ -46,15 +46,6 @@ export default {
       ]
     };
   },
-  watch: {
-    // toiletfile:{
-    //   _listIndex(){
-    //     console.log(this.toiletfile)
-    //   },
-    //   immediate: true,
-    //   deep:true
-    // }
-  },
   methods: {
     // 获取list
     getToiletFile() {

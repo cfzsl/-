@@ -41,7 +41,7 @@
       <div>
         <van-button type="info" class="loginButton" @click="getLogin">登&nbsp; &nbsp;录</van-button>
       </div>
-      <div class='text'>武汉旭瑞创想信息技术</div>
+      <div class="text">武汉旭瑞创想信息技术</div>
     </div>
   </div>
 </template>
@@ -60,7 +60,7 @@ export default {
       userInfo: "",
       border: false,
       border2: false,
-      isUpdate: null,
+      isUpdate: null
     };
   },
   methods: {
@@ -108,32 +108,32 @@ export default {
       }
     },
     getLogin() {
-      this.border2 = true;
       let date = {
         username: this.phone,
         code: this.sms
       };
       this.$http.post("login/log", this.$qs.stringify(date)).then(res => {
         console.log(res);
-        this.isUpdate=res.isUpdate;
         this.userInfo = res.data;
-        if(this.isUpdate){
-          location.href = 'http://47.110.160.217:5080/app/download'
+        localStorage.setItem("token", this.userInfo.token);
+        if(this.userInfo.token){
+          this.$router.push({path:'/'})
+        }else {
+          Toast('验证码错误')
+        }
+        this.isUpdate = res.isUpdate;
+        if (this.isUpdate) {
+          location.href = "http://47.110.160.217:5080/app/download";
         } else {
-          console.log('没有新版本')
+          console.log("没有新版本");
         }
       });
-      localStorage.setItem("token", this.userInfo.token);
-      this.$router.push({
-        path: "/"
-      });
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style scoped >
-
 .lodingBgc {
   background: url("../assets/img/login_background.png") no-repeat;
   background-size: 375px auto;
@@ -141,7 +141,7 @@ export default {
   height: 286px;
 }
 .text {
-  margin-top: 160px; 
+  margin-top: 160px;
   font-size: 12px;
   color: #b4b4b4;
 }
@@ -159,6 +159,7 @@ export default {
 }
 .phone {
   background: url("../assets/iconfont/phone_u.png") no-repeat;
+  background-size: 20px 20px;
   position: absolute;
   width: 20px;
   height: 20px;
@@ -167,7 +168,7 @@ export default {
   z-index: 99;
 }
 .iphone {
-  background: url("../assets/iconfont/phone_s.png") no-repeat;
+  background: url("../assets/iconfont/phone_s.png") no-repeat !important;
 }
 .newTopInput {
   border: 1px #3082ff solid !important;
@@ -193,6 +194,7 @@ textarea::-webkit-input-placeholder {
 }
 .massge {
   background: url("../assets/iconfont/messasge_u.png") no-repeat;
+  background-size: 20px 20px;
   position: absolute;
   width: 20px;
   height: 20px;
@@ -220,7 +222,7 @@ textarea::-webkit-input-placeholder {
   font-size: 12px;
   color: #3082ff;
   background-color: #fff;
-  border: 1px #3082ff solid ;
+  border: 1px #3082ff solid;
 }
 .newButton {
   border: 1px #3082ff solid !important;

@@ -395,4 +395,7 @@ export default {
 .picker button {
   background-color: #000;
 }
+.charts {
+  margin-top: 16px;
+}
 </style>
