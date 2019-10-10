@@ -9,13 +9,12 @@ import Organization from './components/SystemManagement/Component/Organization.v
 import PermissionSetting from './components/SystemManagement/Component/PermissionSetting.vue'
 import UserManagement from './components/SystemManagement/Component/UserManagement.vue'
 
-
 import HomeFour from './components/HomeFour.vue'
 
 import ToiletManagement from './components/ToiletManagement/ToiletManagement.vue'
 import ToiletFile from './components/ToiletManagement/Component/ToiletFile.vue'
-import Appraisal from "./components/ToiletManagement/Component/Appraisal.vue"
-import BaiduMap from "./components/ToiletManagement/Component/BaiduMap.vue"
+import Appraisal from './components/ToiletManagement/Component/Appraisal.vue'
+import BaiduMap from './components/ToiletManagement/Component/BaiduMap.vue'
 import Publictoiletdetails from './components/ToiletManagement/Component/Publictoiletdetails.vue'
 import Rules from './components/ToiletManagement/Component/Rules.vue'
 import CommentReview from './components/ToiletManagement/Component/CommentReview.vue'
@@ -30,14 +29,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      // redirect: '/admin',
-      name: '首页',
-      component: Home
+      name: 'admin',
+      component: admin
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: admin,
+      path: '/home',
+      name: '首页',
+      component: Home
     },
     {
       path: '/login',
@@ -72,7 +70,7 @@ export default new Router({
           path: 'OperationLog',
           name: '操作日志',
           component: OperationLog
-        },
+        }
       ]
     },
     {
@@ -118,13 +116,13 @@ export default new Router({
           path: 'CommentList',
           name: '评论查看',
           component: CommentList
-        },
+        }
       ]
     },
     {
       path: '/Publictoiletdetails',
       name: '管理视频',
       component: Publictoiletdetails
-    },
+    }
   ]
 })
