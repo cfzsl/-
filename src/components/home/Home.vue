@@ -116,7 +116,6 @@ export default {
         },
         yAxis: {
           type: "category",
-          name: "y",
           splitLine: { show: true },
           data: [
             "25%",

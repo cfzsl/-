@@ -22,6 +22,7 @@ import CommentReview from './components/ToiletManagement/Component/CommentReview
 import CommentList from './components/ToiletManagement/Component/CommentList.vue'
 import PerformanceStatistics from './components/ToiletManagement/Component/PerformanceStatistics.vue'
 import login from './views/login.vue'
+import admin from './views/admin.vue'
 
 Vue.use(Router)
 
@@ -29,8 +30,14 @@ export default new Router({
   routes: [
     {
       path: '/',
+      // redirect: '/admin',
       name: '首页',
       component: Home
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: admin,
     },
     {
       path: '/login',
