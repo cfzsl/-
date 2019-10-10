@@ -81,19 +81,7 @@ export default {
     this.getNv();
     this.init();
   },
-  created(){
-    this.login();
-  },
   methods: {
-    login(){
-      let token = localStorage.getItem('token')
-      console.log(token)
-      if(!token){
-        this.$router.push({
-          path:'/Login'
-        })
-      }
-    },
     drawBar() {
       // 基于dom，初始化echarts实例
       let barGraph = echarts.init(document.getElementById("barGraph"));
@@ -105,7 +93,7 @@ export default {
         },
         legend: {
           left: "center",
-          data: ["本年", "上年"],
+          data: ["本周", "上周"],
           bottom: 0
         },
         xAxis: {
@@ -113,18 +101,11 @@ export default {
           name: "x",
           splitLine: { show: false },
           data: [
-            "一月",
-            "二月",
-            "三月",
-            "四月",
-            "五月",
-            "六月",
-            "七月",
-            "八月",
-            "九月",
-            "十月",
-            "十一月",
-            "十二月"
+            "周一",
+            "周二",
+            "周三",
+            "周四",
+            "周五",
           ]
         },
         grid: {
@@ -138,21 +119,15 @@ export default {
           name: "y",
           splitLine: { show: true },
           data: [
-            "10%",
-            "20%",
-            "30%",
-            "40%",
+            "25%",
             "50%",
-            "60%",
-            "70%",
-            "80%",
-            "90%",
+            "75%",
             "100%"
           ]
         },
         series: [
           {
-            name: "本年",
+            name: "本周",
             type: "line",
             data: [
               0.8,
@@ -160,17 +135,10 @@ export default {
               0.96,
               0.27,
               0.81,
-              0.47,
-              0.74,
-              0.23,
-              0.69,
-              0.25,
-              0.36,
-              0.56
             ]
           },
           {
-            name: "上年",
+            name: "上周",
             type: "line",
             data: [
               1,
@@ -178,14 +146,6 @@ export default {
               0.4,
               0.8,
               0.16,
-              0.32,
-              0.64,
-              1.28,
-              5.6,
-              0.25,
-              0.63,
-              0.65,
-              0.12
             ]
           }
         ]
@@ -329,7 +289,7 @@ export default {
   justify-content: space-around;
 }
 .product p {
-  font-size: 15px;
+  font-size: 12px;
 }
 .shitu {
   margin: 0px 1px 50px;
@@ -337,7 +297,8 @@ export default {
 }
 
 .num {
-  font-size: 25px;
+  font-size: 36px;
+  font-weight: 700;
 }
 
 .title {

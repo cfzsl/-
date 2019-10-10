@@ -21,7 +21,7 @@ import Rules from './components/ToiletManagement/Component/Rules.vue'
 import CommentReview from './components/ToiletManagement/Component/CommentReview.vue'
 import CommentList from './components/ToiletManagement/Component/CommentList.vue'
 import PerformanceStatistics from './components/ToiletManagement/Component/PerformanceStatistics.vue'
-import Login from './views/login.vue'
+import login from './views/login.vue'
 
 Vue.use(Router)
 
@@ -33,9 +33,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/Login',
+      path: '/login',
       name: '登录',
-      component: Login
+      component: login
     },
     {
       path: '/publicdetails',

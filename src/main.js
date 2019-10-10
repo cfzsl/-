@@ -10,8 +10,10 @@ import BaiduMap from 'vue-baidu-map'
 // 物理返回按钮测试
 import Back from './components/component/backbtn'
 
-// rem适配
+//路由守卫
+import './utils/permission'
 
+// rem适配
 import 'amfe-flexible';
 
 
@@ -35,8 +37,8 @@ Vue.use(BaiduMap, {
 })
 
 Axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-Axios.defaults.baseURL = 'http://192.168.8.109:9090/'
-// Axios.defaults.baseURL = 'http://47.110.160.217:5080/'
+// Axios.defaults.baseURL = 'http://192.168.8.109:9090/'
+Axios.defaults.baseURL = 'http://47.110.160.217:5080/'
 // Axios.defaults.baseURL = 'http://192.168.8.109:9090/'
 
 Vue.prototype.$http = Axios
