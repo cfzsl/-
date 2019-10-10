@@ -1,16 +1,18 @@
 <template>
   <!-- 公厕档案 -->
   <div>
+    <van-dropdown-menu>
+      <van-dropdown-item v-model="value2" :options="option2" />
+      <van-dropdown-item v-model="value3" :options="option3" />
+    </van-dropdown-menu>
+
     <van-row class="item">
       <van-col span="3">序号</van-col>
       <van-col span="8">公厕名</van-col>
       <van-col span="7">管养单位</van-col>
       <van-col span="6">状态</van-col>
     </van-row>
-    <van-dropdown-menu>
-      <van-dropdown-item v-model="value2" :options="option2" />
-      <van-dropdown-item v-model="value3" :options="option3" />
-    </van-dropdown-menu>
+    
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-row
         v-for="item in toiletFile()"
