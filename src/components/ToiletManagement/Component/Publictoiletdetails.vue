@@ -40,7 +40,8 @@
         <div class="content">
           <van-tab title="男厕">
             <van-row class="contentitem" type="flex" justify="space-around">
-              <van-col span="12">
+              <van-col span="1"></van-col>
+              <van-col span="11">
                 温度:
                 <span class="green">{{ this.details.tempm }}&#8451;</span>
               </van-col>
@@ -50,21 +51,44 @@
               </van-col>
             </van-row>
             <van-row class="contentitem" type="flex" justify="space-around">
-              <van-col span="12">
+              <van-col span="1"></van-col>
+              <van-col span="23">
                 硫化氢:
                 <span v-if="this.h2sm" class="green">{{ this.details.h2sm }}PPM</span>
                 <span v-if="!this.h2sm" class="red">{{ this.details.h2sm }}PPM</span>
+                <span>（标准值 ≤ {{ this.rules.maxh2smvalue }}PPM)</span>
               </van-col>
-              <van-col span="12">
+            </van-row>
+            <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="1"></van-col>
+              <van-col span="23">
                 氨气:
                 <span v-if="this.nh4m" class="green">{{ this.details.nh4m }}PPM</span>
                 <span v-if="!this.nh4m" class="red">{{ this.details.nh4m }}PPM</span>
+                <span>（标准值 ≤ {{ this.rules.maxnh4mvalue }}PPM)</span>
               </van-col>
             </van-row>
           </van-tab>
           <van-tab title="女厕">
+            <!-- 四竖排显示代码 -->
+            <!-- <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="1"></van-col>
+              <van-col span="23">
+                温度:
+                <span class="green">{{ this.details.tempw }}&#8451;</span>
+              </van-col>
+            </van-row>
             <van-row class="contentitem" type="flex" justify="space-around">
-              <van-col span="12">
+              <van-col span="1"></van-col>
+              <van-col span="23">
+                湿度:
+                <span class="green">{{ this.details.humw }}&#37;</span>
+              </van-col>
+            </van-row> -->
+
+            <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="1"></van-col>
+              <van-col span="11">
                 温度:
                 <span class="green">{{ this.details.tempw }}&#8451;</span>
               </van-col>
@@ -73,16 +97,23 @@
                 <span class="green">{{ this.details.humw }}&#37;</span>
               </van-col>
             </van-row>
+
             <van-row class="contentitem" type="flex" justify="space-around">
-              <van-col span="12">
+              <van-col span="1"></van-col>
+              <van-col span="23">
                 硫化氢:
                 <span v-if="this.h2sw" class="green">{{ this.details.h2sw }}PPM</span>
                 <span v-if="!this.h2sw" class="red">{{ this.details.h2sw }}PPM</span>
+                <span>（标准值 ≤ {{ this.rules.maxh2swvalue }}PPM)</span>
               </van-col>
-              <van-col span="12">
+            </van-row>
+            <van-row class="contentitem" type="flex" justify="space-around">
+              <van-col span="1"></van-col>
+              <van-col span="23">
                 氨气:
                 <span v-if="this.nh4w" class="green">{{ this.details.nh4w }}PPM</span>
                 <span v-else class="red">{{ this.details.nh4w }}PPM</span>
+                <span>（标准值 ≤ {{ this.rules.maxnh4wvalue }}PPM)</span>
               </van-col>
             </van-row>
           </van-tab>
@@ -97,7 +128,13 @@
           <van-col span="3">报警值</van-col>
         </van-row>
 
-        <van-row class="msgitem" type="flex" justify="space-around" v-for="(item,i) in WarningMsg" :key="item.id">
+        <van-row
+          class="msgitem"
+          type="flex"
+          justify="space-around"
+          v-for="(item,i) in WarningMsg"
+          :key="item.id"
+        >
           <van-col span="4">{{ i + 1 }}</van-col>
           <van-col span="6">{{ item.warningtype }}</van-col>
           <van-col span="11">{{ item.updatetime }}</van-col>
@@ -145,6 +182,7 @@ export default {
       nh4w: null,
       PublicMsg: {},
       WarningMsg: [{}],
+      rules: []
     };
   },
   components: {
@@ -175,6 +213,7 @@ export default {
     },
     getList() {
       this.$http.post("warningRules/list").then(result => {
+        this.rules = result;
         this.details.h2sm > result.maxh2smvalue
           ? (this.h2sm = false)
           : (this.h2sm = true);
@@ -208,7 +247,6 @@ export default {
         .then(res => {
           this.WarningMsg = res;
           console.log(this.WarningMsg);
-          
         });
     }
   },
@@ -235,7 +273,7 @@ export default {
 
 .bigbox {
   display: flex;
-  
+
   justify-content: center;
   padding: 10px 0;
 }
@@ -272,6 +310,7 @@ export default {
 }
 .contentitem {
   padding-bottom: 10px;
+  text-align-last: left;
 }
 
 .green {
@@ -293,6 +332,6 @@ export default {
 
 .msgitem {
   padding: 10px 0;
-  border-top: 1px solid #CCC;
+  border-top: 1px solid #ccc;
 }
 </style>

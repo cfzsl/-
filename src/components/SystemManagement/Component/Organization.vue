@@ -47,11 +47,13 @@
         />
       </van-cell-group>
     </van-dialog>
+    <Footer />
   </div>
 </template>
 
 <script>
 import { Toast } from "vant";
+import Footer from "../../footer/foot";
 export default {
   data() {
     return {
@@ -121,6 +123,9 @@ export default {
   },
   created() {
     this.getStructure();
+  },
+  components: {
+    Footer
   }
 };
 </script>

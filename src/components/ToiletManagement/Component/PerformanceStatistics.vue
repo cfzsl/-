@@ -93,7 +93,7 @@ export default {
         series: [
           {
             type: "bar",
-            barWidth: '30%',
+            barWidth: "30%",
             data: [
               {
                 value: 20,
@@ -165,14 +165,17 @@ export default {
   justify-content: space-around;
 }
 .product p {
-  font-size: 15px;
+  font-size: 12px;
+  margin: 0;
+  margin: 10px 0 5px 0;
 }
 .shitu {
   margin: 0px 1px 50px;
   background-color: #fff;
 }
 .num {
-  font-size: 25px;
+  font-size: 36px;
+  font-weight: 700;
 }
 .item {
   width: 175px;

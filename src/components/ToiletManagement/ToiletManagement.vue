@@ -24,41 +24,38 @@
       </transition>
     </div>
 
-    <transition>
-      <router-view></router-view>
-    </transition>
+    <router-view></router-view>
 
- 
-
-    <Footer></Footer>
+    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
-import Footer from "../footer/foot";
+// import Footer from "../footer/foot";
+
 export default {
   data() {
     return {
-      value: '',
-      toget: false
+      value: "",
+      toget: false,
     };
   },
-  components: {
-    Footer
-  },
+  // components: {
+  //   Footer
+  // },
   methods: {
-    onSearch(){
-      if(this.value){
+    onSearch() {
+      if (this.value) {
         this.$router.push({
-        path:'/ToiletManagement/ToiletFile',
-        query:{
-          id:this.value,
-        }
-      })
-      }else {
+          path: "/ToiletManagement/ToiletFile",
+          query: {
+            id: this.value
+          }
+        });
+      } else {
         this.$router.push({
-        path:'/ToiletManagement/ToiletFile',
-      })
+          path: "/ToiletManagement/ToiletFile"
+        });
       }
     },
     show() {
@@ -69,8 +66,7 @@ export default {
       e.target.addClass("active");
     }
   },
-  created() {
-  }
+  created() {}
 };
 </script>
 

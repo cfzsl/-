@@ -6,6 +6,8 @@
       :title="this.$route.name"
       fixed
       right-text="更多"
+      left-arrow
+      @click-left="back"
       @click-right="show"
     />
     <transition name="slide-fade">
@@ -21,12 +23,12 @@
       <router-view></router-view>
     </div>
 
-    <Footer></Footer>
+    <!-- <Footer></Footer> -->
   </div>
 </template>
 
 <script>
-import Footer from "../footer/foot";
+// import Footer from "../footer/foot";
 export default {
   data() {
     return {
@@ -36,14 +38,18 @@ export default {
   methods: {
     show() {
       this.toget = !this.toget;
+    },
+    back() {
+      this.$router.go(-1);
+      this.show()
     }
   },
   created() {
     console.log();
   },
-  components: {
-    Footer
-  }
+  // components: {
+  //   Footer
+  // }
 };
 </script>
 
