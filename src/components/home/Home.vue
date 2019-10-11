@@ -72,6 +72,9 @@ export default {
       return this.currentRate.toFixed(0);
     }
   },
+  created(){
+    this._upDateMemo()
+  },
   mounted() {
     this.drawBar();
     this.drawColumn();
@@ -82,6 +85,16 @@ export default {
     this.init();
   },
   methods: {
+    //版本更新
+    _upDateMemo(){
+      let memo = localStorage.getItem('memo')
+      this.$http.get('app/newAppName').then((res) => {
+        if(!res===memo){
+          location.href = 'http://47.110.160.217:5080/app/download'
+        }
+        console.log('没有新版本')
+      })
+    },
     drawBar() {
       // 基于dom，初始化echarts实例
       let barGraph = echarts.init(document.getElementById("barGraph"));

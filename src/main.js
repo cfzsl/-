@@ -8,10 +8,12 @@ import 'vant/lib/index.css'
 import './assets/communal.css'
 import BaiduMap from 'vue-baidu-map'
 // 物理返回按钮测试
-import Back from './components/component/backbtn'
+// import Back from './components/component/backbtn'
+import Mui from 'vue-awesome-mui'
 
 // 路由守卫
 import './utils/permission'
+
 
 // rem适配
 import 'amfe-flexible'
@@ -28,6 +30,7 @@ router.afterEach((to, from, next) => {
 })
 
 Vue.use(Vant)
+Vue.use(Mui)
 
 Vue.use(BaiduMap, {
   // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
@@ -49,7 +52,7 @@ Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 new Vue({
-  Back,
+  // Back,
   router,
   render: h => h(App)
 }).$mount('#app')

@@ -25,6 +25,8 @@ import admin from './views/admin.vue'
 
 Vue.use(Router)
 
+
+
 export default new Router({
   routes: [
     {
