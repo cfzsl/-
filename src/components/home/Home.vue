@@ -90,9 +90,11 @@ export default {
       let memo = localStorage.getItem('memo')
       this.$http.get('app/newAppName').then((res) => {
         if(!res===memo){
+          localStorage.clear();
           location.href = 'http://47.110.160.217:5080/app/download'
         }
         console.log('没有新版本')
+        // location.href = 'https://www.baidu.com/'
       })
     },
     drawBar() {
