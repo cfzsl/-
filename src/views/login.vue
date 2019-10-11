@@ -115,6 +115,7 @@ export default {
       this.$http.post('login/log', this.$qs.stringify(date)).then(res => {
         console.log(res)
         this.userInfo = res.data
+        localStorage.setItem('memo',this.userInfo.memo)
         localStorage.setItem('token', this.userInfo.token)
         if (this.userInfo.token) {
           this.$router.push({ path: '/home' })
