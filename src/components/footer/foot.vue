@@ -3,7 +3,7 @@
   <van-tabbar v-model="active" route class="vant-bar TabBar">
     <van-tabbar-item 
       replace 
-      to="/" 
+      to="/home" 
       icon="home-o">首页</van-tabbar-item>
     <van-tabbar-item 
       replace 

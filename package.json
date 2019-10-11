@@ -16,6 +16,7 @@
     "videojs-contrib-hls": "^5.15.0",
     "videojs-flash": "^2.2.0",
     "vue": "^2.6.10",
+    "vue-awesome-mui": "^1.7.3",
     "vue-baidu-map": "^0.21.22",
     "vue-router": "^3.0.3",
     "vue-video-player": "^5.0.2"
