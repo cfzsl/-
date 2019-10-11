@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 .lodin {
-  background: url("../assets/img/ic_splash.png") no-repeat;
+  background: url("../assets/img/ic_splash.png");
   background-size: 375px auto;
   width: 100%;
   height: 100%;
@@ -53,7 +53,7 @@ export default {
   width: 240px;
   height: 34px;
   position: fixed;
-  bottom: 12px;
+  bottom: 17px;
   left: 67px;
   font-size: 12px;
   color: #fff;
