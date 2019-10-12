@@ -1,7 +1,6 @@
 <template>
   <!-- 首页 -->
   <div class="homepage">
-
     <Header></Header>
 
     <div class="product">
@@ -13,11 +12,11 @@
         <p>东营区管养单位总数（个)</p>
         <div class="num" style="color: orange">{{ this.Custody }}</div>
       </div>
-      <div class="item">
+      <div class="item" @click="goList('男')">
         <p>东营区男公厕报警数（个)</p>
         <div class="num" style="color: blue">{{ this.nan }}</div>
       </div>
-      <div class="item">
+      <div class="item" @click="goList('女')">
         <p>东营区女公厕报警数（个)</p>
         <div class="num" style="color: red">{{ this.nv }}</div>
       </div>
@@ -57,7 +56,7 @@ export default {
   components: {
     dataPicker,
     Footer,
-    Header,
+    Header
   },
   data() {
     return {
@@ -72,8 +71,8 @@ export default {
       return this.currentRate.toFixed(0);
     }
   },
-  created(){
-    this._upDateMemo()
+  created() {
+    this._upDateMemo();
   },
   mounted() {
     this.drawBar();
@@ -86,16 +85,16 @@ export default {
   },
   methods: {
     //版本更新
-    _upDateMemo(){
-      let memo = localStorage.getItem('memo')
-      this.$http.get('app/newAppName').then((res) => {
-        if(!res===memo){
-          localStorage.clear();
-          location.href = 'http://47.110.160.217:5080/app/download'
-        }
-        console.log('没有新版本')
-        // location.href = 'https://www.baidu.com/'
-      })
+    _upDateMemo() {
+      // let memo = localStorage.getItem('memo')
+      // this.$http.get('app/newAppName').then((res) => {
+      //   if(!res===memo){
+      //     localStorage.clear();
+      //     location.href = 'http://47.110.160.217:5080/app/download'
+      //   }
+      //   console.log('没有新版本')
+      //   // location.href = 'https://www.baidu.com/'
+      // })
     },
     drawBar() {
       // 基于dom，初始化echarts实例
@@ -115,13 +114,7 @@ export default {
           type: "category",
           name: "x",
           splitLine: { show: false },
-          data: [
-            "周一",
-            "周二",
-            "周三",
-            "周四",
-            "周五",
-          ]
+          data: ["周一", "周二", "周三", "周四", "周五"]
         },
         grid: {
           left: "1%",
@@ -132,35 +125,18 @@ export default {
         yAxis: {
           type: "category",
           splitLine: { show: true },
-          data: [
-            "25%",
-            "50%",
-            "75%",
-            "100%"
-          ]
+          data: ["25%", "50%", "75%", "100%"]
         },
         series: [
           {
             name: "本周",
             type: "line",
-            data: [
-              0.8,
-              0.98,
-              0.96,
-              0.27,
-              0.81,
-            ]
+            data: [0.8, 0.98, 0.96, 0.27, 0.81]
           },
           {
             name: "上周",
             type: "line",
-            data: [
-              1,
-              0.2,
-              0.4,
-              0.8,
-              0.16,
-            ]
+            data: [1, 0.2, 0.4, 0.8, 0.16]
           }
         ]
       });
@@ -282,6 +258,12 @@ export default {
           // self.myColumn.echarts.resize();
         };
       }, 20);
+    },
+    goList(sex) {
+      this.$router.push({
+        name: "报警列表",
+        params: { sex }
+      });
     }
   }
 };

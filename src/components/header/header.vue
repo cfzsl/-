@@ -1,7 +1,7 @@
 <template>
   <!-- 头部 -->
   <div class="log">
-    <van-nav-bar :title=" $route.name ">
+    <van-nav-bar :title=" $route.name">
     </van-nav-bar>
   </div>
 </template>

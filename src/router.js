@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './components/home/Home.vue'
+import List from './components/home/component/list.vue'
 import publicdetails from './components/ToiletList/publicdetails.vue'
 
 import Management from './components/SystemManagement/Management.vue'
@@ -37,7 +38,12 @@ export default new Router({
     {
       path: '/home',
       name: '首页',
-      component: Home
+      component: Home,
+    },
+    {
+      path: 'list',
+      name: '报警列表',
+      component: List
     },
     {
       path: '/login',
