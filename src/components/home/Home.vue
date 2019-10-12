@@ -4,11 +4,11 @@
     <Header></Header>
 
     <div class="product">
-      <div class="item">
+      <div class="item" @click="routerPushList">
         <p>东营区公共厕所（个)</p>
         <div class="num" style="color: green">{{ this.total }}</div>
       </div>
-      <div class="item">
+      <div class="item" @click="routerPush">
         <p>东营区管养单位总数（个)</p>
         <div class="num" style="color: orange">{{ this.Custody }}</div>
       </div>
@@ -84,13 +84,26 @@ export default {
     this.init();
   },
   methods: {
+    routerPushList(){
+      this.$router.push({
+        path:'/ToiletManagement/ToiletFile'
+      })
+    },
+    routerPush(){
+      // console.log('0000')
+      this.$router.push({
+        path:'/ToiletManagement/Appraisal'
+      })
+    },
     //版本更新
-    _upDateMemo() {
+    _upDateMemo(){
       // let memo = localStorage.getItem('memo')
       // this.$http.get('app/newAppName').then((res) => {
-      //   if(!res===memo){
-      //     localStorage.clear();
+      //   console.log(res)
+      //   if(res>memo){
       //     location.href = 'http://47.110.160.217:5080/app/download'
+      //     localStorage.clear();
+      //     this.$router.push({path:'/login'})
       //   }
       //   console.log('没有新版本')
       //   // location.href = 'https://www.baidu.com/'

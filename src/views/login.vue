@@ -122,11 +122,12 @@ export default {
         } else {
           Toast('验证码错误')
         }
-        // this.isUpdate = res.isUpdate
-        // if (this.isUpdate) {
-        //   location.href = 'http://47.110.160.217:5080/app/download'
-        // } else {
-        //   console.log('没有新版本')
+      //   this.isUpdate = res.isUpdate
+      //   if (this.isUpdate) {
+      //     location.href = 'http://47.110.160.217:5080/app/download'
+      //   } else {
+      //     console.log('没有新版本')
+      //   }
       })
     }
   }
@@ -135,6 +136,7 @@ export default {
 
 <style scoped >
 .lodingBgc {
+  position: relative;
   background: url("../assets/img/login_background.png") no-repeat;
   background-size: 375px auto;
   width: 100%;
