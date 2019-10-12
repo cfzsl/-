@@ -1,5 +1,5 @@
 <template>
-  <!-- 首页 -->
+  <!-- 绩效统计 -->
   <div class="homepage">
     <div class="product">
       <div class="item">

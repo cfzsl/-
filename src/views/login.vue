@@ -115,19 +115,19 @@ export default {
       this.$http.post('login/log', this.$qs.stringify(date)).then(res => {
         console.log(res)
         this.userInfo = res.data
-        localStorage.setItem('memo',this.userInfo.memo)
+        // localStorage.setItem('memo',this.userInfo.memo)
         localStorage.setItem('token', this.userInfo.token)
         if (this.userInfo.token) {
           this.$router.push({ path: '/home' })
         } else {
           Toast('验证码错误')
         }
-        this.isUpdate = res.isUpdate
-        if (this.isUpdate) {
-          location.href = 'http://47.110.160.217:5080/app/download'
-        } else {
-          console.log('没有新版本')
-        }
+      //   this.isUpdate = res.isUpdate
+      //   if (this.isUpdate) {
+      //     location.href = 'http://47.110.160.217:5080/app/download'
+      //   } else {
+      //     console.log('没有新版本')
+      //   }
       })
     }
   }
@@ -136,13 +136,14 @@ export default {
 
 <style scoped >
 .lodingBgc {
+  position: relative;
   background: url("../assets/img/login_background.png") no-repeat;
   background-size: 375px auto;
   width: 100%;
   height: 286px;
 }
 .text {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
