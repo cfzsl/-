@@ -1,14 +1,17 @@
 <template>
   <!-- 组织结构 -->
   <div>
-    <van-button type="primary" size="small" class="newbtn" color="#09f" @click="show">新增</van-button>
+    <div class="orgzbox">
+      <div style="background-color: #e6e6e6">
+        <van-button type="primary" size="small" class="newbtn" color="#73AEFF" @click="show">新增</van-button>
+      </div>
 
-    <van-row class="topbar">
-      <van-col span="12">名称</van-col>
-      <van-col span="4">编号</van-col>
-      <van-col span="8">操作</van-col>
-    </van-row>
-
+      <van-row class="topbar">
+        <van-col span="12">名称</van-col>
+        <van-col span="4">编号</van-col>
+        <van-col span="8">操作</van-col>
+      </van-row>
+    </div>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh" class="refresh">
       <van-row
         v-for="item in list"
@@ -144,11 +147,23 @@ export default {
   font-size: 12px;
   border-radius: 5px;
 }
+
+.orgzbox {
+position: fixed;
+width: 100%;
+top: 46px;
+z-index: 9;
+}
+
+.refresh {
+  margin-top: 120px;
+}
+
 .topbar {
   font-size: 15px;
   height: 30px;
   line-height: 30px;
-  background-color: #e7e7e7;
+  background-color: #cae4fc;
   z-index: 99;
 }
 .list {
@@ -168,10 +183,10 @@ export default {
   border-radius: 5px;
 }
 .delete {
-  background-color: red;
+  background-color: #f88279;
 }
 .new {
-  background-color: #0099ff;
+  background-color: #8fd662;
   margin-right: 5px;
 }
 </style>

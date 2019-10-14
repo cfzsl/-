@@ -22,13 +22,10 @@
     <div class="contentbox">
       <router-view></router-view>
     </div>
-
-    <!-- <Footer></Footer> -->
   </div>
 </template>
 
 <script>
-// import Footer from "../footer/foot";
 export default {
   data() {
     return {
@@ -41,15 +38,12 @@ export default {
     },
     back() {
       this.$router.go(-1);
-      this.show()
+      this.show();
     }
   },
   created() {
     console.log();
-  },
-  // components: {
-  //   Footer
-  // }
+  }
 };
 </script>
 
@@ -58,6 +52,10 @@ export default {
 .contentbox {
   margin-top: 46px;
   margin-bottom: 50px;
+}
+
+.navbar {
+  border-bottom: 1px solid #dbdbdb;
 }
 
 .menu {
@@ -87,5 +85,9 @@ export default {
 .slide-fade-leave-to {
   transform: translateY(-10px);
   opacity: 0;
+}
+.van-nav-bar__text,
+.van-nav-bar__arrow {
+  color: #000 !important;
 }
 </style>

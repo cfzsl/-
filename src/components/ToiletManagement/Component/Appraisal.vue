@@ -1,19 +1,41 @@
 <template>
   <!-- 绩效考核 -->
   <div>
+    <van-nav-bar
+      class="navbar"
+      :title="this.$route.name"
+      fixed
+      right-text="更多"
+      left-arrow
+      @click-left="back"
+      @click-right="show"
+    />
+    <transition name="slide-fade">
+      <div class="menu" v-show="toget" @click="show">
+        <router-link to="/ToiletManagement/ToiletFile">公厕档案</router-link>
+        <router-link to="/ToiletManagement/">公厕分布</router-link>
+        <router-link to="/ToiletManagement/Appraisal">绩效考核</router-link>
+        <router-link to="/ToiletManagement/PerformanceStatistics">绩效统计</router-link>
+        <router-link to="/ToiletManagement/Rules">绩效规则</router-link>
+        <router-link to="/ToiletManagement/CommentReview">评论审核</router-link>
+        <router-link to="/ToiletManagement/CommentList">评论查看</router-link>
+      </div>
+    </transition>
     <DropdownMenu :status="status"></DropdownMenu>
 
-    <div class="month">
-      <dataPicker class="picker"></dataPicker>
+    <div class="itembox">
+      <div class="month">
+        <dataPicker class="picker"></dataPicker>
+      </div>
+
+      <van-row class="item">
+        <van-col span="12">管养单位</van-col>
+        <van-col span="6">报警次数</van-col>
+        <van-col span="6">平均得分</van-col>
+      </van-row>
     </div>
 
-    <van-row class="item">
-      <van-col span="12">管养单位</van-col>
-      <van-col span="6">报警次数</van-col>
-      <van-col span="6">平均得分</van-col>
-    </van-row>
-
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <van-pull-refresh class="appbox" v-model="isLoading" @refresh="onRefresh">
       <van-row
         class="list"
         type="flex"
@@ -41,6 +63,7 @@ export default {
   data() {
     return {
       date: false,
+
       currentDate: new Date(),
       status: [
         { text: "全报警次数", value: 0 },
@@ -52,10 +75,18 @@ export default {
         { text: "5次", value: 6 }
       ],
       assessList: null,
-      isLoading: false
+      isLoading: false,
+      toget: false
     };
   },
   methods: {
+    show() {
+      this.toget = !this.toget;
+    },
+    back() {
+      this.$router.go(-1);
+      this.show();
+    },
     onRefresh() {
       setTimeout(() => {
         this.getAssessList();
@@ -93,8 +124,17 @@ export default {
 <style scoped>
 .item {
   font-size: 15px;
-  background-color: #e7e7e7;
+  background-color: #c2fbff;
   line-height: 30px;
+}
+.itembox {
+  position: fixed;
+  top: 46px;
+  width: 100%;
+  z-index: 9;
+}
+.appbox {
+  margin-top: 65px;
 }
 
 .month {
@@ -102,8 +142,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   height: 40px;
-  background-color: #ccc;
-  margin-bottom: 10px;
+  background-color: #e6e6e6;
 }
 
 .text {
@@ -120,5 +159,33 @@ export default {
   font-size: 12px;
   margin: 5px 0;
   border-bottom: 1px solid #000;
+}
+.menu {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 46px;
+  z-index: 10;
+  background-color: #fff;
+}
+.menu a {
+  display: block;
+  width: 93px;
+  font-size: 12px;
+  padding: 5px 0 10px 0;
+  color: #000;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
 }
 </style>

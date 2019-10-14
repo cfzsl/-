@@ -1,22 +1,23 @@
 <template>
   <div>
-    <van-search
-      v-model="searchValue"
-      placeholder="请输入搜索关键词"
-      show-action
-      action-text="新增"
-      @search="onSearch()"
-      @cancel="showEdit"
-    />
-    <!-- 列表 -->
-    <van-collapse v-model="activeNames" :border="false">
+    <div class="header">
+      <van-search
+        v-model="searchValue"
+        placeholder="请输入搜索关键词"
+        show-action
+        action-text="新增"
+        @search="onSearch()"
+        @cancel="showEdit"
+      />
       <van-row class="titlebox">
         <van-col span="6">序号</van-col>
         <van-col span="8">用户名</van-col>
         <van-col span="9">管养单位</van-col>
         <van-col span="1"></van-col>
       </van-row>
-
+    </div>
+    <!-- 列表 -->
+    <van-collapse class="userbox" v-model="activeNames" :border="false">
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <van-collapse-item class="item" :name="item.sid" v-for="item in userList" :key="item.sid">
           <div slot="title">
@@ -198,9 +199,20 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  position: fixed;
+  top: 46px;
+  width: 100%;
+  z-index: 9;
+}
+
+.userbox {
+  margin-top: 130px
+}
+
 .titlebox {
   font-size: 15px;
-  background-color: #e7e7e7;
+  background-color: #cae4fc;
   line-height: 30px;
 }
 

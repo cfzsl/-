@@ -78,7 +78,7 @@ export default {
 }
 
 .van-nav-bar {
-  background-color: #c2fbff !important;
+  background-color: #C2FBFF !important;
 }
 .item {
   height: 50px;

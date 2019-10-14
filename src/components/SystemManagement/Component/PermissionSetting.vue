@@ -9,7 +9,7 @@
       <van-col span="5">操作</van-col>
     </van-row>
 
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <van-pull-refresh class="setbox" v-model="isLoading" @refresh="onRefresh">
       <div class="list" v-for="item in permissionList" :key="item.sid">
         <van-row type="flex" justify="space-around">
           <van-col span="6">{{ item.sid}}</van-col>
@@ -91,9 +91,16 @@ export default {
 
 <style scoped>
 .titlebox {
+  position: fixed;
+  top: 46px;
+  width: 100%;
   font-size: 15px;
-  background-color: #e7e7e7;
+  background-color: #cae4fc;
   line-height: 30px;
+  z-index: 9;
+}
+.setbox {
+  margin-top: 76px;
 }
 .bigbox {
   font-size: 15px;

@@ -1,25 +1,48 @@
 <template>
   <div>
-    <div class="month">
-      <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
+    <van-nav-bar
+      class="navbar"
+      :title="this.$route.name"
+      fixed
+      right-text="更多"
+      left-arrow
+      @click-left="back"
+      @click-right="show"
+    />
+    <transition name="slide-fade">
+      <div class="menu" v-show="toget" @click="show">
+        <router-link to="/ToiletManagement/ToiletFile">公厕档案</router-link>
+        <router-link to="/ToiletManagement/">公厕分布</router-link>
+        <router-link to="/ToiletManagement/Appraisal">绩效考核</router-link>
+        <router-link to="/ToiletManagement/PerformanceStatistics">绩效统计</router-link>
+        <router-link to="/ToiletManagement/Rules">绩效规则</router-link>
+        <router-link to="/ToiletManagement/CommentReview">评论审核</router-link>
+        <router-link to="/ToiletManagement/CommentList">评论查看</router-link>
+      </div>
+    </transition>
 
-      <div class="text">共{{ this.CommentList.length }}条数据</div>
+    <div class="itembox">
+      <div class="month">
+        <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
+
+        <div class="text">共{{ this.CommentList.length }}条数据</div>
+      </div>
+
+      <van-row class="titleitem">
+        <van-col span="3">序号</van-col>
+        <van-col span="8">公厕名称</van-col>
+        <van-col span="13">评论人</van-col>
+      </van-row>
     </div>
 
-    <van-row class="titleitem">
-      <van-col span="3">序号</van-col>
-      <van-col span="9">公厕名称</van-col>
-      <van-col span="12">评论人</van-col>
-    </van-row>
-
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <van-pull-refresh class="listbox" v-model="isLoading" @refresh="onRefresh">
       <van-collapse v-model="activeNames" :border="false">
         <van-collapse-item class="item" v-for="item in this.CommentList" :key="item.sid">
           <div slot="title">
             <van-row>
               <van-col span="6">{{ item.sid }}</van-col>
-              <van-col span="12">{{ item.wcname }}</van-col>
-              <van-col span="6">{{ item.userid }}</van-col>
+              <van-col span="10">{{ item.wcname }}</van-col>
+              <van-col span="8">{{ item.userid }}</van-col>
             </van-row>
           </div>
           <div class="content">
@@ -52,10 +75,18 @@ export default {
       date: false,
       currentDate: null,
       activeNames: [],
-      isLoading: false
+      isLoading: false,
+      toget: false
     };
   },
   methods: {
+    show() {
+      this.toget = !this.toget;
+    },
+    back() {
+      this.$router.go(-1);
+      this.show();
+    },
     onRefresh() {
       setTimeout(() => {
         this.getList();
@@ -130,13 +161,20 @@ export default {
   justify-content: space-between;
   align-items: center;
   height: 40px;
-  background-color: #ccc;
-  margin-bottom: 10px;
+  background-color: #e6e6e6;
 }
-
+.itembox {
+  position: fixed;
+  top: 46px;
+  width: 100%;
+  z-index: 9;
+}
+.listbox {
+  margin-top: 115px;
+}
 .titleitem {
   font-size: 15px;
-  background-color: #e7e7e7;
+  background-color: #c2fbff;
   line-height: 30px;
 }
 
@@ -155,9 +193,38 @@ export default {
 }
 .text {
   font-size: 12px;
+  padding-right: 15px;
 }
 .item {
   border-bottom: 1px solid #ccc !important;
   text-align: left;
+}
+.menu {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 46px;
+  z-index: 10;
+  background-color: #fff;
+}
+.menu a {
+  display: block;
+  width: 93px;
+  font-size: 12px;
+  padding: 5px 0 10px 0;
+  color: #000;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
 }
 </style>

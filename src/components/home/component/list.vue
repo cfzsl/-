@@ -72,18 +72,9 @@ export default {
 </script>
 
 <style scoped>
-.month {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 40px;
-  background-color: #ccc;
-  margin-bottom: 10px;
-}
-
 .titleitem {
   font-size: 15px;
-  background-color: #e7e7e7;
+  background-color: #C2FBFF;
   line-height: 30px;
 }
 

@@ -1,6 +1,27 @@
 <template>
   <!-- 绩效统计 -->
   <div class="homepage">
+    <van-nav-bar
+      class="navbar"
+      :title="this.$route.name"
+      fixed
+      right-text="更多"
+      left-arrow
+      @click-left="back"
+      @click-right="show"
+    />
+    <transition name="slide-fade">
+      <div class="menu" v-show="toget" @click="show">
+        <router-link to="/ToiletManagement/ToiletFile">公厕档案</router-link>
+        <router-link to="/ToiletManagement/">公厕分布</router-link>
+        <router-link to="/ToiletManagement/Appraisal">绩效考核</router-link>
+        <router-link to="/ToiletManagement/PerformanceStatistics">绩效统计</router-link>
+        <router-link to="/ToiletManagement/Rules">绩效规则</router-link>
+        <router-link to="/ToiletManagement/CommentReview">评论审核</router-link>
+        <router-link to="/ToiletManagement/CommentList">评论查看</router-link>
+      </div>
+    </transition>
+
     <div class="product">
       <div class="item">
         <p>东营区公共厕所（个)</p>
@@ -41,10 +62,18 @@ export default {
       total: null,
       Custody: null,
       nan: null,
-      nv: null
+      nv: null,
+      toget: false
     };
   },
   methods: {
+    show() {
+      this.toget = !this.toget;
+    },
+    back() {
+      this.$router.go(-1);
+      this.show()
+    },
     getTotal() {
       this.$http.get("wc/count").then(res => {
         console.log(res);
@@ -158,6 +187,7 @@ export default {
 }
 .product {
   display: flex;
+  margin-top: 50px;
   background-color: #ccc;
   z-index: 50;
   overflow: hidden;
@@ -184,5 +214,34 @@ export default {
   padding: 5px;
   background-color: #fff;
   border-radius: 5px;
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: fixed;
+  top: 46px;
+  z-index: 10;
+  background-color: #fff;
+}
+.menu a {
+  display: block;
+  width: 93px;
+  font-size: 12px;
+  padding: 5px 0 10px 0;
+  color: #000;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
 }
 </style>

@@ -6,7 +6,7 @@
       <div class="text">共{{ this.logList.length }}条数据</div>
     </div>
 
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <van-pull-refresh class="logbox" v-model="isLoading" @refresh="onRefresh">
       <van-row
         class="list"
         type="flex"
@@ -114,11 +114,19 @@ export default {
 
 <style scoped>
 .month {
+  position: fixed;
+  top: 46px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 40px;
-  background-color: #ccc;
+  background-color: #e6e6e6;
+  z-index: 9;
+}
+
+.logbox {
+  margin-top: 86px;
 }
 
 .datepicker {
