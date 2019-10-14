@@ -115,7 +115,7 @@ export default {
       this.$http.post('login/log', this.$qs.stringify(date)).then(res => {
         console.log(res)
         this.userInfo = res.data
-        // localStorage.setItem('memo',this.userInfo.memo)
+        localStorage.setItem('updateTime',this.userInfo.enable)
         localStorage.setItem('token', this.userInfo.token)
         if (this.userInfo.token) {
           this.$router.push({ path: '/home' })
@@ -143,7 +143,7 @@ export default {
 }
 .text {
   position: fixed;
-  margin-top: 80%;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 12px;
