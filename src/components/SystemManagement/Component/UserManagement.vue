@@ -17,27 +17,36 @@
         <van-col span="1"></van-col>
       </van-row>
 
-      <van-collapse-item class="item" :name="item.sid" v-for="item in userList" :key="item.sid">
-        <div slot="title">
-          <van-row>
-            <van-col span="4">{{ item.sid}}</van-col>
-            <van-col span="13">{{ item.username}}</van-col>
-            <van-col span="6">{{ item.departName}}</van-col>
-          </van-row>
-        </div>
-        <div class="content">
-          <div>性别: &emsp;{{ item.gender }}</div>
-          <div>手机: &emsp;{{ item.tel }}</div>
-          <div>电话: &emsp;{{ item.mobile }}</div>
-          <div>邮箱: &emsp;{{ item.email }}</div>
-        </div>
-        <div class="edit" @click="showEdit(item)">编辑</div>
-        <div class="detele" @click="del(item.sid)">删除</div>
-      </van-collapse-item>
+      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+        <van-collapse-item class="item" :name="item.sid" v-for="item in userList" :key="item.sid">
+          <div slot="title">
+            <van-row>
+              <van-col span="4">{{ item.sid}}</van-col>
+              <van-col span="13">{{ item.username}}</van-col>
+              <van-col span="6">{{ item.departName}}</van-col>
+            </van-row>
+          </div>
+          <div class="content">
+            <div>性别: &emsp;{{ item.gender }}</div>
+            <div>手机: &emsp;{{ item.tel }}</div>
+            <div>电话: &emsp;{{ item.mobile }}</div>
+            <div>邮箱: &emsp;{{ item.email }}</div>
+          </div>
+          <div class="edit" @click="showEdit(item)">编辑</div>
+          <div class="detele" @click="del(item.sid)">删除</div>
+        </van-collapse-item>
+      </van-pull-refresh>
     </van-collapse>
 
     <!-- 弹出层 -->
-    <van-dialog v-model="showManagement" title="用户管理" show-cancel-button @confirm="operating">
+    <van-dialog
+      closeOnClickOverlay
+      v-model="showManagement"
+      title="用户管理"
+      show-cancel-button
+      @confirm="operating"
+      @cancel="data = {}"
+    >
       <van-cell-group>
         <van-field
           v-model="data.username"
@@ -115,10 +124,18 @@ export default {
         mobile: null,
         tel: null,
         email: null
-      }
+      },
+      isLoading: false
     };
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.getUserList();
+        this.$toast("刷新成功");
+        this.isLoading = false;
+      }, 500);
+    },
     showEdit(item) {
       if (item) {
         this.data.sid = item.sid;
@@ -144,12 +161,13 @@ export default {
             res ? Toast.success("编辑成功") : Toast.fail("编辑失败");
           });
         this.getUserList();
+        this.data = {};
       } else {
         this.$http.post("user/add", this.$qs.stringify(this.data)).then(res => {
           res ? Toast.success("新增成功") : Toast.fail("新增失败");
         });
       }
-      this.searchValue = null;
+      // this.searchValue = null;
       this.getUserList();
     },
     del(id) {
@@ -182,7 +200,7 @@ export default {
 <style scoped>
 .titlebox {
   font-size: 15px;
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
   line-height: 30px;
 }
 

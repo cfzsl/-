@@ -34,6 +34,7 @@ export default {
   methods: {
     onRefresh() {
       setTimeout(() => {
+        this.getList();
         this.$toast("刷新成功");
         this.isLoading = false;
       }, 500);
@@ -77,7 +78,7 @@ export default {
 }
 
 .van-nav-bar {
-  background-color: #ccc !important;
+  background-color: #c2fbff !important;
 }
 .item {
   height: 50px;

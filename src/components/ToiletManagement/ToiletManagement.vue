@@ -25,14 +25,10 @@
     </div>
 
     <router-view></router-view>
-
-    <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
-// import Footer from "../footer/foot";
-
 export default {
   data() {
     return {

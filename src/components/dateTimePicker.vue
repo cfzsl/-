@@ -57,7 +57,7 @@ export default {
   width: 100%;
   position: fixed;
   left: 0;
-  bottom: 50px;
+  bottom: 0;
   z-index: 999;
 }
 </style>

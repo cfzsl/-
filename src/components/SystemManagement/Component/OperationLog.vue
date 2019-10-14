@@ -6,18 +6,21 @@
       <div class="text">共{{ this.logList.length }}条数据</div>
     </div>
 
-    <van-row
-      class="list"
-      type="flex"
-      justify="space-around"
-      v-for="item in logList"
-      :key="item.id"
-      align="center"
-    >
-      <van-col span="12">{{ item.operatetime | formatDate }}</van-col>
-      <van-col span="16">{{ item.operateperson }}</van-col>
-      <van-col span="8">{{ item.operatedetail }}</van-col>
-    </van-row>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-row
+        class="list"
+        type="flex"
+        justify="space-around"
+        v-for="item in logList"
+        :key="item.id"
+        align="center"
+      >
+        <van-col span="12">{{ item.operatetime | formatDate }}</van-col>
+        <van-col span="16">{{ item.operateperson }}</van-col>
+        <van-col span="8">{{ item.operatedetail }}</van-col>
+      </van-row>
+    </van-pull-refresh>
+
     <van-datetime-picker
       class="datepicker"
       v-show="date"
@@ -27,6 +30,7 @@
       @confirm="selectDate"
       @cancel="showPicker"
     />
+    <van-overlay :show="date" @click="date = false" />
   </div>
 </template>
 
@@ -36,10 +40,18 @@ export default {
     return {
       logList: [],
       date: false,
-      currentDate: null
+      currentDate: null,
+      isLoading: false,
     };
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.getOperationLog();
+        this.$toast("刷新成功");
+        this.isLoading = false;
+      }, 500);
+    },
     showPicker() {
       this.date = !this.date;
     },
@@ -60,7 +72,6 @@ export default {
       this.date = !this.date;
     },
     selectDate(value) {
-      console.log(value);
       this.showPicker();
     }
   },
@@ -108,13 +119,12 @@ export default {
   align-items: center;
   height: 40px;
   background-color: #ccc;
-  margin-bottom: 10px;
 }
 
 .datepicker {
   width: 100%;
   position: fixed;
-  bottom: 50px;
+  bottom: 0;
   z-index: 999;
 }
 .datePickerBtn {

@@ -29,7 +29,13 @@
       </van-row>
     </van-pull-refresh>
 
-    <van-dialog v-model="showManagement" title="新增组织结构" show-cancel-button @confirm="submit">
+    <van-dialog
+      closeOnClickOverlay
+      v-model="showManagement"
+      title="新增组织结构"
+      show-cancel-button
+      @confirm="submit"
+    >
       <van-cell-group>
         <van-field
           v-model="data.name"
@@ -75,9 +81,9 @@ export default {
     },
     onRefresh() {
       setTimeout(() => {
+        this.getStructure();
         this.$toast("刷新成功");
         this.isLoading = false;
-        this.count++;
       }, 500);
     },
     show(item) {
@@ -142,7 +148,7 @@ export default {
   font-size: 15px;
   height: 30px;
   line-height: 30px;
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
   z-index: 99;
 }
 .list {

@@ -9,23 +9,25 @@
       <van-col span="1"></van-col>
     </van-row>
 
-    <van-collapse v-model="activeNames" :border="false">
-      <van-collapse-item class="item" v-for="(item,i) in this.List" :key="item.id">
-        <div slot="title">
-          <van-row>
-            <van-col span="4">{{ i + 1 }}</van-col>
-            <van-col span="12">{{ item.wcname }}</van-col>
-            <van-col span="8">{{ item.warningtype }}</van-col>
-          </van-row>
-        </div>
-        <div class="content">
-          <div>管养单位: {{ item.depart }}</div>
-          <div>报警时间: {{ item.updatetime}}</div>
-          <div>负责人姓名: {{ item.person}}</div>
-          <div>负责人电话: {{ item.chargeTel}}</div>
-        </div>
-      </van-collapse-item>
-    </van-collapse>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-collapse v-model="activeNames" :border="false">
+        <van-collapse-item class="item" v-for="(item,i) in this.List" :key="item.id">
+          <div slot="title">
+            <van-row>
+              <van-col span="4">{{ i + 1 }}</van-col>
+              <van-col span="12">{{ item.wcname }}</van-col>
+              <van-col span="8">{{ item.warningtype }}</van-col>
+            </van-row>
+          </div>
+          <div class="content">
+            <div>管养单位: {{ item.depart }}</div>
+            <div>报警时间: {{ item.updatetime}}</div>
+            <div>负责人姓名: {{ item.person}}</div>
+            <div>负责人电话: {{ item.chargeTel}}</div>
+          </div>
+        </van-collapse-item>
+      </van-collapse>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -36,21 +38,25 @@ export default {
       List: [],
       date: false,
       currentDate: null,
-      activeNames: []
+      activeNames: [],
+      isLoading: false
     };
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.getList();
+        this.$toast("刷新成功");
+        this.isLoading = false;
+      }, 500);
+    },
     getList() {
       if (this.$route.params.sex == "男") {
         this.$http.get("wc/warning/logs/get/sex/apk/man").then(res => {
-          console.log(res);
-
           this.List = res.data;
         });
       } else if (this.$route.params.sex == "女") {
         this.$http.get("wc/warning/logs/get/sex/apk/woman").then(res => {
-          console.log(res);
-
           this.List = res.data;
         });
       }
@@ -61,7 +67,6 @@ export default {
   },
   created() {
     this.getList();
-    console.log(this.$route.params.sex);
   }
 };
 </script>

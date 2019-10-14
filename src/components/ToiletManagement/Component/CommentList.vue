@@ -12,21 +12,23 @@
       <van-col span="12">评论人</van-col>
     </van-row>
 
-    <van-collapse v-model="activeNames" :border="false">
-      <van-collapse-item class="item" v-for="item in this.CommentList" :key="item.sid">
-        <div slot="title">
-          <van-row>
-            <van-col span="6">{{ item.sid }}</van-col>
-            <van-col span="12">{{ item.wcname }}</van-col>
-            <van-col span="6">{{ item.userid }}</van-col>
-          </van-row>
-        </div>
-        <div class="content">
-          <div>评论时间: {{ item.createtime }}</div>
-          <div>评论内容: {{ item.content}}</div>
-        </div>
-      </van-collapse-item>
-    </van-collapse>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-collapse v-model="activeNames" :border="false">
+        <van-collapse-item class="item" v-for="item in this.CommentList" :key="item.sid">
+          <div slot="title">
+            <van-row>
+              <van-col span="6">{{ item.sid }}</van-col>
+              <van-col span="12">{{ item.wcname }}</van-col>
+              <van-col span="6">{{ item.userid }}</van-col>
+            </van-row>
+          </div>
+          <div class="content">
+            <div>评论时间: {{ item.createtime }}</div>
+            <div>评论内容: {{ item.content}}</div>
+          </div>
+        </van-collapse-item>
+      </van-collapse>
+    </van-pull-refresh>
 
     <van-datetime-picker
       class="datepicker"
@@ -37,6 +39,8 @@
       @confirm="selectDate"
       @cancel="showPicker"
     />
+
+    <van-overlay :show="date" @click="date = false" />
   </div>
 </template>
 
@@ -47,10 +51,18 @@ export default {
       CommentList: [],
       date: false,
       currentDate: null,
-      activeNames: []
+      activeNames: [],
+      isLoading: false
     };
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.getList();
+        this.$toast("刷新成功");
+        this.isLoading = false;
+      }, 500);
+    },
     showPicker() {
       this.date = !this.date;
     },
@@ -131,7 +143,7 @@ export default {
 .datepicker {
   width: 100%;
   position: fixed;
-  bottom: 50px;
+  bottom: 0;
   z-index: 999;
 }
 .datePickerBtn {

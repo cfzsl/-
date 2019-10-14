@@ -12,7 +12,7 @@
       <van-col span="7">管养单位</van-col>
       <van-col span="6">状态</van-col>
     </van-row>
-    
+
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-row
         v-for="item in toiletFile()"
@@ -50,7 +50,7 @@ export default {
         { text: "全部状态", value: 0 },
         { text: "开放使用", value: 1 },
         { text: "暂停使用", value: 2 },
-        { text: "即将开放", value: 3 },
+        { text: "即将开放", value: 3 }
       ]
     };
   },
@@ -58,10 +58,7 @@ export default {
     // 获取list
     getToiletFile() {
       this.$http.get("android/wcinfo/list").then(res => {
-        console.log(res);
         this.toiletfile = res.data;
-        console.log(this.toiletfile);
-        // console.log(this.toiletfile);
         for (let i = 0; i < this.toiletfile.length; i++) {
           if (this.listHost.indexOf(this.toiletfile[i].depart) == -1) {
             this.listHost.push(this.toiletfile[i].depart);
@@ -74,7 +71,6 @@ export default {
             value: v++
           });
         }
-        console.log(this.option2);
       });
     },
     toiletFile() {
@@ -92,6 +88,7 @@ export default {
     },
     onRefresh() {
       setTimeout(() => {
+        this.getToiletFile();
         this.$toast("刷新成功");
         this.isLoading = false;
         this.count++;
@@ -129,8 +126,6 @@ export default {
   },
   created() {
     this.getToiletFile();
-    // this._listIndex();
-    console.log(this.$route.query);
   },
   components: {}
 };

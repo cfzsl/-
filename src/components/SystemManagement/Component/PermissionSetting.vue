@@ -9,18 +9,26 @@
       <van-col span="5">操作</van-col>
     </van-row>
 
-    <div class="list" v-for="item in permissionList" :key="item.sid">
-      <van-row type="flex" justify="space-around">
-        <van-col span="6">{{ item.sid}}</van-col>
-        <van-col span="8">{{ item.username}}</van-col>
-        <van-col span="6">{{ parseInt(item.status) ? "启用" : "禁用"}}</van-col>
-        <van-col span="4">
-          <div class="btn" @click="show(item)">编辑</div>
-        </van-col>
-      </van-row>
-    </div>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <div class="list" v-for="item in permissionList" :key="item.sid">
+        <van-row type="flex" justify="space-around">
+          <van-col span="6">{{ item.sid}}</van-col>
+          <van-col span="8">{{ item.username}}</van-col>
+          <van-col span="6">{{ parseInt(item.status) ? "启用" : "禁用"}}</van-col>
+          <van-col span="4">
+            <div class="btn" @click="show(item)">编辑</div>
+          </van-col>
+        </van-row>
+      </div>
+    </van-pull-refresh>
 
-    <van-dialog v-model="showDialog" title="权限管理" show-cancel-button @confirm="submit">
+    <van-dialog
+      v-model="showDialog"
+      closeOnClickOverlay
+      title="权限管理"
+      show-cancel-button
+      @confirm="submit"
+    >
       <div class="sexBox">
         <div class="selectSex">状态</div>
         <van-radio-group v-model="data.status" class="sex">
@@ -44,10 +52,18 @@ export default {
       data: {
         id: null,
         status: null
-      }
+      },
+      isLoading: false
     };
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.getPermission();
+        this.$toast("刷新成功");
+        this.isLoading = false;
+      }, 500);
+    },
     getPermission() {
       this.$http.get("user/post/all").then(res => {
         this.permissionList = res;
@@ -76,7 +92,7 @@ export default {
 <style scoped>
 .titlebox {
   font-size: 15px;
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
   line-height: 30px;
 }
 .bigbox {

@@ -1,5 +1,5 @@
 <template>
-<!-- 绩效考核 -->
+  <!-- 评论审核 -->
   <div class="box">
     <div class="month">
       <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
@@ -13,26 +13,28 @@
       <van-col span="12">评论人</van-col>
     </van-row>
 
-    <van-collapse v-model="activeNames" :border="false">
-      <van-collapse-item class="item" v-for="item in reviewList" :key="item.sid">
-        <div slot="title">
-          <van-row>
-            <van-col span="6">{{ item.sid }}</van-col>
-            <van-col span="12">{{ item.wcname}}</van-col>
-            <van-col span="6">{{ item.userid}}</van-col>
-          </van-row>
-        </div>
-        <div class="content">
-          <div>评论时间: {{ item.createtime }}</div>
-          <div>评论内容: {{ item.content }}</div>
-        </div>
-        <div v-if="item.status" class="pass">已通过</div>
-        <div v-else>
-          <div class="edit" @click="pass(item.sid)">通过</div>
-          <div class="detele">不通过</div>
-        </div>
-      </van-collapse-item>
-    </van-collapse>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-collapse v-model="activeNames" :border="false">
+        <van-collapse-item class="item" v-for="item in reviewList" :key="item.sid">
+          <div slot="title">
+            <van-row>
+              <van-col span="6">{{ item.sid }}</van-col>
+              <van-col span="12">{{ item.wcname}}</van-col>
+              <van-col span="6">{{ item.userid}}</van-col>
+            </van-row>
+          </div>
+          <div class="content">
+            <div>评论时间: {{ item.createtime }}</div>
+            <div>评论内容: {{ item.content }}</div>
+          </div>
+          <div v-if="item.status" class="pass">已通过</div>
+          <div v-else>
+            <div class="edit" @click="pass(item.sid)">通过</div>
+            <div class="detele">不通过</div>
+          </div>
+        </van-collapse-item>
+      </van-collapse>
+    </van-pull-refresh>
 
     <van-datetime-picker
       class="datepicker"
@@ -54,10 +56,19 @@ export default {
       reviewList: [],
       date: false,
       currentDate: null,
-      activeNames: []
+      activeNames: [],
+      isLoading: false
     };
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.getReview();
+        this.$toast("刷新成功");
+        this.isLoading = false;
+        this.count++;
+      }, 500);
+    },
     showPicker() {
       this.date = !this.date;
     },
@@ -152,7 +163,7 @@ export default {
 .datepicker {
   width: 100%;
   position: fixed;
-  bottom: 50px;
+  bottom: 0;
   z-index: 999;
 }
 .datePickerBtn {

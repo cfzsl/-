@@ -13,18 +13,20 @@
       <van-col span="6">平均得分</van-col>
     </van-row>
 
-    <van-row
-      class="list"
-      type="flex"
-      justify="space-around"
-      v-for="item in assessList"
-      :key="item.sid"
-      align="center"
-    >
-      <van-col span="12">{{ item.departname }}</van-col>
-      <van-col span="6">{{ item.countnh3m + item.countnh3w + item.counth2sm + item.counth2sw }}</van-col>
-      <van-col span="6">{{ item.scoreavg }}</van-col>
-    </van-row>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+      <van-row
+        class="list"
+        type="flex"
+        justify="space-around"
+        v-for="item in assessList"
+        :key="item.sid"
+        align="center"
+      >
+        <van-col span="12">{{ item.departname }}</van-col>
+        <van-col span="6">{{ item.countnh3m + item.countnh3w + item.counth2sm + item.counth2sw }}</van-col>
+        <van-col span="6">{{ item.scoreavg }}</van-col>
+      </van-row>
+    </van-pull-refresh>
   </div>
 </template>
 
@@ -49,10 +51,18 @@ export default {
         { text: "4次", value: 5 },
         { text: "5次", value: 6 }
       ],
-      assessList: null
+      assessList: null,
+      isLoading: false
     };
   },
   methods: {
+    onRefresh() {
+      setTimeout(() => {
+        this.getAssessList();
+        this.$toast("刷新成功");
+        this.isLoading = false;
+      }, 500);
+    },
     formatter(type, value) {
       if (type === "year") {
         return `${value}年`;
