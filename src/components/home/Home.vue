@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import qs from 'qs'
+
 const echarts = require("echarts/lib/echarts");
 // 引入柱状图
 require("echarts/lib/chart/bar");
@@ -97,17 +99,13 @@ export default {
     },
     //版本更新
     _upDateMemo(){
-      // let memo = localStorage.getItem('memo')
-      // this.$http.get('app/newAppName').then((res) => {
-      //   console.log(res)
-      //   if(res>memo){
-      //     location.href = 'http://47.110.160.217:5080/app/download'
-      //     localStorage.clear();
-      //     this.$router.push({path:'/login'})
-      //   }
-      //   console.log('没有新版本')
-      //   // location.href = 'https://www.baidu.com/'
-      // })
+      let date={
+        ApkCreateTime:localStorage.getItem('updateTime')
+      }
+      this.$http.post('download/updateVersion',this.$qs.stringify(date)).then(res=> {
+        console.log(res)
+        res.status==1?console.log(res.msg):location.href = 'http://47.110.160.217:5080/H5FAEA568.apk'
+      })
     },
     drawBar() {
       // 基于dom，初始化echarts实例
@@ -350,8 +348,5 @@ export default {
 }
 .picker button {
   background-color: #000;
-}
-.charts {
-  margin-top: 16px;
 }
 </style>
