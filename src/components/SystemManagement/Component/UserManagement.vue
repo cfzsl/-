@@ -242,10 +242,10 @@ export default {
 }
 
 .edit {
-  background-color: #66cc99;
+  background-color: #8fd662;
 }
 .detele {
-  background-color: #ff6666;
+  background-color: #f88279;
 }
 
 .selectSex {

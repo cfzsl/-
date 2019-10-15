@@ -1,7 +1,7 @@
 <template>
   <!-- 公厕列表 -->
   <div>
-    <van-nav-bar title="公厕名" left-text="序号" right-text="状态" />
+    <van-nav-bar fixed title="公厕名" left-text="序号" right-text="状态" />
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div class="circumstance">
         <div class="circumstance_list">
@@ -64,6 +64,10 @@ export default {
 
 
 <style scoped>
+.circumstance {
+  background-color: #fff;
+  margin-top: 46px;
+}
 .van-nav-bar__text {
   color: black;
   font-size: 16px;

@@ -3,28 +3,39 @@
   <div class="homepage">
     <Header></Header>
 
-    <div class="product">
-      <div class="item" @click="routerPushList">
+    <van-row class="product" type="flex" justify="space-around">
+      <van-col span="12" class="item" style="margin: 4px 0 2px" @click="routerPushList">
         <p>东营区公共厕所（个)</p>
-        <div class="num" style="color: green">{{ this.total }}</div>
-      </div>
-      <div class="item" @click="routerPush">
+        <div class="num" style="color: #35C36E">{{ this.total }}</div>
+      </van-col>
+      <van-col span="12" class="item" style="margin: 4px 0 2px" @click="routerPush">
         <p>东营区管养单位总数（个)</p>
-        <div class="num" style="color: orange">{{ this.Custody }}</div>
-      </div>
-      <div class="item" @click="goList('男')">
+        <div class="num" style="color: #FFA941">{{ this.Custody }}</div>
+      </van-col>
+    </van-row>
+    <van-row class="product" type="flex" justify="space-around">
+      <van-col span="12" class="item" style="margin: 2px 0 4px" @click="goList('男')">
         <p>东营区男公厕报警数（个)</p>
-        <div class="num" style="color: blue">{{ this.nan }}</div>
-      </div>
-      <div class="item" @click="goList('女')">
+        <div class="num" style="color: #73AEFF">{{ this.nan }}</div>
+      </van-col>
+      <van-col span="12" class="item" style="margin: 2px 0 4px" @click="goList('女')">
         <p>东营区女公厕报警数（个)</p>
-        <div class="num" style="color: red">{{ this.nv }}</div>
+        <div class="num" style="color: #F87883">{{ this.nv }}</div>
+      </van-col>
+    </van-row>
+
+    <div class="shitu" style="margin-bottom: 3px">
+      <div class="charts">
+        <div class="title">
+          <div class="cBlock"></div>
+          <div class="defen">报警占比</div>
+          <div class="company">（东营区公厕卫生情况）</div>
+          <dataPicker class="picker"></dataPicker>
+        </div>
+        <div id="barGraph" style="height: 300px; margin-top: -20px;"></div>
       </div>
     </div>
     <div class="shitu">
-      <div class="charts">
-        <div id="barGraph" style="height: 300px;"></div>
-      </div>
       <div class="charts">
         <div class="title">
           <div class="cBlock"></div>
@@ -32,7 +43,7 @@
           <div class="company">（东营区管养单位）</div>
           <dataPicker class="picker"></dataPicker>
         </div>
-        <div id="main" style="height:400px;"></div>
+        <div id="main" style="height:400px;  margin-top: -20px;"></div>
       </div>
     </div>
 
@@ -41,7 +52,7 @@
 </template>
 
 <script>
-import qs from 'qs'
+import qs from "qs";
 
 const echarts = require("echarts/lib/echarts");
 // 引入柱状图
@@ -86,31 +97,32 @@ export default {
     this.init();
   },
   methods: {
-    routerPushList(){
+    routerPushList() {
       this.$router.push({
-        path:'/ToiletManagement/ToiletFile'
-      })
+        path: "/ToiletManagement/ToiletFile"
+      });
     },
-    routerPush(){
+    routerPush() {
       // console.log('0000')
       this.$router.push({
-        path:'/ToiletManagement/Appraisal'
-      })
-    },
-    //版本更新
-    _upDateMemo(){
-      let date={
-        ApkCreateTime:localStorage.getItem('updateTime')
-      }
-      this.$http.post('download/updateVersion',this.$qs.stringify(date)).then(res=> {
-        console.log(res)
-        if(res.status==1){
-          console.log(res.msg)
-        }else{
-          Location.href='47.110.160.217:5080/H5FAEA568.apk'
-          localStorage.clear();
-        }
-      })
+        path: "/ToiletManagement/Appraisal"
+      });
+    }, //版本更新
+    _upDateMemo() {
+      let date = {
+        ApkCreateTime: localStorage.getItem("updateTime")
+      };
+      this.$http
+        .post("download/updateVersion", this.$qs.stringify(date))
+        .then(res => {
+          console.log(res);
+          if (res.status == 1) {
+            console.log(res.msg);
+          } else {
+            Location.href = "47.110.160.217:5080/H5FAEA568.apk";
+            localStorage.clear();
+          }
+        });
     },
     drawBar() {
       // 基于dom，初始化echarts实例
@@ -289,12 +301,12 @@ export default {
 .homepage {
   position: relative;
   height: 100%;
-  background-color: #ccc;
+  background-color: #f0f0f0;
   overflow-x: hidden;
 }
 .product {
   display: flex;
-  background-color: #ccc;
+  background-color: #f0f0f0;
   z-index: 50;
   overflow: hidden;
   flex-wrap: wrap;
@@ -323,15 +335,15 @@ export default {
 .cBlock {
   position: absolute;
   top: 10px;
-  left: 25px;
+  left: 15px;
   width: 5px;
   height: 20px;
-  background-color: aqua;
+  background-color: #73AEFF;
 }
 .defen {
   float: left;
   font-size: 15px;
-  margin-left: 30px;
+  margin-left: 20px;
 }
 .company {
   float: left;
@@ -341,13 +353,12 @@ export default {
 }
 
 .item {
-  width: 175px;
-  height: 79px;
-  margin: 3px 0;
-  padding: 5px;
+  width: 184px;
+  height: 90px;
   background-color: #fff;
   border-radius: 5px;
 }
+
 .picker {
   line-height: 10px;
 }

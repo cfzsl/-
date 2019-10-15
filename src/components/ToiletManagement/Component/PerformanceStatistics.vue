@@ -22,25 +22,28 @@
       </div>
     </transition>
 
-    <div class="product">
-      <div class="item">
-        <p>东营区公共厕所（个)</p>
-        <div class="num" style="color: green">{{ this.total }}</div>
-      </div>
-      <div class="item">
-        <p>东营区管养单位总数（个)</p>
-        <div class="num" style="color: orange">{{ this.Custody }}</div>
-      </div>
-      <div class="item">
-        <p>东营区男公厕报警数（个)</p>
-        <div class="num" style="color: blue">{{ this.nan }}</div>
-      </div>
-      <div class="item">
-        <p>东营区女公厕报警数（个)</p>
-        <div class="num" style="color: red">{{ this.nv }}</div>
-      </div>
+    <div style="margin-top: 46px">
+      <van-row class="product" type="flex" justify="space-around">
+        <van-col span="12" class="item" style="margin: 4px 0 2px" @click="routerPushList">
+          <p>东营区公共厕所（个)</p>
+          <div class="num" style="color: #35C36E">{{ this.total }}</div>
+        </van-col>
+        <van-col span="12" class="item" style="margin: 4px 0 2px" @click="routerPush">
+          <p>东营区管养单位总数（个)</p>
+          <div class="num" style="color: #FFA941">{{ this.Custody }}</div>
+        </van-col>
+      </van-row>
+      <van-row class="product" type="flex" justify="space-around">
+        <van-col span="12" class="item" style="margin: 2px 0 4px" @click="goList('男')">
+          <p>东营区男公厕报警数（个)</p>
+          <div class="num" style="color: #73AEFF">{{ this.nan }}</div>
+        </van-col>
+        <van-col span="12" class="item" style="margin: 2px 0 4px" @click="goList('女')">
+          <p>东营区女公厕报警数（个)</p>
+          <div class="num" style="color: #F87883">{{ this.nv }}</div>
+        </van-col>
+      </van-row>
     </div>
-
     <div class="shitu">
       <!-- 图表位置 -->
       <div id="bar" style="height:250px;"></div>
@@ -72,7 +75,7 @@ export default {
     },
     back() {
       this.$router.go(-1);
-      this.show()
+      this.show();
     },
     getTotal() {
       this.$http.get("wc/count").then(res => {
@@ -182,13 +185,12 @@ export default {
 .homepage {
   position: relative;
   height: 100%;
-  background-color: #ccc;
+  background-color: #fff;
   overflow-x: hidden;
 }
 .product {
   display: flex;
-  margin-top: 50px;
-  background-color: #ccc;
+  background-color: #f0f0f0;
   z-index: 50;
   overflow: hidden;
   flex-wrap: wrap;
@@ -196,8 +198,6 @@ export default {
 }
 .product p {
   font-size: 12px;
-  margin: 0;
-  margin: 10px 0 5px 0;
 }
 .shitu {
   margin: 0px 1px 50px;
@@ -208,10 +208,8 @@ export default {
   font-weight: 700;
 }
 .item {
-  width: 175px;
-  height: 79px;
-  margin: 3px 0;
-  padding: 5px;
+  width: 184px;
+  height: 90px;
   background-color: #fff;
   border-radius: 5px;
 }

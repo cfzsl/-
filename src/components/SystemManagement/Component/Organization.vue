@@ -157,6 +157,7 @@ z-index: 9;
 
 .refresh {
   margin-top: 120px;
+  background-color: #fff;
 }
 
 .topbar {
