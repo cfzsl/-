@@ -63,7 +63,7 @@
       @cancel="showPicker"
     />
 
-    <van-overlay :show="date" @click="date = false" />
+    <van-overlay z-index="99" :show="date" @click="date = false" />
   </div>
 </template>
 

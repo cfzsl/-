@@ -11,24 +11,25 @@
 
 <script>
 export default {
-  mounted () {
-    this._admin()
+  
+  mounted() {
+    this._admin();
   },
   methods: {
-    _admin () {
-      let token = localStorage.getItem('token')
+    _admin() {
+      let token = localStorage.getItem("token");
       if (!token) {
         setTimeout(() => {
-          this.$router.push({ path: '/login' })
-        }, 1500)
+          this.$router.push({ path: "/login" });
+        }, 1500);
       } else {
         setTimeout(() => {
-          this.$router.push({ path: '/home' })
-        }, 1500)
+          this.$router.push({ path: "/home" });
+        }, 1500);
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>

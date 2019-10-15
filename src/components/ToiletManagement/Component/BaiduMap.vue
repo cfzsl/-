@@ -32,24 +32,26 @@
         :status="item.wcStatus"
         :id="item.sid"
       ></MyOverlay>
-      <Footer />
     </baidu-map>
 
-    <div class="status">
-      <van-row type="flex" justify="space-around">
-        <van-col class="statusitem" span="8">
-          <img src="../../../assets/img/logo.png">
-          <div>公厕未开启</div>
-        </van-col>
-        <van-col class="statusitem" span="8">
-          <img src="../../../assets/img/logo.png">
-          <div>公厕正常</div>
-        </van-col>
-        <van-col class="statusitem" span="8">
-          <img src="../../../assets/img/logo.png">
-          <div>公厕超标报警</div>
-        </van-col>
-      </van-row>
+    <div v-if="hidshow" class="footer">
+      <div class="status">
+        <van-row type="flex" justify="space-around">
+          <van-col class="statusitem" span="8">
+            <img src="../../../assets/img/logo.png" />
+            <div>公厕未开启</div>
+          </van-col>
+          <van-col class="statusitem" span="8">
+            <img src="../../../assets/img/logo.png" />
+            <div>公厕正常</div>
+          </van-col>
+          <van-col class="statusitem" span="8">
+            <img src="../../../assets/img/logo.png" />
+            <div>公厕超标报警</div>
+          </van-col>
+        </van-row>
+      </div>
+      <Footer />
     </div>
   </div>
 </template>
@@ -66,7 +68,10 @@ export default {
     return {
       list: null,
       value: "",
-      toget: false
+      toget: false,
+      docmHeight: document.documentElement.clientHeight, //默认屏幕高度
+      showHeight: document.documentElement.clientHeight, //实时屏幕高度
+      hidshow: true //显示或者隐藏footer
     };
   },
   methods: {
@@ -101,6 +106,24 @@ export default {
   },
   created() {
     this.getList();
+  },
+  mounted() {
+    // window.onresize监听页面高度的变化
+    window.onresize = () => {
+      return (() => {
+        this.showHeight = document.body.clientHeight;
+      })();
+    };
+  },
+  //监听
+  watch: {
+    showHeight: function() {
+      if (this.docmHeight > this.showHeight) {
+        this.hidshow = false;
+      } else {
+        this.hidshow = true;
+      }
+    }
   }
 };
 </script>
