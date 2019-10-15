@@ -1,21 +1,18 @@
 <template>
   <div id="app">
-    
     <!-- 插槽 -->
     <transition>
       <router-view></router-view>
     </transition>
-
-    
   </div>
 </template>
 
 <script>
-import Footer from './components/footer/foot'
+import Footer from "./components/footer/foot";
 export default {
   data() {
     return {
-      active: 0,
+      active: 0
     };
   },
   components: {
@@ -31,5 +28,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: #f0f0f0;
 }
 </style>
