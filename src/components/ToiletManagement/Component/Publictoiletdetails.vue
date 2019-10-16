@@ -1,9 +1,8 @@
 <template>
   <!-- 公厕详情页 -->
   <div class="father">
+    <Back class="header" :title="this.PublicMsg.name"></Back>
     <div class="pos">
-      <Back :title="this.PublicMsg.name"></Back>
-
       <div class="bigbox">
         <div @click="go1" :class="{left: true, active: active1}">摄像头1</div>
         <div @click="go2" :class="{right: true, active: active2}">摄像头2</div>
@@ -25,15 +24,17 @@
           <van-col span="12">公厕信息</van-col>
           <van-col span="12"></van-col>
         </van-row>
-        <div>厕所名称：{{ this.PublicMsg.name }}</div>
-        <div>联系人: {{ this.PublicMsg.memo }}</div>
-        <div>联系人电话: {{ this.PublicMsg.chargetel }}</div>
-        <div>管养单位: {{ this.PublicMsg.depart }}</div>
-        <div>地址：{{ this.PublicMsg.addressmemo }}</div>
-        <div>当前状态：{{ this.PublicMsg.status }}</div>
-        <div>服务：{{ this.PublicMsg.servicename }}</div>
-        <div>报警次数: {{ this.WarningMsg.length }}</div>
-        <div>最后接收数据时间: {{ this.WarningMsg[0].updatetime }}</div>
+        <div class="text">
+          <div>厕所名称：{{ this.PublicMsg.name }}</div>
+          <div>联系人: {{ this.PublicMsg.memo }}</div>
+          <div>联系人电话: {{ this.PublicMsg.chargetel }}</div>
+          <div>管养单位: {{ this.PublicMsg.depart }}</div>
+          <div>地址：{{ this.PublicMsg.addressmemo }}</div>
+          <div>当前状态：{{ this.PublicMsg.status }}</div>
+          <div>服务：{{ this.PublicMsg.servicename }}</div>
+          <div>报警次数: {{ this.WarningMsg.length }}</div>
+          <div>最后接收数据时间: {{ this.WarningMsg[0].updatetime }}</div>
+        </div>
       </div>
 
       <van-tabs v-model="active" swipeable class="item" color="#0099ff">
@@ -84,7 +85,7 @@
                 湿度:
                 <span class="green">{{ this.details.humw }}&#37;</span>
               </van-col>
-            </van-row> -->
+            </van-row>-->
 
             <van-row class="contentitem" type="flex" justify="space-around">
               <van-col span="1"></van-col>
@@ -268,6 +269,7 @@ export default {
 
 .pos {
   position: fixed;
+  top: 46px;
   width: 100%;
 }
 
@@ -318,6 +320,14 @@ export default {
 }
 .red {
   color: red;
+}
+
+.item {
+  border-bottom: 3px solid #f0f0f0;
+}
+
+.text div {
+  padding-bottom: 10px;
 }
 
 .texttitle {

@@ -201,7 +201,7 @@ export default {
   margin-top: 50px;
 }
 .max {
-  color: green;
+  color: #a4de7f;
 }
 .red {
   color: red;

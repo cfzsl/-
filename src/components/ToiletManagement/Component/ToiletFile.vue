@@ -167,14 +167,14 @@ export default {
   overflow: hidden;
   font-size: 12px;
   margin: 5px 0;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #d2d2d2;
 }
 .item {
   position: fixed;
   top: 46px;
   width: 100%;
   font-size: 15px;
-  background-color: #C2FBFF;
+  background-color: #cae4fc;
   line-height: 30px;
   z-index: 9;
 }

@@ -92,17 +92,17 @@ export default new Router({
       children: [
         {
           path: '',
-          name: '管理地图',
+          name: '地图',
           component: BaiduMap
         },
         {
           path: 'ToiletFile',
-          name: '管理档案',
+          name: '公厕档案',
           component: ToiletFile
         },
         {
           path: 'Appraisal',
-          name: '管理考核',
+          name: '绩效考核',
           component: Appraisal
         },
         {

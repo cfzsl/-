@@ -50,10 +50,12 @@
             <div>评论时间: {{ item.createtime }}</div>
             <div>评论内容: {{ item.content }}</div>
           </div>
-          <div v-if="item.status" class="pass">已通过</div>
-          <div v-else>
-            <div class="edit" @click="pass(item.sid)">通过</div>
-            <div class="detele">不通过</div>
+          <div class="btn">
+            <div v-if="item.status" class="pass">已通过</div>
+            <div v-else>
+              <div class="edit" @click="pass(item.sid)">通过</div>
+              <div class="detele">不通过</div>
+            </div>
           </div>
         </van-collapse-item>
       </van-collapse>
@@ -188,7 +190,7 @@ export default {
 
 .titleitem {
   font-size: 15px;
-  background-color: #c2fbff;
+  background-color: #cae4fc;
   line-height: 30px;
 }
 
@@ -218,17 +220,29 @@ export default {
   padding-right: 15px;
 }
 .item {
-  border-bottom: 1px solid #ccc !important;
+  position: relative;
+  border-bottom: 1px solid #d2d2d2 !important;
   text-align: left;
+}
+
+.content div {
+  padding-bottom: 15px;
+}
+
+.btn {
+  position: absolute;
+  right: 0;
+  top: 55px;
 }
 
 .edit,
 .detele {
   text-align: center;
-  width: 90px;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
   display: inline-block;
-  margin: 0 30px;
-  border: 1px solid #ccc;
+  margin-right: 10px;
   border-radius: 7px;
   color: #fff;
 }
@@ -240,8 +254,8 @@ export default {
   background-color: #ccc;
 }
 .pass {
-  text-align: center;
-  color: green;
+  margin-right: 30px;
+  color: #a4de7f;
 }
 .menu {
   width: 100%;

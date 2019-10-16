@@ -1,6 +1,9 @@
 <template>
   <div>
-    <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">本月</van-button>
+    <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">
+      本月
+      <van-icon class="icon" name="arrow-down" />
+    </van-button>
 
     <van-datetime-picker
       class="datepicker"
@@ -39,19 +42,24 @@ export default {
     selectDate(value) {
       console.log(value);
       this.showPicker();
-    },
-  },
-  
+    }
+  }
 };
 </script>
 
 <style scoped>
 .datePickerBtn {
+  position: absolute;
+  right: 25px;
+  top: 10px;
   border-radius: 10px;
-  background-color: #fff;
   color: #000;
   border: 0;
-  margin-left: 10px;
+  line-height: 22px;
+  background-color: #f0f0f0;
+}
+.icon {
+  margin-top: 5px;
 }
 .datepicker {
   width: 100%;

@@ -87,7 +87,7 @@ export default {
 }
 .titleitem {
   font-size: 15px;
-  background-color: #c2fbff;
+  background-color: #cae4fc;
   line-height: 30px;
 }
 
@@ -95,7 +95,7 @@ export default {
   font-size: 12px;
 }
 .item {
-  border-bottom: 1px solid #ccc !important;
+  border-bottom: 1px solid #d2d2d2 !important;
 }
 .content {
   padding-left: 10px;

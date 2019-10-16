@@ -1,5 +1,5 @@
 <template>
-  <van-nav-bar :title="this.title" left-text left-arrow @click-left="back" />
+  <van-nav-bar fixed :z-index=99 :title="this.title" left-text left-arrow @click-left="back" />
 </template>
 
 <script>
@@ -10,5 +10,5 @@ export default {
       this.$router.go(-1);
     }
   }
-}
+};
 </script>

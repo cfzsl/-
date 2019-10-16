@@ -24,14 +24,21 @@
     <DropdownMenu :status="status"></DropdownMenu>
 
     <div class="itembox">
+      <van-dropdown-menu>
+        <van-dropdown-item v-model="value1" :options="option1" />
+        <van-dropdown-item v-model="value2" :options="option2" />
+        <van-dropdown-item v-model="value2" :options="option2" />
+      </van-dropdown-menu>
+
       <div class="month">
         <dataPicker class="picker"></dataPicker>
       </div>
 
-      <van-row class="item">
-        <van-col span="12">管养单位</van-col>
-        <van-col span="6">报警次数</van-col>
-        <van-col span="6">平均得分</van-col>
+      <van-row class="item" type="flex" justify="space-around">
+        <van-col span="6">公厕名称</van-col>
+        <van-col span="4">管养单位</van-col>
+        <van-col span="4">报警次数</van-col>
+        <van-col span="4">平均得分</van-col>
       </van-row>
     </div>
 
@@ -44,9 +51,10 @@
         :key="item.sid"
         align="center"
       >
-        <van-col span="12">{{ item.departname }}</van-col>
-        <van-col span="6">{{ item.countnh3m + item.countnh3w + item.counth2sm + item.counth2sw }}</van-col>
-        <van-col span="6">{{ item.scoreavg }}</van-col>
+        <van-col span="6">{{ item.departname }}</van-col>
+        <van-col span="4">{{ item.countnh3m + item.countnh3w + item.counth2sm + item.counth2sw }}</van-col>
+        <van-col span="4">{{ item.scoreavg }}</van-col>
+        <van-col span="4">{{ item.scoreavg }}</van-col>
       </van-row>
     </van-pull-refresh>
   </div>
@@ -63,7 +71,6 @@ export default {
   data() {
     return {
       date: false,
-
       currentDate: new Date(),
       status: [
         { text: "全报警次数", value: 0 },
@@ -76,7 +83,19 @@ export default {
       ],
       assessList: null,
       isLoading: false,
-      toget: false
+      toget: false,
+      value1: 0,
+      value2: "a",
+      option1: [
+        { text: "全部商品", value: 0 },
+        { text: "新款商品", value: 1 },
+        { text: "活动商品", value: 2 }
+      ],
+      option2: [
+        { text: "默认排序", value: "a" },
+        { text: "好评排序", value: "b" },
+        { text: "销量排序", value: "c" }
+      ]
     };
   },
   methods: {
@@ -124,7 +143,7 @@ export default {
 <style scoped>
 .item {
   font-size: 15px;
-  background-color: #c2fbff;
+  background-color: #cae4fc;
   line-height: 30px;
 }
 .itembox {
@@ -150,6 +169,7 @@ export default {
 }
 
 .picker {
+  overflow: hidden;
   line-height: 10px;
 }
 
@@ -158,7 +178,7 @@ export default {
   overflow: hidden;
   font-size: 12px;
   margin: 5px 0;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #d2d2d2;
 }
 .menu {
   width: 100%;

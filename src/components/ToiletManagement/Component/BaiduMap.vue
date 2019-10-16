@@ -38,16 +38,16 @@
       <div class="status">
         <van-row type="flex" justify="space-around">
           <van-col class="statusitem" span="8">
-            <img src="../../../assets/img/logo.png" />
+            <img src="../../../assets/img/grey.png" />
             <div>公厕未开启</div>
           </van-col>
           <van-col class="statusitem" span="8">
-            <img src="../../../assets/img/logo.png" />
+            <img src="../../../assets/img/green.png" />
             <div>公厕正常</div>
           </van-col>
           <van-col class="statusitem" span="8">
-            <img src="../../../assets/img/logo.png" />
-            <div>公厕超标报警</div>
+            <img src="../../../assets/img/red.png" />
+            <div>公厕报警</div>
           </van-col>
         </van-row>
       </div>
@@ -141,20 +141,20 @@ export default {
   bottom: 50px;
   width: 100%;
 }
-
 .status div {
   font-size: 15px;
 }
 
 .statusitem {
   width: 90px;
-  height: 90px;
+  height: 70px;
   background-color: #fff;
 }
 
 .statusitem img {
-  width: 100%;
-  height: 75%;
+  width: 50%;
+  height: 50%;
+  padding: 5px 0;
 }
 
 .menu {

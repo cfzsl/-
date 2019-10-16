@@ -171,7 +171,7 @@ z-index: 9;
   height: 35px !important;
   font-size: 12px;
   margin: 5px 0;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #d2d2d2;
 }
 
 .btnbox {
@@ -180,6 +180,8 @@ z-index: 9;
 }
 .btn {
   width: 50px;
+  height: 20px;
+  line-height: 21px;
   color: #fff;
   border-radius: 5px;
 }

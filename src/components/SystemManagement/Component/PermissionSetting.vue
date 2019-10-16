@@ -107,13 +107,16 @@ export default {
 }
 .list {
   padding: 15px 0;
-  border-bottom: 1px solid #ccc;
+  line-height: 25px;
+  border-bottom: 1px solid #d2d2d2;
 }
 .btn {
   width: 50px;
+  height: 25px;
+  line-height: 25px;
   color: #fff;
   border-radius: 5px;
-  background-color: green;
+  background-color: #a4de7f;
   text-align: center;
 }
 
