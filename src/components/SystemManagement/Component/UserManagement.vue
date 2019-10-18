@@ -207,13 +207,13 @@ export default {
 }
 
 .userbox {
-  margin-top: 130px
+  margin-top: 150px;
 }
 
 .titlebox {
-  font-size: 15px;
+  height: 50px;
+  line-height: 50px;
   background-color: #cae4fc;
-  line-height: 30px;
 }
 
 .item {
@@ -234,10 +234,12 @@ export default {
 .edit,
 .detele {
   width: 90px;
+  height: 30px;
+  line-height: 30px;
   display: inline-block;
   margin: 0 30px;
-  border: 1px solid #ccc;
-  border-radius: 7px;
+  border: none;
+  border-radius: 4px;
   color: #fff;
 }
 

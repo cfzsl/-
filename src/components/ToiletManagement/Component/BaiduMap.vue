@@ -77,8 +77,6 @@ export default {
   methods: {
     getList() {
       this.$http.get("wc/getPositionOnMapAndroid").then(res => {
-        console.log(res);
-
         this.list = res.data;
       });
     },
@@ -100,9 +98,9 @@ export default {
       this.toget = !this.toget;
     },
     addClass(e) {
-      console.log(e.target);
       e.target.addClass("active");
-    }
+    },
+    
   },
   created() {
     this.getList();
@@ -146,15 +144,15 @@ export default {
 }
 
 .statusitem {
-  width: 90px;
-  height: 70px;
+  width: 80px;
+  height: 75px;
   background-color: #fff;
 }
 
 .statusitem img {
   width: 50%;
-  height: 50%;
-  padding: 5px 0;
+  height: 45%;
+  padding: 10px 0 5px 0;
 }
 
 .menu {
@@ -162,7 +160,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   position: absolute;
-  top: 54px;
+  top: 50px;
   z-index: 10;
   background-color: #fff;
 }

@@ -185,13 +185,14 @@ export default {
   z-index: 9;
 }
 .reviewbox {
-  margin-top: 115px;
+  margin-top: 135px;
 }
 
 .titleitem {
   font-size: 15px;
   background-color: #cae4fc;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .month {
@@ -221,6 +222,8 @@ export default {
 }
 .item {
   position: relative;
+  /* height: 50px;
+  line-height: 50px; */
   border-bottom: 1px solid #d2d2d2 !important;
   text-align: left;
 }

@@ -41,7 +41,7 @@ export default {
       logList: [],
       date: false,
       currentDate: null,
-      isLoading: false,
+      isLoading: false
     };
   },
   methods: {
@@ -143,14 +143,12 @@ export default {
   margin-left: 10px;
 }
 .text {
-  font-size: 12px;
+  margin-right: 10px;
 }
 
 .list {
-  height: 35px !important;
-  overflow: hidden;
-  font-size: 12px;
-  margin: 5px 0;
+  height: 50px !important;
+  padding: 5px 0;
   border-bottom: 1px solid #d2d2d2;
 }
 </style>
