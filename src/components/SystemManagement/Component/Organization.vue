@@ -141,10 +141,9 @@ export default {
 
 <style scoped>
 .newbtn {
-  position: relative;
-  top: -7px;
-  right: -140px;
-  font-size: 12px;
+  position: fixed;
+  right: 25px;
+  bottom: 60px;
   border-radius: 5px;
 }
 
@@ -156,20 +155,18 @@ z-index: 9;
 }
 
 .refresh {
-  margin-top: 120px;
+  margin-top: 95px;
   background-color: #fff;
 }
 
 .topbar {
-  font-size: 15px;
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
   background-color: #cae4fc;
   z-index: 99;
 }
 .list {
-  height: 35px !important;
-  font-size: 12px;
+  height: 50px !important;
   margin: 5px 0;
   border-bottom: 1px solid #d2d2d2;
 }

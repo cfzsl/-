@@ -163,23 +163,22 @@ export default {
 
 <style scoped>
 .list {
-  height: 35px !important;
+  height: 50px !important;
   overflow: hidden;
-  font-size: 12px;
-  margin: 5px 0;
+  padding: 5px 0;
   border-bottom: 1px solid #d2d2d2;
 }
 .item {
   position: fixed;
   top: 46px;
   width: 100%;
-  font-size: 15px;
+  height: 50px;
+  line-height: 50px;
   background-color: #cae4fc;
-  line-height: 30px;
   z-index: 9;
 }
 .filebox {
-  margin-top: 25px;
+  margin-top: 45px;
 }
 .menu {
   width: 100%;
@@ -193,7 +192,6 @@ export default {
 .menu a {
   display: block;
   width: 93px;
-  font-size: 12px;
   padding: 5px 0 10px 0;
   color: #000;
 }

@@ -21,42 +21,65 @@
         <router-link to="/ToiletManagement/CommentList">评论查看</router-link>
       </div>
     </transition>
-    <DropdownMenu :status="status"></DropdownMenu>
+    <!-- <DropdownMenu :status="status"></DropdownMenu> -->
 
     <div class="itembox">
       <van-dropdown-menu>
-        <van-dropdown-item v-model="value1" :options="option1" />
-        <van-dropdown-item v-model="value2" :options="option2" />
-        <van-dropdown-item v-model="value2" :options="option2" />
+        <van-dropdown-item v-model="option.toile" :options="toile" @change="toChange" />
+        <van-dropdown-item v-model="option.company" :options="company" @change="toChange" />
+        <van-dropdown-item v-model="option.num" :options="num" @change="toChange" />
       </van-dropdown-menu>
 
       <div class="month">
-        <dataPicker class="picker"></dataPicker>
+        <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">
+          本月
+          <van-icon class="icon" name="arrow-down" />
+        </van-button>
+
+        <div class="text">共{{ assessList.length }}条数据</div>
       </div>
 
       <van-row class="item" type="flex" justify="space-around">
         <van-col span="6">公厕名称</van-col>
-        <van-col span="4">管养单位</van-col>
+        <van-col span="7">管养单位</van-col>
         <van-col span="4">报警次数</van-col>
         <van-col span="4">平均得分</van-col>
+        <van-col span="1"></van-col>
       </van-row>
     </div>
 
     <van-pull-refresh class="appbox" v-model="isLoading" @refresh="onRefresh">
-      <van-row
-        class="list"
-        type="flex"
-        justify="space-around"
-        v-for="item in assessList"
-        :key="item.sid"
-        align="center"
-      >
-        <van-col span="6">{{ item.departname }}</van-col>
-        <van-col span="4">{{ item.countnh3m + item.countnh3w + item.counth2sm + item.counth2sw }}</van-col>
-        <van-col span="4">{{ item.scoreavg }}</van-col>
-        <van-col span="4">{{ item.scoreavg }}</van-col>
-      </van-row>
+      <div>
+        <van-row
+          class="list"
+          type="flex"
+          justify="space-around"
+          v-for="item in assessList"
+          :key="item.sid"
+          align="center"
+          @click="go(item)"
+        >
+          <van-col span="6">{{ item.wcname }}</van-col>
+          <van-col span="7">{{ item.depart }}</van-col>
+          <van-col span="4">{{ item.warningcount }}</van-col>
+          <van-col span="4">{{ item.wcnum }}</van-col>
+          <van-col span="1">
+            <van-icon name="arrow" />
+          </van-col>
+        </van-row>
+      </div>
     </van-pull-refresh>
+
+    <van-datetime-picker
+      class="datepicker"
+      v-show="date"
+      v-model="currentDate"
+      type="year-month"
+      :formatter="formatter"
+      @confirm="selectDate"
+      @cancel="showPicker"
+    />
+    <van-overlay z-index="99" :show="date" @click="date = false" />
   </div>
 </template>
 
@@ -72,30 +95,25 @@ export default {
     return {
       date: false,
       currentDate: new Date(),
-      status: [
-        { text: "全报警次数", value: 0 },
-        { text: "0次", value: 1 },
-        { text: "1次", value: 2 },
-        { text: "2次", value: 3 },
-        { text: "3次", value: 4 },
-        { text: "4次", value: 5 },
-        { text: "5次", value: 6 }
-      ],
-      assessList: null,
+      assessList: [],
       isLoading: false,
       toget: false,
-      value1: 0,
-      value2: "a",
-      option1: [
-        { text: "全部商品", value: 0 },
-        { text: "新款商品", value: 1 },
-        { text: "活动商品", value: 2 }
+      toile: [{ text: "全部公厕", value: "" }],
+      company: [{ text: "全部管养单位", value: "" }],
+      num: [
+        { text: "全报警次数", value: "" },
+        { text: "0次", value: "0" },
+        { text: "1次", value: "1" },
+        { text: "2次", value: "2" },
+        { text: "3次", value: "3" },
+        { text: "4次", value: "4" },
+        { text: "5次", value: "5" }
       ],
-      option2: [
-        { text: "默认排序", value: "a" },
-        { text: "好评排序", value: "b" },
-        { text: "销量排序", value: "c" }
-      ]
+      option: {
+        toile: "",
+        company: "",
+        num: ""
+      }
     };
   },
   methods: {
@@ -124,14 +142,44 @@ export default {
     showPicker() {
       this.date = !this.date;
     },
-    selectDate(value) {
-      console.log(value);
-    },
+    selectDate(value) {},
     getAssessList() {
-      this.$http.get("appraisal/search?tip_depart&tip_month=8").then(res => {
-        console.log(res);
+      this.$http.get("detailCurrent/listAllApp").then(res => {
         this.assessList = res;
+        for (const key in res) {
+          this.toile.push({ text: res[key].wcname, value: res[key].wcname });
+          this.company.push({
+            text: res[key].depart,
+            value: res[key].depart
+          });
+        }
+        this.company = this.filter(this.company);
+        console.log(this.company);
       });
+    },
+    filter(obj) {
+      const res = new Map();
+      return obj.filter(a => !res.has(a.value) && res.set(a.value, a.value));
+    },
+    go(item) {
+      localStorage.setItem("item", JSON.stringify(item));
+      this.$router.push({
+        name: "公厕绩效"
+      });
+    },
+    toChange(v) {
+      this.$http
+        .post(
+          "detailCurrent/listAllApp",
+          this.$qs.stringify({
+            wcname: this.option.toile,
+            depart: this.option.company,
+            count: this.option.num
+          })
+        )
+        .then(res => {
+          this.assessList = res;
+        });
     }
   },
   created() {
@@ -142,9 +190,9 @@ export default {
 
 <style scoped>
 .item {
-  font-size: 15px;
+  height: 50px;
   background-color: #cae4fc;
-  line-height: 30px;
+  line-height: 50px;
 }
 .itembox {
   position: fixed;
@@ -153,7 +201,7 @@ export default {
   z-index: 9;
 }
 .appbox {
-  margin-top: 65px;
+  margin-top: 185px;
 }
 
 .month {
@@ -164,8 +212,26 @@ export default {
   background-color: #e6e6e6;
 }
 
+.datepicker {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+}
+.datePickerBtn {
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  border: 0;
+  margin-left: 10px;
+}
+.icon {
+  margin-top: 5px;
+}
+
 .text {
   font-size: 12px;
+  margin-right: 10px;
 }
 
 .picker {
@@ -174,10 +240,9 @@ export default {
 }
 
 .list {
-  height: 35px !important;
+  height: 50px !important;
   overflow: hidden;
-  font-size: 12px;
-  margin: 5px 0;
+  padding: 5px 0;
   border-bottom: 1px solid #d2d2d2;
 }
 .menu {

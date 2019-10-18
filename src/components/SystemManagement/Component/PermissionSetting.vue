@@ -96,24 +96,27 @@ export default {
   width: 100%;
   font-size: 15px;
   background-color: #cae4fc;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
   z-index: 9;
 }
 .setbox {
-  margin-top: 76px;
+  margin-top: 95px;
 }
 .bigbox {
   font-size: 15px;
 }
 .list {
-  padding: 15px 0;
-  line-height: 25px;
+  /* padding: 15px 0; */
+  height: 50px;
+  line-height: 50px;
   border-bottom: 1px solid #d2d2d2;
 }
 .btn {
   width: 50px;
   height: 25px;
   line-height: 25px;
+  margin-top: 15px;
   color: #fff;
   border-radius: 5px;
   background-color: #a4de7f;

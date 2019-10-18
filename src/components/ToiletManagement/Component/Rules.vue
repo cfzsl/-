@@ -196,7 +196,6 @@ export default {
 <style scoped>
 .box {
   margin-bottom: 50px;
-  font-size: 15px;
   text-align: left;
   margin-top: 50px;
 }
@@ -279,7 +278,6 @@ export default {
 .menu a {
   display: block;
   width: 93px;
-  font-size: 12px;
   padding: 5px 0 10px 0;
   color: #000;
 }

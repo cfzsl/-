@@ -1,7 +1,13 @@
 <template>
   <!-- 公厕列表 -->
   <div>
-    <van-nav-bar fixed title="公厕名" left-text="序号" right-text="状态" />
+    <van-nav-bar fixed :title="this.$route.name" />
+    <!-- <van-nav-bar fixed title="公厕名" left-text="序号" right-text="状态" /> -->
+    <van-row class="title">
+      <van-col span="8">公厕名</van-col>
+      <van-col span="8">序号</van-col>
+      <van-col span="8">状态</van-col>
+    </van-row>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div class="circumstance">
         <div class="circumstance_list">
@@ -51,7 +57,7 @@ export default {
       this.$http.get("detailCurrent/findAll").then(res => {
         this.list = res.data;
       });
-    }
+    },
   },
   created() {
     this.getList();
@@ -66,7 +72,7 @@ export default {
 <style scoped>
 .circumstance {
   background-color: #fff;
-  margin-top: 46px;
+  margin-top: 96px;
 }
 .van-nav-bar__text {
   color: black;
@@ -75,14 +81,19 @@ export default {
 }
 
 .Product {
-  font-size: 14px;
   height: 50px;
   line-height: 50px;
   border-bottom: 1px solid #d2d2d2;
 }
 
-.van-nav-bar {
-  background-color: #cae4fc !important;
+.title {
+  position: fixed;
+  top: 46px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  background-color: #cae4fc;
+  z-index: 9;
 }
 .item {
   height: 50px;

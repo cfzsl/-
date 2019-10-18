@@ -33,7 +33,7 @@
           <div>当前状态：{{ this.PublicMsg.status }}</div>
           <div>服务：{{ this.PublicMsg.servicename }}</div>
           <div>报警次数: {{ this.WarningMsg.length }}</div>
-          <div>最后接收数据时间: {{ this.WarningMsg[0].updatetime }}</div>
+          <div>最后接收数据时间: {{ this.PublicMsg.time }}</div>
         </div>
       </div>
 
@@ -233,6 +233,8 @@ export default {
       this.$http
         .post("wc/findOne", this.$qs.stringify({ sid: this.$route.params.id }))
         .then(res => {
+          console.log(res);
+          
           this.PublicMsg = res.data;
         })
         .then(res => {
@@ -264,7 +266,6 @@ export default {
 <style scoped>
 .father {
   overflow: hidden;
-  font-size: 15px;
 }
 
 .pos {
@@ -275,7 +276,6 @@ export default {
 
 .bigbox {
   display: flex;
-
   justify-content: center;
   padding: 10px 0;
 }
@@ -324,6 +324,7 @@ export default {
 
 .item {
   border-bottom: 3px solid #f0f0f0;
+  border-top: 3px solid #f0f0f0;
 }
 
 .text div {

@@ -196,9 +196,6 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.product p {
-  font-size: 12px;
-}
 .shitu {
   margin: 0px 1px 50px;
   background-color: #fff;
@@ -209,7 +206,7 @@ export default {
 }
 .item {
   width: 184px;
-  height: 90px;
+  height: 95px;
   background-color: #fff;
   border-radius: 5px;
 }
@@ -226,7 +223,6 @@ export default {
 .menu a {
   display: block;
   width: 93px;
-  font-size: 12px;
   padding: 5px 0 10px 0;
   color: #000;
 }

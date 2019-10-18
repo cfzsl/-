@@ -312,9 +312,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.product p {
-  font-size: 12px;
-}
+
 .shitu {
   margin: 0px 1px 50px;
   background-color: #fff;
@@ -342,7 +340,6 @@ export default {
 }
 .defen {
   float: left;
-  font-size: 15px;
   margin-left: 20px;
 }
 .company {
@@ -354,7 +351,7 @@ export default {
 
 .item {
   width: 184px;
-  height: 90px;
+  height: 100px;
   background-color: #fff;
   border-radius: 5px;
 }

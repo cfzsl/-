@@ -15,6 +15,9 @@ import HomeFour from './components/HomeFour.vue'
 import ToiletManagement from './components/ToiletManagement/ToiletManagement.vue'
 import ToiletFile from './components/ToiletManagement/Component/ToiletFile.vue'
 import Appraisal from './components/ToiletManagement/Component/Appraisal.vue'
+import Performance from './components/ToiletManagement/Component/Performance.vue'
+import Details from './components/ToiletManagement/Component/Details.vue'
+import Appeal from './components/ToiletManagement/Component/Appeal.vue'
 import BaiduMap from './components/ToiletManagement/Component/BaiduMap.vue'
 import Publictoiletdetails from './components/ToiletManagement/Component/Publictoiletdetails.vue'
 import Rules from './components/ToiletManagement/Component/Rules.vue'
@@ -72,7 +75,8 @@ export default new Router({
         {
           path: 'PermissionSetting',
           name: '权限设置',
-          component: PermissionSetting
+          component: PermissionSetting,
+
         },
         {
           path: 'OperationLog',
@@ -103,12 +107,27 @@ export default new Router({
         {
           path: 'Appraisal',
           name: '绩效考核',
-          component: Appraisal
+          component: Appraisal,
+        },
+        {
+          path: 'Performance',
+          name: '公厕绩效',
+          component: Performance
+        },
+        {
+          path: 'Details',
+          name: '绩效详情',
+          component: Details
         },
         {
           path: 'PerformanceStatistics',
           name: '考核统计',
           component: PerformanceStatistics
+        },
+        {
+          path: 'Appeal',
+          name: '报警申诉',
+          component: Appeal
         },
         {
           path: 'Rules',
