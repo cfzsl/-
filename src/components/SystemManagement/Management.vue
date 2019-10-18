@@ -49,10 +49,7 @@ export default {
 
 
 <style scoped>
-.contentbox {
-  margin-top: 46px;
-  margin-bottom: 50px;
-}
+
 
 .navbar {
   border-bottom: 1px solid #dbdbdb;

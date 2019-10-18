@@ -1,11 +1,7 @@
 <template>
   <!-- 组织结构 -->
-  <div>
+  <div class="orgbox">
     <div class="orgzbox">
-      <div style="background-color: #e6e6e6">
-        <van-button type="primary" size="small" class="newbtn" color="#73AEFF" @click="show">新增</van-button>
-      </div>
-
       <van-row class="topbar">
         <van-col span="12">名称</van-col>
         <van-col span="4">编号</van-col>
@@ -56,6 +52,11 @@
         />
       </van-cell-group>
     </van-dialog>
+
+    <div class="newbox">
+      <van-button type="primary" size="small" class="newbtn" color="#73AEFF" @click="show">新增</van-button>
+    </div>
+
     <Footer />
   </div>
 </template>
@@ -140,18 +141,25 @@ export default {
 </script>
 
 <style scoped>
-.newbtn {
+.newbox {
   position: fixed;
-  right: 25px;
-  bottom: 60px;
+  bottom: 50px;
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+}
+.newbtn {
+  float: right;
+  width: 80%;
+  margin: 10px 30px 0 0;
   border-radius: 5px;
 }
 
 .orgzbox {
-position: fixed;
-width: 100%;
-top: 46px;
-z-index: 9;
+  position: fixed;
+  width: 100%;
+  top: 46px;
+  z-index: 9;
 }
 
 .refresh {
