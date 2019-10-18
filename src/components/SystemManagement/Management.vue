@@ -67,7 +67,9 @@ export default {
 .menu a {
   display: block;
   width: 93px;
-  font-size: 12px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 15px;
   padding: 5px 0 10px 0;
   color: #000;
 }

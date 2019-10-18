@@ -76,7 +76,8 @@ export default {
       total: null,
       Custody: null,
       nan: null,
-      nv: null
+      nv: null,
+      version: 1.0
     };
   },
   computed: {

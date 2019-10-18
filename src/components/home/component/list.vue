@@ -14,7 +14,7 @@
     <div class="box">
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <van-collapse v-model="activeNames" :border="false">
-          <van-collapse-item class="item" v-for="(item,i) in this.List" :key="item.id">
+          <van-collapse-item style="border-bottom: 1px solid #d2d2d2;" v-for="(item,i) in this.List" :key="item.id">
             <div slot="title">
               <van-row>
                 <van-col span="4">{{ i + 1 }}</van-col>
@@ -83,19 +83,15 @@ export default {
   z-index: 9;
 }
 .box {
-  margin-top: 75px;
+  margin-top: 95px;
 }
 .titleitem {
-  font-size: 15px;
+  height: 50px;
+  line-height: 50px;
   background-color: #cae4fc;
-  line-height: 30px;
 }
 
-.text {
-  font-size: 12px;
-}
-.item {
-  border-bottom: 1px solid #d2d2d2 !important;
+.itemlist {
 }
 .content {
   padding-left: 10px;

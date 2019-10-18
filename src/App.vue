@@ -31,4 +31,7 @@ export default {
   color: #2c3e50;
   background-color: #fff;
 }
+.van-nav-bar {
+  border-bottom: 1px solid #d2d2d2;
+}
 </style>
