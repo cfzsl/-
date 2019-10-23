@@ -4,14 +4,11 @@ router.beforeEach((to, from, next) => {
   let token = localStorage.getItem('token')
   if (token) {
     if (to.path === '/login') {
-      next('/home')
+      next('/')
     } else {
       next()
     }
   } else {
-    if (to.path === '/') {
-      next()
-    } else
     if (to.path === '/login') {
       next()
     } else {

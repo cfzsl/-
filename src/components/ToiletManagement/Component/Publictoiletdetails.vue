@@ -25,15 +25,42 @@
           <van-col span="12"></van-col>
         </van-row>
         <div class="text">
-          <div>厕所名称：{{ this.PublicMsg.name }}</div>
-          <div>联系人: {{ this.PublicMsg.memo }}</div>
-          <div>联系人电话: {{ this.PublicMsg.chargetel }}</div>
-          <div>管养单位: {{ this.PublicMsg.depart }}</div>
-          <div>地址：{{ this.PublicMsg.addressmemo }}</div>
-          <div>当前状态：{{ this.PublicMsg.status }}</div>
-          <div>服务：{{ this.PublicMsg.servicename }}</div>
-          <div>报警次数: {{ this.WarningMsg.length }}</div>
-          <div>最后接收数据时间: {{ this.PublicMsg.time }}</div>
+          <div>
+            <b>厕所名称：</b>
+            {{ this.PublicMsg.name }}
+          </div>
+          <div>
+            <b>联系人:</b>
+            {{ this.PublicMsg.memo }}
+          </div>
+          <div>
+            <b>联系人电话:</b>
+            {{ this.PublicMsg.chargetel }}
+          </div>
+          <div>
+            <b>管养单位:</b>
+            {{ this.PublicMsg.depart }}
+          </div>
+          <div>
+            <b>地址：</b>
+            {{ this.PublicMsg.addressmemo }}
+          </div>
+          <div>
+            <b>当前状态：</b>
+            {{ this.PublicMsg.status }}
+          </div>
+          <div>
+            <b>服务：</b>
+            {{ this.PublicMsg.servicename }}
+          </div>
+          <div>
+            <b>报警次数:</b>
+            {{ this.WarningMsg.length }}
+          </div>
+          <div>
+            <b>最后接收数据时间:</b>
+            {{ this.PublicMsg.time }}
+          </div>
         </div>
       </div>
 
@@ -234,7 +261,7 @@ export default {
         .post("wc/findOne", this.$qs.stringify({ sid: this.$route.params.id }))
         .then(res => {
           console.log(res);
-          
+
           this.PublicMsg = res.data;
         })
         .then(res => {
@@ -336,7 +363,7 @@ export default {
   font-size: 20px;
 }
 .textcontent {
-  margin-top: 376px;
+  margin-top: 385px;
   text-align: left;
   padding-left: 10px;
 }
@@ -344,5 +371,10 @@ export default {
 .msgitem {
   padding: 10px 0;
   border-top: 1px solid #ccc;
+}
+
+.video-player {
+  height: 380px;
+  background-color: #000;
 }
 </style>

@@ -77,7 +77,7 @@ export default {
       Custody: null,
       nan: null,
       nv: null,
-      version: 1.0
+      version: '2.0'
     };
   },
   computed: {
@@ -104,23 +104,19 @@ export default {
       });
     },
     routerPush() {
-      // console.log('0000')
       this.$router.push({
         path: "/ToiletManagement/Appraisal"
       });
     }, //版本更新
     _upDateMemo() {
-      let date = {
-        ApkCreateTime: localStorage.getItem("updateTime")
-      };
       this.$http
-        .post("download/updateVersion", this.$qs.stringify(date))
+        .post("download/updateVersion", this.$qs.stringify({version :this.version}))
         .then(res => {
           console.log(res);
-          if (res.status == 1) {
+          if (res.status == "1") {
             console.log(res.msg);
           } else {
-            Location.href = "47.110.160.217:5080/H5FAEA568.apk";
+            location.href = "http://47.110.160.217:5080/H5FAEA568.apk";
             localStorage.clear();
           }
         });
@@ -261,7 +257,6 @@ export default {
     },
     getTotal() {
       this.$http.get("wc/count").then(res => {
-        console.log(res);
         this.total = res.data;
       });
     },
@@ -337,7 +332,7 @@ export default {
   left: 15px;
   width: 5px;
   height: 20px;
-  background-color: #73AEFF;
+  background-color: #73aeff;
 }
 .defen {
   float: left;

@@ -80,7 +80,6 @@ export default {
       this.border2 = !this.border2;
     },
     getCode() {
-      // console.log(this.phone)
       let zet = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
       if (this.phone == "") {
         Toast("请输入手机号");
@@ -90,14 +89,12 @@ export default {
         let date = {
           username: this.phone
         };
-        console.log(date);
         this.$http
           .post("login/sendUsername", this.$qs.stringify(date))
           .then(res => {
-            console.log(res);
             res.status == 1
               ? Toast.success("短信发送成功")
-              : Toast.fail(res.msg);
+              : Toast.fail(res.msg);  
           });
         this.button = false;
         this.codeMit = 60;
@@ -116,12 +113,11 @@ export default {
         code: this.sms
       };
       this.$http.post("login/log", this.$qs.stringify(date)).then(res => {
-        console.log(res);
         this.userInfo = res.data;
         localStorage.setItem("updateTime", this.userInfo.enable);
         localStorage.setItem("token", this.userInfo.token);
         if (this.userInfo.token) {
-          this.$router.push({ path: "/home" });
+          this.$router.push({ path: "/" });
         } else {
           Toast("验证码错误");
         }

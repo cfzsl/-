@@ -4,16 +4,16 @@
     <van-nav-bar fixed :title="this.$route.name" />
     <!-- <van-nav-bar fixed title="公厕名" left-text="序号" right-text="状态" /> -->
     <van-row class="title">
-      <van-col span="8">公厕名</van-col>
       <van-col span="8">序号</van-col>
+      <van-col span="8">公厕名</van-col>
       <van-col span="8">状态</van-col>
     </van-row>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <div class="circumstance">
         <div class="circumstance_list">
-          <div class="Product" v-for="item in list" :key="item.id" @click="goDetile(item.sid)">
+          <div class="Product" v-for="(item, i) in list" :key="item.id" @click="goDetile(item.sid)">
             <van-row type="flex" justify="space-around">
-              <van-col span="8">{{item.code}}</van-col>
+              <van-col span="8">{{i+1}}</van-col>
               <van-col span="8" class="item">{{item.wcname}}</van-col>
               <van-col v-if="item.status === '0'" span="8" class="grey">离线</van-col>
               <van-col v-else-if="item.status === '1'" span="8" class="red">报警</van-col>
@@ -57,7 +57,7 @@ export default {
       this.$http.get("detailCurrent/findAll").then(res => {
         this.list = res.data;
       });
-    },
+    }
   },
   created() {
     this.getList();
@@ -73,6 +73,7 @@ export default {
 .circumstance {
   background-color: #fff;
   margin-top: 96px;
+  margin-bottom: 50px;
 }
 .van-nav-bar__text {
   color: black;

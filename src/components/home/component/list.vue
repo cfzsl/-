@@ -17,9 +17,9 @@
           <van-collapse-item style="border-bottom: 1px solid #d2d2d2;" v-for="(item,i) in this.List" :key="item.id">
             <div slot="title">
               <van-row>
-                <van-col span="4">{{ i + 1 }}</van-col>
-                <van-col span="12">{{ item.wcname }}</van-col>
-                <van-col span="8">{{ item.warningtype }}</van-col>
+                <van-col span="3">{{ i + 1 }}</van-col>
+                <van-col span="14">{{ item.wcname }}</van-col>
+                <van-col span="7">{{ item.warningtype }}</van-col>
               </van-row>
             </div>
             <div class="content">
@@ -91,8 +91,6 @@ export default {
   background-color: #cae4fc;
 }
 
-.itemlist {
-}
 .content {
   padding-left: 10px;
   text-align-last: left;

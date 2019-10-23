@@ -99,8 +99,7 @@ export default {
     },
     addClass(e) {
       e.target.addClass("active");
-    },
-    
+    }
   },
   created() {
     this.getList();
@@ -131,7 +130,7 @@ export default {
   height: 100%;
 }
 .map {
-  height: 100%;
+  height: 90%;
 }
 
 .status {
@@ -189,4 +188,9 @@ export default {
   transform: translateY(-10px);
   opacity: 0;
 }
+
+.map .anchorBL {
+  display: none;
+}
+
 </style>

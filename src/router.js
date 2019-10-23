@@ -33,13 +33,13 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'admin',
+    //   component: admin
+    // },
     {
       path: '/',
-      name: 'admin',
-      component: admin
-    },
-    {
-      path: '/home',
       name: '首页',
       component: Home,
     },
