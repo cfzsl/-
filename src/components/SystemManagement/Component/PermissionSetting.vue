@@ -12,9 +12,9 @@
     <van-pull-refresh class="setbox" v-model="isLoading" @refresh="onRefresh">
       <div class="list" v-for="item in permissionList" :key="item.sid">
         <van-row type="flex" justify="space-around">
-          <van-col span="6">{{ item.sid}}</van-col>
-          <van-col span="8">{{ item.username}}</van-col>
-          <van-col span="6">{{ parseInt(item.status) ? "启用" : "禁用"}}</van-col>
+          <van-col span="6">{{ item.num }}</van-col>
+          <van-col span="8">{{ item.name }}</van-col>
+          <van-col span="6">{{ parseInt(item.status) ? "启用" : "禁用" }}</van-col>
           <van-col span="4">
             <div class="btn" @click="show(item)">编辑</div>
           </van-col>
@@ -66,6 +66,8 @@ export default {
     },
     getPermission() {
       this.$http.get("user/post/all").then(res => {
+        console.log(res);
+        
         this.permissionList = res;
       });
     },

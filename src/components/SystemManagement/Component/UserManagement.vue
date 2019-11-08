@@ -22,7 +22,7 @@
         <van-collapse-item class="item" :name="item.sid" v-for="item in userList" :key="item.sid">
           <div slot="title">
             <van-row>
-              <van-col span="4">{{ item.sid}}</van-col>
+              <van-col span="4">{{ item.num}}</van-col>
               <van-col span="13">{{ item.username}}</van-col>
               <van-col span="6">{{ item.departName}}</van-col>
             </van-row>
@@ -151,6 +151,8 @@ export default {
     },
     getUserList() {
       this.$http.get("user/findByUsername?username=").then(res => {
+        console.log(res);
+        
         this.userList = res;
       });
     },

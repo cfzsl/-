@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar left-arrow @click-left="onClickLeft" fixed :title="msg.wcname">
+    <van-nav-bar left-arrow @click-left="onClickLeft" fixed :title="msg.name">
       <div class="month" slot="right">
         <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">
           本月
@@ -23,11 +23,11 @@
           女厕绩效：
           <span>{{ this.rulesdata.jixiaowoman }}</span>
         </div>
-        <div>最后得分： {{ this.rulesdata.scoreavg }}</div>
+        <div>最后得分： {{ this.msg.score }}</div>
       </div>
       <van-row class="contentnav">
         <van-col span="6">时间</van-col>
-        <van-col span="9">男/女氨气</van-col>
+        <van-col span="9">男/女厕氨气</van-col>
         <van-col span="8">男/女厕硫化氢</van-col>
         <van-col span="1"></van-col>
       </van-row>
@@ -115,16 +115,18 @@ export default {
         .post(
           "detail/showWcDetail",
           this.$qs.stringify({
-            wcName: this.msg.wcname,
+            wcName: this.msg.name,
             month: 10
           })
         )
         .then(res => {
+          console.log(res);
           this.list = res.data;
         });
     },
     getRule() {
       this.$http.post("warningRules/list").then(res => {
+        // console.log(res);
         this.rules = res;
       });
     },
@@ -133,18 +135,19 @@ export default {
         .post(
           "appraisal/showOneWcAppraisal",
           this.$qs.stringify({
-            wcName: this.msg.wcname,
+            wcName: this.msg.name,
             month: 9
           })
         )
         .then(res => {
+          // console.log(res);
           this.rulesdata = res.data[0];
         });
     }
   },
   created() {
-    this.msg = JSON.parse(localStorage.getItem('item'));
-    console.log(this.msg);
+    this.msg = JSON.parse(localStorage.getItem("item"));
+    // console.log(this.msg);
     this.getData();
     this.getList();
     this.getRule();

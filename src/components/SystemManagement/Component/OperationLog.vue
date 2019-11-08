@@ -6,6 +6,12 @@
       <div class="text">共{{ this.logList.length }}条数据</div>
     </div>
 
+    <van-row class="titlebox" type="flex" justify="space-around">
+      <van-col span="12">时间</van-col>
+      <van-col span="12">用户</van-col>
+      <van-col span="12">详情</van-col>
+    </van-row>
+
     <van-pull-refresh class="logbox" v-model="isLoading" @refresh="onRefresh">
       <van-row
         class="list"
@@ -16,8 +22,8 @@
         align="center"
       >
         <van-col span="12">{{ item.operatetime | formatDate }}</van-col>
-        <van-col span="16">{{ item.operateperson }}</van-col>
-        <van-col span="8">{{ item.operatedetail }}</van-col>
+        <van-col span="12">{{ item.username }}</van-col>
+        <van-col span="12">{{ item.operatedetail }}</van-col>
       </van-row>
     </van-pull-refresh>
 
@@ -57,6 +63,8 @@ export default {
     },
     getOperationLog() {
       this.$http.get("operateLog/post/all").then(res => {
+        console.log(res);
+        
         this.logList = res;
       });
     },
@@ -113,6 +121,17 @@ export default {
 </script>
 
 <style scoped>
+.titlebox {
+  position: fixed;
+  top: 46px;
+  width: 100%;
+  font-size: 15px;
+  background-color: #cae4fc;
+  height: 50px;
+  line-height: 50px;
+  z-index: 9;
+}
+
 .month {
   position: fixed;
   top: 46px;
@@ -126,7 +145,7 @@ export default {
 }
 
 .logbox {
-  margin-top: 86px;
+  margin-top: 92px;
 }
 
 .datepicker {

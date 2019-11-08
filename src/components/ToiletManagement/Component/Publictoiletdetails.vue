@@ -260,9 +260,9 @@ export default {
       this.$http
         .post("wc/findOne", this.$qs.stringify({ sid: this.$route.params.id }))
         .then(res => {
-          console.log(res);
-
           this.PublicMsg = res.data;
+          console.log(this.PublicMsg);
+          
         })
         .then(res => {
           this.getWarningMsg();
@@ -276,7 +276,6 @@ export default {
         )
         .then(res => {
           this.WarningMsg = res;
-          console.log(this.WarningMsg);
         });
     }
   },

@@ -24,11 +24,11 @@
     <!-- <DropdownMenu :status="status"></DropdownMenu> -->
 
     <div class="itembox">
-      <van-dropdown-menu>
+      <!-- <van-dropdown-menu>
         <van-dropdown-item v-model="option.toile" :options="toile" @change="toChange" />
         <van-dropdown-item v-model="option.company" :options="company" @change="toChange" />
         <van-dropdown-item v-model="option.num" :options="num" @change="toChange" />
-      </van-dropdown-menu>
+      </van-dropdown-menu> -->
 
       <div class="month">
         <van-button type="primary" size="mini" @click="showPicker" class="datePickerBtn">
@@ -59,10 +59,10 @@
           align="center"
           @click="go(item)"
         >
-          <van-col span="6">{{ item.wcname }}</van-col>
+          <van-col span="6">{{ item.name }}</van-col>
           <van-col span="7">{{ item.depart }}</van-col>
-          <van-col span="4">{{ item.warningcount }}</van-col>
-          <van-col span="4">{{ item.wcnum }}</van-col>
+          <van-col span="4">{{ item.totalWarningCount }}</van-col>
+          <van-col span="4">{{ item.score }}</van-col>
           <van-col span="1">
             <van-icon name="arrow" />
           </van-col>
@@ -144,18 +144,21 @@ export default {
     },
     selectDate(value) {},
     getAssessList() {
-      this.$http.get("detailCurrent/listAllApp").then(res => {
-        this.assessList = res;
-        for (const key in res) {
-          this.toile.push({ text: res[key].wcname, value: res[key].wcname });
-          this.company.push({
-            text: res[key].depart,
-            value: res[key].depart
-          });
-        }
-        this.company = this.filter(this.company);
-        console.log(this.company);
-      });
+      this.$http
+        .post("detailCurrent/appraisalConditionQuery")
+        .then(res => {
+          console.log(res);
+          this.assessList = res.data;
+          for (const key in res) {
+            this.toile.push({ text: res[key].wcname, value: res[key].wcname });
+            this.company.push({
+              text: res[key].depart,
+              value: res[key].depart
+            });
+          }
+          this.company = this.filter(this.company);
+          // console.log(this.company);
+        });
     },
     filter(obj) {
       const res = new Map();
@@ -169,14 +172,7 @@ export default {
     },
     toChange(v) {
       this.$http
-        .post(
-          "detailCurrent/listAllApp",
-          this.$qs.stringify({
-            wcname: this.option.toile,
-            depart: this.option.company,
-            count: this.option.num
-          })
-        )
+        .post("detailCurrent/listAllApp", this.$qs.stringify(this.option))
         .then(res => {
           this.assessList = res;
         });
@@ -201,7 +197,8 @@ export default {
   z-index: 9;
 }
 .appbox {
-  margin-top: 185px;
+  /* margin-top: 185px; */
+  margin-top: 135px;
 }
 
 .month {

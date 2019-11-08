@@ -28,7 +28,7 @@
       <div class="charts">
         <div class="title">
           <div class="cBlock"></div>
-          <div class="defen">报警占比</div>
+          <div class="defen">月报警次数</div>
           <div class="company">（东营区公厕卫生情况）</div>
           <dataPicker class="picker"></dataPicker>
         </div>
@@ -77,7 +77,7 @@ export default {
       Custody: null,
       nan: null,
       nv: null,
-      version: '2.0'
+      version: "3.1"
     };
   },
   computed: {
@@ -110,60 +110,60 @@ export default {
     }, //版本更新
     _upDateMemo() {
       this.$http
-        .post("download/updateVersion", this.$qs.stringify({version :this.version}))
+        .post(
+          "download/updateVersion",
+          this.$qs.stringify({ version: this.version })
+        )
         .then(res => {
           console.log(res);
           if (res.status == "1") {
             console.log(res.msg);
           } else {
-            location.href = "http://47.110.160.217:5080/H5FAEA568.apk";
+            location.href = this.$http.defaults.baseURL + "H5FAEA568.apk";
             localStorage.clear();
           }
         });
     },
     drawBar() {
-      // 基于dom，初始化echarts实例
-      let barGraph = echarts.init(document.getElementById("barGraph"));
-      // 绘制图表
-      barGraph.setOption({
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c}"
-        },
-        legend: {
-          left: "center",
-          data: ["本周", "上周"],
-          bottom: 0
-        },
-        xAxis: {
-          type: "category",
-          name: "x",
-          splitLine: { show: false },
-          data: ["周一", "周二", "周三", "周四", "周五"]
-        },
-        grid: {
-          left: "1%",
-          right: "2%",
-          bottom: "8%",
-          containLabel: true
-        },
-        yAxis: {
-          type: "category",
-          splitLine: { show: true },
-          data: ["25%", "50%", "75%", "100%"]
-        },
-        series: [
-          {
-            name: "本周",
-            type: "line",
-            data: [0.8, 0.98, 0.96, 0.27, 0.81]
+      let data = [];
+      this.$http.get("wcAndroid/getWarningCountByMonth").then(res => {
+        // data = 
+        // 基于dom，初始化echarts实例
+        let barGraph = echarts.init(document.getElementById("barGraph"));
+        // 绘制图表
+        barGraph.setOption({
+          tooltip: {
+            trigger: "item",
+            formatter: "{b}月报警次数：{c}次"
           },
-          {
-            name: "上周",
-            type: "line",
-            data: [1, 0.2, 0.4, 0.8, 0.16]
-          }
-        ]
+          legend: {},
+          xAxis: {
+            type: "category",
+            name: "x",
+            splitLine: { show: false },
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            axisTick: {
+              show: false
+            }
+          },
+          grid: {
+            left: "1%",
+            right: "2%",
+            bottom: "8%",
+            containLabel: true
+          },
+          yAxis: {
+            axisTick: {
+              show: false
+            }
+          },
+          series: [
+            {
+              type: "line",
+              data: res.data
+            }
+          ]
+        });
       });
     },
     drawColumn() {
@@ -171,10 +171,10 @@ export default {
 
       var df123 = new Array();
 
-      this.$http.get("wcAndroid/appraisalAndroid").then(res => {
+      this.$http.get("wc/warning/logs/getScoreByTime?param=日").then(res => {
         for (const key in res.data) {
-          let gs = res.data[key].departname.substr(0, 4);
-          let df = res.data[key].scoreavg;
+          let gs = key;
+          let df = res.data[key];
 
           gongsi.push(gs);
           df123.push(parseInt(df));
