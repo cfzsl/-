@@ -98,22 +98,6 @@
             </van-row>
           </van-tab>
           <van-tab title="女厕">
-            <!-- 四竖排显示代码 -->
-            <!-- <van-row class="contentitem" type="flex" justify="space-around">
-              <van-col span="1"></van-col>
-              <van-col span="23">
-                温度:
-                <span class="green">{{ this.details.tempw }}&#8451;</span>
-              </van-col>
-            </van-row>
-            <van-row class="contentitem" type="flex" justify="space-around">
-              <van-col span="1"></van-col>
-              <van-col span="23">
-                湿度:
-                <span class="green">{{ this.details.humw }}&#37;</span>
-              </van-col>
-            </van-row>-->
-
             <van-row class="contentitem" type="flex" justify="space-around">
               <van-col span="1"></van-col>
               <van-col span="11">
@@ -179,9 +163,8 @@ import Back from "../../component/back";
 export default {
   data() {
     return {
-      video1: null,
-      video2:
-        "http://hls01open.ys7.com/openlive/f515aa55a63f429d8169f069a9ac9986.m3u8",
+      video1: "",
+      video2: "",
       playerOptions: {
         autoplay: true, //如果true,浏览器准备好时开始回放。
         muted: true, // 默认情况下将会消除任何音频。
@@ -261,11 +244,10 @@ export default {
         .post("wc/findOne", this.$qs.stringify({ sid: this.$route.params.id }))
         .then(res => {
           this.PublicMsg = res.data;
-          console.log(this.PublicMsg);
-          
         })
         .then(res => {
           this.getWarningMsg();
+          this.getPublicVideo();
         });
     },
     getWarningMsg() {
@@ -277,14 +259,24 @@ export default {
         .then(res => {
           this.WarningMsg = res;
         });
+    },
+    getPublicVideo() {
+      this.$http
+        .post(
+          "wcAndroid/getWcVideoApp",
+          this.$qs.stringify({ wcname: this.PublicMsg.name })
+        )
+        .then(res => {
+          this.video1 = res.data[0].address;
+          this.video2 = res.data[1].address;
+          this.playerOptions.sources[0].src = this.video1;
+        });
     }
   },
   created() {
-    this.playerOptions.sources[0].src =
-      "http://hls01open.ys7.com/openlive/84542f96d64846d590ff75d3382173c6.m3u8";
-    this.video1 = this.playerOptions.sources[0].src;
     this.getDetails();
     this.getPublicMsg();
+    this.playerOptions.sources[0].src = this.video1;
   }
 };
 </script>

@@ -77,7 +77,7 @@ export default {
       Custody: null,
       nan: null,
       nv: null,
-      version: "3.1"
+      version: "3.2"
     };
   },
   computed: {
@@ -171,11 +171,10 @@ export default {
 
       var df123 = new Array();
 
-      this.$http.get("wc/warning/logs/getScoreByTime?param=日").then(res => {
+      this.$http.get("wc/warning/logs/getScoreByTime?param=月").then(res => {
         for (const key in res.data) {
           let gs = key;
           let df = res.data[key];
-
           gongsi.push(gs);
           df123.push(parseInt(df));
         }
