@@ -38,7 +38,6 @@ Vue.use(BaiduMap, {
 })
 
 Axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-// Axios.defaults.baseURL = 'http://192.168.8.126:7080/' // 胜龙
 Axios.defaults.baseURL = 'http://47.110.160.217:5080/' // 远程
 
 Vue.prototype.$http = Axios

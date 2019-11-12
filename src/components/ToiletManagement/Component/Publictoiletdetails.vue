@@ -3,19 +3,19 @@
   <div class="father">
     <Back class="header" :title="this.PublicMsg.name"></Back>
     <div class="pos">
-      <div class="bigbox">
-        <div @click="go1" :class="{left: true, active: active1}">摄像头1</div>
-        <div @click="go2" :class="{right: true, active: active2}">摄像头2</div>
-      </div>
-
-      <div class="player">
-        <video-player
-          class="video-player"
-          ref="videoPlayer"
-          :playsinline="true"
-          :options="playerOptions"
-        ></video-player>
-      </div>
+      <van-tabs v-model="videoactive" swipeable color="#0099ff">
+        <van-tab v-for="(item, i) in video" :key="i" :title="'摄像头' + (i + 1)">
+          <div class="player">
+            <video-player
+              class="video-player"
+              ref="videoPlayer"
+              :playsinline="true"
+              :options="playerOptions(item.address)"
+            ></video-player>
+          </div>
+        </van-tab>
+        <div class="warning" v-if="video.length === 0">此公厕暂无监控</div>
+      </van-tabs>
     </div>
 
     <div class="contentbox">
@@ -163,29 +163,9 @@ import Back from "../../component/back";
 export default {
   data() {
     return {
-      video1: "",
-      video2: "",
-      playerOptions: {
-        autoplay: true, //如果true,浏览器准备好时开始回放。
-        muted: true, // 默认情况下将会消除任何音频。
-        loop: false, // 导致视频一结束就重新开始。
-        preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
-        language: "zh-CN",
-        aspectRatio: "4:3", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-        sources: [
-          {
-            type: "application/x-mpegURL",
-            src: this.video1 //你的m3u8地址（必填）
-          }
-        ],
-        poster: "../../../assets/img/logo.png", //你的封面地址
-        width: document.documentElement.clientWidth,
-        notSupportedMessage: "此视频暂无法播放，请稍后再试" //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-      },
+      video: {},
       active: 0,
-      active1: true,
-      active2: false,
+      videoactive: 0,
       details: {},
       h2sm: null,
       nh4m: null,
@@ -201,15 +181,25 @@ export default {
     Back
   },
   methods: {
-    go1() {
-      this.playerOptions.sources[0].src = this.video1;
-      this.active2 = false;
-      this.active1 = true;
-    },
-    go2() {
-      this.playerOptions.sources[0].src = this.video2;
-      this.active1 = false;
-      this.active2 = true;
+    playerOptions(address) {
+      return {
+        autoplay: true, //如果true,浏览器准备好时开始回放。
+        muted: true, // 默认情况下将会消除任何音频。
+        loop: false, // 导致视频一结束就重新开始。
+        preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+        language: "zh-CN",
+        aspectRatio: "4:3", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+        sources: [
+          {
+            type: "application/x-mpegURL",
+            src: address //你的m3u8地址（必填）
+          }
+        ],
+        poster: "../../../assets/img/logo.png", //你的封面地址
+        width: document.documentElement.clientWidth,
+        notSupportedMessage: "此视频暂无法播放，请稍后再试" //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+      };
     },
     getDetails() {
       this.$http
@@ -267,16 +257,14 @@ export default {
           this.$qs.stringify({ wcname: this.PublicMsg.name })
         )
         .then(res => {
-          this.video1 = res.data[0].address;
-          this.video2 = res.data[1].address;
-          this.playerOptions.sources[0].src = this.video1;
+          console.log(res);
+          this.video = res.data;
         });
     }
   },
   created() {
     this.getDetails();
     this.getPublicMsg();
-    this.playerOptions.sources[0].src = this.video1;
   }
 };
 </script>
@@ -354,7 +342,7 @@ export default {
   font-size: 20px;
 }
 .textcontent {
-  margin-top: 385px;
+  margin-top: 371px;
   text-align: left;
   padding-left: 10px;
 }
@@ -367,5 +355,12 @@ export default {
 .video-player {
   height: 380px;
   background-color: #000;
+}
+
+.warning {
+  line-height: 290px;
+  background-color: #000;
+  color: white;
+  height: 310px;
 }
 </style>
