@@ -14,7 +14,11 @@
     <div class="box">
       <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
         <van-collapse v-model="activeNames" :border="false">
-          <van-collapse-item style="border-bottom: 1px solid #d2d2d2;" v-for="(item,i) in this.List" :key="item.id">
+          <van-collapse-item
+            style="border-bottom: 1px solid #d2d2d2;"
+            v-for="(item,i) in this.List"
+            :key="item.id"
+          >
             <div slot="title">
               <van-row>
                 <van-col span="3">{{ i + 1 }}</van-col>
@@ -25,7 +29,7 @@
             <div class="content">
               <div>管养单位: {{ item.depart }}</div>
               <div>报警时间: {{ item.updatetime}}</div>
-              <div>负责人姓名: {{ item.person}}</div>
+              <div>负责人姓名: {{ item.chargePerson}}</div>
               <div>负责人电话: {{ item.chargeTel}}</div>
             </div>
           </van-collapse-item>
@@ -55,15 +59,23 @@ export default {
       }, 500);
     },
     getList() {
-      if (this.$route.params.sex == "男") {
-        this.$http.get("wc/warning/logs/get/sex/apk/man").then(res => {
+      this.$http
+        .post(
+          "android/wcinfo/getAllWcWarningBySex",
+          this.$qs.stringify({ sex: this.$route.params.sex })
+        )
+        .then(res => {
           this.List = res.data;
         });
-      } else if (this.$route.params.sex == "女") {
-        this.$http.get("wc/warning/logs/get/sex/apk/woman").then(res => {
-          this.List = res.data;
-        });
-      }
+      // if (this.$route.params.sex == "男") {
+      //   this.$http.get("wc/warning/logs/get/sex/apk/man").then(res => {
+      //     this.List = res.data;
+      //   });
+      // } else if (this.$route.params.sex == "女") {
+      //   this.$http.get("wc/warning/logs/get/sex/apk/woman").then(res => {
+      //     this.List = res.data;
+      //   });
+      // }
     },
     back() {
       this.$router.go(-1);
